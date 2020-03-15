@@ -20,7 +20,7 @@ if os.path.exists('config.env'):
 
 
 class Config:
-    APP_NAME = os.environ.get('APP_NAME', 'Flask-Base')
+    APP_NAME = os.environ.get('APP_NAME', 'City Controller\'s Office')
 
     if os.environ.get('SECRET_KEY'):
         SECRET_KEY = os.environ.get('SECRET_KEY')
