@@ -96,9 +96,12 @@
     width: 100%;
     position: absolute;
     bottom: 0;
+    right: 0;
+    left: 0;
     color: gray;
     text-align: left;
     padding-left: 60px;
+    padding-right: 0;
   }
 
   #right_grid {
@@ -161,19 +164,10 @@
 
   <!-- TODO: find a more elegant way to do font formatting -->
   <!-- TODO: implement grid; MAKE INDIVIDUAL COLUMNS BASED ON FUNCTIONS -->
+  <!-- TODO: make stylesheet universal -->
 
 <body id="root">
-  <div class="ui vertical center aligned segment">
-      <!-- <nav class="ui container">
-        <div class="ui borderless inverted compact menu">
-          <a class="active item">Home</a> 
-          <a class="item">Search</a>
-          <a class="item">About</a>
-          <a class="item">Contact</a>
-        </div>
-      </nav> 
-      TODO: FIX NAV LOL 
-    -->
+  <div class="ui vertical segment">
       <div class="ui content container">
         <h1 class="ui header">City of Philadelphia’s  government contracts,
           campaign finance reports, and lobbyists.</h1>
@@ -181,7 +175,7 @@
           Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
           candidates for a City office, and lobbyists that do business with the City of Philadelphia.
         </p>
-        <!-- <div class="ui huge button" id="custom_text">Learn more</div> -->
+      
         <div class="ui stackable centered grid container">
           <div class="three wide column">
             <div class="ui button">CITY CONTRACTS</div>
@@ -234,10 +228,6 @@
             </div>
           </div>
         </div>
-        
-        
-        
-        
       </footer>
   
   </div>
