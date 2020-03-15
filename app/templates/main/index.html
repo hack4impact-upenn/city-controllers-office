@@ -64,7 +64,7 @@
 
   .ui.content.container {
     height: 300px;
-    /* position: absolute; */
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -85,6 +85,10 @@
     line-height: 1.6;
     font-weight: 300;
     font-family: "Avenir", sans-serif;
+    color: #3E688F;
+    font-weight: 500;
+    text-align: left;
+    padding-top: 20px;
   }
 
   .ui.vertical.segment footer.ui.segment {
@@ -103,16 +107,15 @@
     font-family: "Avenir", sans-serif;
   }
 
-  #dblue_subtext {
-    color: #3E688F;
-    font-weight: 500;
-    text-align: left;
-    padding-top: 20px;
+  .ui.button {
+    font-family: "Avenir", sans-serif;
+    color: #676767;
+    background-color: #F7F7F7;
+    width: 234px;
   }
 
-  #mod {
-    height: 300px;
-    position: absolute;
+  .ui.stackable.centered.grid.container {
+    padding-top: 20px;
     top: 0;
     bottom: 0;
     left: 0;
@@ -121,10 +124,30 @@
     width: 794px;
   }
 
-  .ui.button {
+  .ui.stackable.centered.grid.container .three.wide.column {
+    padding-top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 300px;
+  }
+
+  .three.wide.column p {
+    font-size: 15px;
+    line-height: 1.6;
     font-family: "Avenir", sans-serif;
-    color: #676767;
-    background-color: #F7F7F7;
+    color: #333333;
+    font-weight: 500;
+    text-align: left;
+    padding-top: 20px;
+    width: 213px;
+  }
+
+  #custom_link {
+
+    color: #3E688F;
+    font-weight: 600;
   }
 
 </style>
@@ -147,21 +170,47 @@
       <div class="ui content container">
         <h1 class="ui header">City of Philadelphia’s  government contracts,
           campaign finance reports, and lobbyists.</h1>
-        <p id="dblue_subtext">
+        <p>
           Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
           candidates for a City office, and lobbyists that do business with the City of Philadelphia.
         </p>
         <!-- <div class="ui huge button" id="custom_text">Learn more</div> -->
-        <div class="ui stackable centered grid container" id="mod">
+        <div class="ui stackable centered grid container">
           <div class="three wide column">
             <div class="ui button">CITY CONTRACTS</div>
+            <p>
+              Search contracts for all city departments.
+            </p>
+            <p>
+              <a href="https://google.com" id="custom_link">
+                Find City Contracts →
+              </a>
+            </p>
           </div>
           <div class="three wide column">
             <div class="ui button">CAMPAIGN FINANCE</div>
+            <p>
+              Search for campaign contributions and expenditures of candidates for Mayor, 
+              Controller and City Council.
+            </p>
+            <p>
+              <a href="https://google.com" id="custom_link">
+                Search Campaign Finance →
+              </a>
+            </p>
           </div>
           <div class="three wide column">
             <div class="ui button">LOBBYISTS</div>
+            <p>
+              See those who are registered as lobbyists with the City of Pittsburgh.
+            </p>
+            <p>
+              <a href="https://google.com" id="custom_link">
+                Find Lobbyists →
+              </a>
+            </p>
           </div>
+        </div>
       </div>
       
       
@@ -171,7 +220,6 @@
         Copyright 2020, Philadelphia City Controller
       </footer>
   
-    </div>
   </div>
   
 
