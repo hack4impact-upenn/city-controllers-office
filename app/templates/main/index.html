@@ -23,24 +23,24 @@
       margin-top: 12px;
     }
 
-    nav.ui.container .ui.inverted.compact.menu {
+    nav.ui.container .ui.compact.menu {
       float: right;
     }
   }
 
-  .ui.inverted.vertical.center.aligned.segment {
+  .ui.vertical.center.aligned.segment {
     padding-top: 36px;
   }
 
-  nav.ui.container .ui.inverted.compact.menu {
+  /* nav.ui.container .ui.compact.menu {
     background-color: rgb(51, 51, 51);
   }
 
-  nav.ui.container .ui.inverted.compact.menu .item {
+  nav.ui.container .ui.compact.menu .item {
     padding-bottom: 0;
   }
 
-  nav.ui.container .ui.inverted.compact.menu .item {
+  nav.ui.container .ui.compact.menu .item {
     font-size: 16px;
     padding-left: 0px;
     padding-right: 0px;
@@ -50,16 +50,16 @@
     border-radius: 0;
   }
 
-  nav.ui.container .ui.inverted.compact.menu .active.item {
+  nav.ui.container .ui.compact.menu .active.item {
     background-color: inherit;
     border-bottom-color: white;
     border-bottom-style: solid;
     border-bottom-width: 2px;
-  }
+  } */
 
-  .ui.inverted.vertical.segment {
+  .ui.vertical.segment {
     height: 100vh;
-    background-color: rgb(51, 51, 51);
+    background-color: #FFFFFF;
   }
 
   .ui.content.container {
@@ -70,20 +70,24 @@
     left: 0;
     right: 0;
     margin: auto;
+    width: 794px;
   }
 
   .ui.content.container h1.header {
     font-size: 36px;
+    font-family: "Avenir", sans-serif;
+    font-weight: 600;
+    text-align: left;
   }
 
   .ui.content.container p {
-    font-size: 21px;
+    font-size: 15px;
     line-height: 1.6;
     font-weight: 300;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Avenir", sans-serif;
   }
 
-  .ui.inverted.vertical.segment footer.ui.segment {
+  .ui.vertical.segment footer.ui.segment {
     height: 80px;
     width: 100%;
     position: absolute;
@@ -91,33 +95,88 @@
     color: gray;
   }
 
-  .ui.inverted.vertical.segment footer.ui.segment a {
+  .ui.vertical.segment footer.ui.segment a {
     color: white;
   }
+
+  #custom_text {
+    font-family: "Avenir", sans-serif;
+  }
+
+  #dblue_subtext {
+    color: #3E688F;
+    font-weight: 500;
+    text-align: left;
+    padding-top: 20px;
+  }
+
+  #mod {
+    height: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 794px;
+  }
+
+  .ui.button {
+    font-family: "Avenir", sans-serif;
+    color: #676767;
+    background-color: #F7F7F7;
+  }
+
 </style>
 
+  <!-- TODO: find a more elegant way to do font formatting -->
+  <!-- TODO: implement grid; MAKE INDIVIDUAL COLUMNS BASED ON FUNCTIONS -->
+
 <body id="root">
-  <div class="ui inverted vertical center aligned segment">
-    <!-- <nav class="ui container">
-      <div class="ui borderless inverted compact menu">
-        <a class="active item">Home</a> 
-        <a class="item">Search</a>
-        <a class="item">About</a>
-        <a class="item">Contact</a>
+  <div class="ui vertical center aligned segment">
+    <div class="ui stackable centered grid container">
+      <!-- <nav class="ui container">
+        <div class="ui borderless inverted compact menu">
+          <a class="active item">Home</a> 
+          <a class="item">Search</a>
+          <a class="item">About</a>
+          <a class="item">Contact</a>
+        </div>
+      </nav> 
+      TODO: FIX NAV LOL 
+    -->
+      <div class="column" id="mod">
+        <div class="ui content container">
+          <h1 class="ui header">City of Philadelphia’s  government contracts,
+            campaign finance reports, and lobbyists.</h1>
+          <p id="dblue_subtext">
+            Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
+            candidates for a City office, and lobbyists that do business with the City of Philadelphia.
+          </p>
+          <!-- <div class="ui huge button" id="custom_text">Learn more</div> -->
+        </div>
       </div>
-    </nav> -->
-    <div class="ui content container">
-      <h1 class="ui inverted header">City of Philadelphia’s  government contracts,
-        campaign finance reports, and lobbyists.</h1>
-      <p>
-        Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
-        candidates for a City office, and lobbyists that do business with the City of Philadelphia.
-      </p>
-      <div class="ui huge button">Learn more</div>
+      
+      <!-- <div class="three column row" id="mod"> -->
+        <div class="three wide column">
+          <div class="ui button">CITY CONTRACTS</div>
+        </div>
+        <div class="three wide column">
+          <div class="ui button">CAMPAIGN FINANCE</div>
+        </div>
+        <div class="three wide column">
+          <div class="ui button">LOBBYISTS</div>
+        </div>
+      <!-- </div> -->
+      
+  
+      <footer class="ui vertical segment" id="custom_text">
+        Copyright 2020, Philadelphia City Controller
+      </footer>
+  
     </div>
-    <footer class="ui inverted vertical segment">
-      Copyright 2020, Philadelphia City Controller
-    </footer>
   </div>
+  
+
 </body>
 {% endblock %}
