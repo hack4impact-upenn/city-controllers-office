@@ -97,6 +97,13 @@
     position: absolute;
     bottom: 0;
     color: gray;
+    text-align: left;
+    padding-left: 60px;
+  }
+
+  #right_grid {
+    text-align: right;
+    width: 245px;
   }
 
   .ui.vertical.segment footer.ui.segment a {
@@ -122,6 +129,7 @@
     right: 0;
     margin: auto;
     width: 794px;
+    vertical-align: top;
   }
 
   .ui.stackable.centered.grid.container .three.wide.column {
@@ -145,7 +153,6 @@
   }
 
   #custom_link {
-
     color: #3E688F;
     font-weight: 600;
   }
@@ -217,7 +224,20 @@
       
   
       <footer class="ui vertical segment" id="custom_text">
-        Copyright 2020, Philadelphia City Controller
+        <div class="ui grid">
+          <div class="four column row">
+            <div class="left floated column">
+              <pre class="tab" id="custom_text"><a href="https://google.com" id="custom_link">City Controller</a>           <a href="https://google.com" id="custom_link">Search Tips</a>           <a href="https://google.com" id="custom_link">Report Fraud</a>             <a href="https://google.com" id="custom_link">Contact Us</a></pre>
+            </div>
+            <div class="right floated column">
+              Copyright 2020, Philadelphia City Controller
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
       </footer>
   
   </div>
