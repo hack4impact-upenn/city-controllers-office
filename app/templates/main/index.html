@@ -64,7 +64,7 @@
 
   .ui.content.container {
     height: 300px;
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     bottom: 0;
     left: 0;
@@ -134,7 +134,6 @@
 
 <body id="root">
   <div class="ui vertical center aligned segment">
-    <div class="ui stackable centered grid container">
       <!-- <nav class="ui container">
         <div class="ui borderless inverted compact menu">
           <a class="active item">Home</a> 
@@ -145,29 +144,27 @@
       </nav> 
       TODO: FIX NAV LOL 
     -->
-      <div class="column" id="mod">
-        <div class="ui content container">
-          <h1 class="ui header">City of Philadelphia’s  government contracts,
-            campaign finance reports, and lobbyists.</h1>
-          <p id="dblue_subtext">
-            Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
-            candidates for a City office, and lobbyists that do business with the City of Philadelphia.
-          </p>
-          <!-- <div class="ui huge button" id="custom_text">Learn more</div> -->
-        </div>
+      <div class="ui content container">
+        <h1 class="ui header">City of Philadelphia’s  government contracts,
+          campaign finance reports, and lobbyists.</h1>
+        <p id="dblue_subtext">
+          Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
+          candidates for a City office, and lobbyists that do business with the City of Philadelphia.
+        </p>
+        <!-- <div class="ui huge button" id="custom_text">Learn more</div> -->
+        <div class="ui stackable centered grid container" id="mod">
+          <div class="three wide column">
+            <div class="ui button">CITY CONTRACTS</div>
+          </div>
+          <div class="three wide column">
+            <div class="ui button">CAMPAIGN FINANCE</div>
+          </div>
+          <div class="three wide column">
+            <div class="ui button">LOBBYISTS</div>
+          </div>
       </div>
       
-      <!-- <div class="three column row" id="mod"> -->
-        <div class="three wide column">
-          <div class="ui button">CITY CONTRACTS</div>
-        </div>
-        <div class="three wide column">
-          <div class="ui button">CAMPAIGN FINANCE</div>
-        </div>
-        <div class="three wide column">
-          <div class="ui button">LOBBYISTS</div>
-        </div>
-      <!-- </div> -->
+      
       
   
       <footer class="ui vertical segment" id="custom_text">
