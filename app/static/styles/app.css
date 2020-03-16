@@ -161,7 +161,6 @@ nav.ui.container .ui.compact.menu .active.item {
 }
 
 .ui.stackable.grid.container {
-  padding-top: 81px;
   width: 800px;
   text-align: left;
 }
@@ -203,6 +202,7 @@ nav.ui.container .ui.compact.menu .active.item {
 }
 
 #page_header {
+  padding-top: 40px;
   font-size: 28px;
   font-family: "Avenir", sans-serif;
   font-weight: 600;
@@ -215,6 +215,7 @@ nav.ui.container .ui.compact.menu .active.item {
   outline-color: #F7F7F7;
 }
 
-.ui.text.container {
-  padding-bottom: 100px;
+#footer_correction {
+  font-family: "Avenir", sans-serif;
+  padding-right: 10px;
 }
