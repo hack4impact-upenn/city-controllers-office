@@ -14,6 +14,13 @@
 
         .theme-primary {
             color: #3E688F;
+            font-size: 20px;
+        }
+
+        .theme-secondary {
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.4;
         }
 
         .tag {
@@ -66,7 +73,7 @@
             </div>
 
         </div>
-        <div class="twelve wide column">
+        <div class="twelve wide column", style="margin-top: 10px">
             <div>
                 <h2>
                     Instructions
@@ -74,12 +81,34 @@
             </div>
             <div class="paper">
                 <div class="ui grid">
-                    <div>
-                        <h3 class="theme-primary" style="line-height: 10px; margin-top: 10px;">Searching</h3>
-                        <p>Search here for city contracts. You can filter by department, contract type, 
-                            approval date, or restrict to a contract dollar amount range. You can also search 
-                            by specific vendor names or keywords.</p>
-                    </div>
+                    <h3 class="theme-primary" style="margin-top: 10px;">
+                        Searching
+                    </h3>
+                    <p class="theme-secondary">
+                        Search here for city contracts. You can filter by department, contract type, 
+                        approval date, or restrict to a contract dollar amount range. You can also search 
+                        by specific vendor names or keywords.
+                    </p>
+
+                    <h3 class="theme-primary" style="margin-top: 10px;">
+                        Search Criteria
+                    </h3>
+                    <p class="theme-secondary">
+                        Contract Amount can be selected based on a range from the minimum to maximum.
+                        Use the sliders to select the maximum or minimum amounts.
+                        <br><br>
+                        Contract Approval Date can be selected based on a range using the two date widgets to the left.
+                    </p>
+
+                    <h3 class="theme-primary" style="margin-top: 10px;">
+                        Search Results
+                    </h3>
+                    <p class="theme-secondary">
+                        Since the number of results might be quite large, contracts are presented one page at a time.
+                        <br><br>
+                        You can set the page size from 10-100, and also sort by most of these criteria 
+                        (click on the arrow to the right to change the sort direction).
+                    </p>
                 </div>
             </div>
             <div class="paper">
