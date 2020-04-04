@@ -49,55 +49,31 @@ body {
   padding-top: 36px;
 }
 
-/* nav.ui.container .ui.compact.menu {
-  background-color: rgb(51, 51, 51);
-}
-
-nav.ui.container .ui.compact.menu .item {
-  padding-bottom: 0;
-}
-
-nav.ui.container .ui.compact.menu .item {
-  font-size: 16px;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 14px;
-  margin-left: 16px;
-  margin-right: 16px;
-  border-radius: 0;
-}
-
-nav.ui.container .ui.compact.menu .active.item {
-  background-color: inherit;
-  border-bottom-color: white;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-} */
-
 .ui.vertical.segment {
-  height: 100vh;
+  height: vh;
   background-color: #FFFFFF;
 }
 
-.ui.content.container {
+.ui.grid {
+  height: vh;
+}
+
+.sixteen.wide.column .ui.text.container{
   height: 300px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  padding-top: 200px;
+  padding-bottom: 98px;
   margin: auto;
   width: 794px;
 }
 
-.ui.content.container h1.header {
+.sixteen.wide.column h1.header {
   font-size: 36px;
   font-family: "Avenir", sans-serif;
   font-weight: 600;
   text-align: left;
 }
 
-.ui.content.container p {
+.sixteen.wide.column p {
   font-size: 15px;
   line-height: 1.6;
   font-weight: 300;
@@ -134,11 +110,11 @@ nav.ui.container .ui.compact.menu .active.item {
   font-family: "Avenir", sans-serif;
 }
 
-.ui.button {
+.two.wide.column .ui.button {
   font-family: "Avenir", sans-serif;
   color: #676767;
   background-color: #F7F7F7;
-  width: 234px;
+  width: 210px;
 }
 
 .ui.stackable.centered.grid.container {
@@ -151,13 +127,8 @@ nav.ui.container .ui.compact.menu .active.item {
   vertical-align: top;
 }
 
-.ui.stackable.centered.grid.container .three.wide.column {
-  padding-top: 10px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 300px;
+.two.wide.column {
+  margin-top: 140px;
 }
 
 .ui.stackable.grid.container {
@@ -165,7 +136,7 @@ nav.ui.container .ui.compact.menu .active.item {
   text-align: left;
 }
 
-.three.wide.column p {
+.two.wide.column p {
   font-size: 15px;
   line-height: 1.6;
   font-family: "Avenir", sans-serif;
@@ -199,23 +170,4 @@ nav.ui.container .ui.compact.menu .active.item {
   color: #333333;
   font-weight: 500;
   text-align: left;
-}
-
-#page_header {
-  padding-top: 40px;
-  font-size: 28px;
-  font-family: "Avenir", sans-serif;
-  font-weight: 600;
-  text-align: left;
-}
-
-#controller_segment {
-  background-color: #F7F7F7;
-  width: 445px;
-  outline-color: #F7F7F7;
-}
-
-#footer_correction {
-  font-family: "Avenir", sans-serif;
-  padding-right: 10px;
 }
