@@ -28,10 +28,10 @@
         %}
       #}
 
-        {% block nav %}
+        <!-- {% block nav %}
           {# add dropdown variable here to the render_nav method to render dropdowns #}
           {{ nav.render_nav(current_user) }}
-        {% endblock %}
+        {% endblock %} -->
 
         {% include 'partials/_flashes.html' %}
         {# When extended, the content block contains all the html of the webpage #}
@@ -45,4 +45,45 @@
             </div>
         {% endif %}
     </body>
+
+    <style>
+      .rectangle {
+        height: 50px;
+        width: 100%;
+        background-color: #555;
+      }
+      .end-nav {
+        color: #3E688F;
+        font-weight: bold;
+        font-size: 15px;
+        margin-right: 3%;
+      }
+      .copyright {
+        position: absolute;
+        right: 5%;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    </style>
+    <footer>
+      <div class="ui grid" style="margin: 8% 5% 3% 5%;">
+        <div class="end-nav">
+          City Controller
+        </div>
+        <div class="end-nav">
+          Search Tips
+        </div>
+        <div class="end-nav">
+          Report Fraud
+        </div>
+        <div class="end-nav">
+          Contact Us
+        </div>
+        <div class="copyright">
+          Copyright 2020, Philadelphia City Controller
+        </div>
+      </div>
+    </footer>
+
 </html>
