@@ -2,10 +2,63 @@
 
 <!DOCTYPE html>
 <html>
+    <style>
+      .nav-rectangle {
+        height: 10%;
+        width: 100%;
+        background-color: rgba(62, 104, 143, 0.28);
+        vertical-align: baseline;
+      }
+
+      .nav-rectangle-right {
+        position: absolute;
+        height: 10%;
+        width: 20%;
+        right: 0px;
+        background-color: #3E688F;
+      }
+      .top-nav {
+        color: #333333;
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 2.6%;
+        margin-right: 3%;
+      }
+      .bottom-nav {
+        color: #3E688F;
+        font-weight: bold;
+        font-size: 15px;
+        margin-right: 3%;
+      }
+      .copyright {
+        position: absolute;
+        right: 5%;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+      }
+    </style>
     <head>
         {% include 'partials/_head.html' %}
         {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
         {% block custom_head_tags %}{% endblock %}
+        <div class="nav-rectangle">
+          <div class="nav-rectangle-right"></div>
+          <div class="ui grid" style="margin: 0 0 5% 50%;">
+            <div class="top-nav">
+              Home
+            </div>
+            <div class="top-nav">
+              Search
+            </div>
+            <div class="top-nav">
+              About
+            </div>
+            <div class="top-nav">
+              Contact
+            </div>
+          </div>
+        </div>
     </head>
     <body>
       {# Example dropdown menu setup. Uncomment lines to view
@@ -46,38 +99,18 @@
         {% endif %}
     </body>
 
-    <style>
-      .rectangle {
-        height: 50px;
-        width: 100%;
-        background-color: #555;
-      }
-      .end-nav {
-        color: #3E688F;
-        font-weight: bold;
-        font-size: 15px;
-        margin-right: 3%;
-      }
-      .copyright {
-        position: absolute;
-        right: 5%;
-        color: black;
-        font-weight: bold;
-        font-size: 15px;
-      }
-    </style>
     <footer>
       <div class="ui grid" style="margin: 8% 5% 3% 5%;">
-        <div class="end-nav">
+        <div class="bottom-nav">
           City Controller
         </div>
-        <div class="end-nav">
+        <div class="bottom-nav">
           Search Tips
         </div>
-        <div class="end-nav">
+        <div class="bottom-nav">
           Report Fraud
         </div>
-        <div class="end-nav">
+        <div class="bottom-nav">
           Contact Us
         </div>
         <div class="copyright">
