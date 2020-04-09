@@ -2,10 +2,18 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+<div class="ui grid">
+  <div class="sixteen wide column" id="about">
     <div class="ui text container">
-        <h1>About</h1>
-        {{ page.render_inline_editor(editable_html_obj, current_user) }}
+      <h1 class="ui header">About Open Book Philadelphia</h1>
+      <div class="ui segment">
+        <p>
+          Open Book Pittsburgh, is a searchable database of Pittsburgh city government contracts, administered by Pittsburgh’s Office of the City Controller. Open Book Pittsburgh gives Pittsburgh taxpayers access as to how City leaders are spending your tax dollars. OpenBook is in real-time and updated daily.
+          In addition to city government contracts, Open Book Pittsburgh also gives taxpayers a look as to where elected officials and candidates for elected offices in the City of Pittsburgh receive campaign contributions, and how candidates spend those funds.
+        </p>
+      </div>
     </div>
-
-    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+  </div>
+</div>
+  
 {% endblock %}

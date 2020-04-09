@@ -52,7 +52,7 @@
 
 {% macro mobile_nav(current_user, dropdown=None) %}
     <div class="mobile only row">
-        <div class="ui fixed inverted black main menu">
+        <div class="ui borderless huge fluid menu">
             {{ header_items(current_user) }}
             <div class="right menu">
                 <a class="icon item" id="open-nav"><i class="sidebar icon"></i></a>
@@ -83,7 +83,7 @@
 
 {% macro desktop_nav(current_user, dropdown=None) %}
     <div class="computer tablet only row">
-        <div class="ui fixed inverted black main menu">
+        <div class="ui top fixed borderless huge menu">
             <div class="ui container">
                 {{ header_items(current_user) }}
                 {{ create_dropdown(dropdown) }}
