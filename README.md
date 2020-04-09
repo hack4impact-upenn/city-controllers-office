@@ -9,8 +9,8 @@ Navigate to the [main project page](https://github.com/hack4impact/flask-base) a
 ##### Clone the repository 
 
 ```
-$ git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
-$ cd REPO_NAME
+$ git clone https://github.com/hack4impact/city-controllers-office.git
+$ cd city-controllers-office
 ```
 
 ##### Initialize a virtual environment
