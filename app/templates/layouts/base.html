@@ -2,66 +2,79 @@
 
 <!DOCTYPE html>
 <html>
-    <style>
-      .nav-rectangle {
-        height: 6.5%;
-        width: 100%;
-        background-color: rgba(62, 104, 143, 0.28);
-        vertical-align: baseline;
-      }
+<style>
+  .nav-rectangle {
+    height: 8%;
+    width: 100%;
+    background-color: rgba(62, 104, 143, 0.28);
+    vertical-align: baseline;
+  }
 
-      .nav-rectangle-right {
-        position: absolute;
-        height: 6.5%;
-        width: 20%;
-        right: 0px;
-        background-color: #3E688F;
-      }
-      .top-nav {
-        color: #333333;
-        font-weight: bold;
-        font-size: 15px;
-        margin-top: 2.6%;
-        margin-right: 3%;
-      }
-      .bottom-nav {
-        color: #3E688F;
-        font-weight: bold;
-        font-size: 15px;
-        margin-right: 3%;
-      }
-      .copyright {
-        position: absolute;
-        right: 5%;
-        color: black;
-        font-weight: bold;
-        font-size: 15px;
-      }
-    </style>
-    <head>
-        {% include 'partials/_head.html' %}
-        {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
-        {% block custom_head_tags %}{% endblock %}
-        <div class="nav-rectangle">
-          <div class="nav-rectangle-right"></div>
-          <div class="ui grid" style="margin: 0 0 5% 50%;">
-            <div class="top-nav">
-              Home
-            </div>
-            <div class="top-nav">
-              Search
-            </div>
-            <div class="top-nav">
-              About
-            </div>
-            <div class="top-nav">
-              Contact
-            </div>
-          </div>
-        </div>
-    </head>
-    <body>
-      {# Example dropdown menu setup. Uncomment lines to view
+  .nav-rectangle-right {
+    position: absolute;
+    height: 8%;
+    width: 20%;
+    right: 0px;
+    background-color: #3E688F;
+  }
+
+  .top-nav {
+    color: #333333;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 4%;
+    margin-right: 3%;
+  }
+
+  .bottom-nav {
+    color: #3E688F;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 3%;
+  }
+
+  .copyright {
+    position: absolute;
+    right: 5%;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+  .nav-link {
+    color: #333333;
+  }
+</style>
+
+<head>
+  {% include 'partials/_head.html' %}
+  {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
+  {% block custom_head_tags %}{% endblock %}
+  <div class="nav-rectangle">
+    <div class="nav-rectangle-right"></div>
+    <div class="ui grid" style="margin: 0 0 5% 50%;">
+      <div class="top-nav">
+        <a href="/" class="nav-link">
+          Home
+        </a>
+      </div>
+      <div class="top-nav">
+        <a href="/search" class="nav-link">Search</a>
+
+      </div>
+      <div class="top-nav">
+
+        <a href="/about" class="nav-link">About</a>
+      </div>
+      <div class="top-nav">
+        <a href="/contact" class="nav-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</head>
+
+<body>
+  {# Example dropdown menu setup. Uncomment lines to view
         {% set dropdown = 
           [
             ('account stuff',
@@ -85,7 +98,8 @@
           {# add dropdown variable here to the render_nav method to render dropdowns #}
           {{ nav.render_nav(current_user) }}
         {% endblock %} -->
-
+  
+</html>
         {% include 'partials/_flashes.html' %}
         {# When extended, the content block contains all the html of the webpage #}
         {% block content %}

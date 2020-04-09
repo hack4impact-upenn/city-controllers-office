@@ -1,0 +1,203 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!-- html for search page -->
+<!-- @dev: Robin -->
+<div style="width: 70%; margin: auto;">
+    <style>
+        .paper {
+            background-color: #f7f7f7;
+            margin-top: 10px;
+            padding: 30px;
+            border-radius: 5px;
+        }
+        
+        .paper-mini {
+            background-color: #f7f7f7;
+            margin-top: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .button-mini {
+            border-radius: 15px;
+            size: 5px;
+        }
+
+        .theme-primary {
+            color: #3E688F;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        .theme-secondary {
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .view-results-style {
+            padding-top: 40px;
+            float: right;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #c5cfd9;
+            color: white;
+            border-radius: 5px;
+            margin: 2px;
+            padding: 0px 15px;
+            margin-right: 5px;
+        }
+    </style>
+
+    <div class="ui grid" style="margin-top: 50px;">
+        <div class="four wide column">
+            <div style="margin-top: 50px;">
+                <div style="margin-top: 20px;">
+                    <label style="display: block; margin-bottom: 10px;">DEPARTMENT</label>
+                    <select class="ui selection dropdown search">
+                        <option value="">ALL DEPARTMENTS</option>
+                        <option value="0">ALL DEPARTMENTS</option>
+                        <option value="1">Option A</option>
+                        <option value="2">Option B</option>
+                    </select>
+                </div>
+                <div style="margin-top: 25px;">
+                    <label style="display: block; margin-bottom: 10px;">CONTACT TYPE</label>
+                    <select class="ui selection dropdown search">
+                        <option value="">ALL SERVICES</option>
+                        <option value="0">ALL SERVICES</option>
+                        <option value="1">Option A</option>
+                        <option value="2">Option B</option>
+                    </select>
+                </div>
+                <div style="margin-top: 25px;">
+                    <label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
+                    <div class="ui input">
+                        <input type="text" placeholder="Search..." style="width: 195px">
+                    </div>
+                </div>
+                <div style="margin-top: 25px;">
+                    <label style="display: block; margin-bottom: 10px;">KEYWORD</label>
+                    <div class="ui input">
+                        <input type="text" placeholder="Search..." style="width: 195px;">
+                    </div>
+                </div>
+                <div style="margin-top: 25px;">
+                    <label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
+                    <div class="ui input">
+                        <input type="text" placeholder="Search..." style="width: 195px;">
+                    </div>
+                </div>
+                <div style="margin-top: 40px;">
+                    <label style="display: block; margin-bottom: 10px;">CONTRACT APPROVAL DATE</label>
+                    <div class="paper-mini">
+                        <label style="display: block; margin-bottom: 10px;">FROM</label>
+                        <div class="ui input">
+                            <input type="text" placeholder="MM-DD-YYYY" style="width: 195px;">
+                        </div>
+
+                        <label style="display: block; margin-top: 10px; margin-bottom: 10px;">TO</label>
+                        <div class="ui input">
+                            <input type="text" placeholder="MM-DD-YYYY" style="width: 195px;">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <label style="display: block; margin-top: 10px; margin-bottom: 10px;">SEARCH BY AMOUNT</label>
+                    <div class="two wide column"> 
+                        <div class="ui checkbox" style="width: 50%;">
+                            <input type="checkbox" style="width: 50%;">
+                            <label>CONTRACT</label>
+                        </div>
+                        <div class="ui checkbox">
+                            <input type="checkbox" style="width: 50%;">
+                            <label>PAID</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Semanitic UI does not support sliders: need to make a dynamic slider later-->
+                    <label style="display: block; margin-top: 10px; font-size: 10px">MINIMUM</label>
+                    <div class="three wide column">
+                        <div class="paper-mini"> 
+                            <div class="ui input">
+                                <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
+                            </div>
+                        </div>
+                    </div>
+                    <label style="display: block; margin-top: 10px; font-size: 10px">MAXIMUM</label>
+                    <div class="three wide column">
+                        <div class="paper-mini"> 
+                            <div class="ui input">
+                                <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <button class="ui primary fluid button" style="margin-top: 20px;">
+                        View Contract
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="twelve wide column", style="margin-top: 10px">
+            <div>
+                <h2>
+                    Instructions
+                </h2>
+            </div>
+            <div class="paper">
+                <div class="ui grid">
+                    <h3 class="theme-primary" style="margin-top: 10px;">
+                        Searching
+                    </h3>
+                    <p class="theme-secondary">
+                        Search here for city contracts. You can filter by department, contract type, 
+                        approval date, or restrict to a contract dollar amount range. You can also search 
+                        by specific vendor names or keywords.
+                    </p>
+
+                    <h3 class="theme-primary">
+                        Search Criteria
+                    </h3>
+                    <p class="theme-secondary">
+                        Contract Amount can be selected based on a range from the minimum to maximum.
+                        Use the sliders to select the maximum or minimum amounts.
+                        <br><br>
+                        Contract Approval Date can be selected based on a range using the two date widgets to the left.
+                    </p>
+
+                    <h3 class="theme-primary">
+                        Search Results
+                    </h3>
+                    <p class="theme-secondary">
+                        Since the number of results might be quite large, contracts are presented one page at a time.
+                        <br><br>
+                        You can set the page size from 10-100, and also sort by most of these criteria 
+                        (click on the arrow to the right to change the sort direction).
+                    </p>
+                </div>
+            </div> 
+            <div class="view-results-style">
+                <label style="display: block; padding-bottom: 5px;">
+                    VIEW RESULTS: 1 - 5 OF 100
+                </label>
+                <select class="ui selection dropdown">
+                    <option value="">RESULTS PER PAGE</option>
+                    <option value="5">5 PER PAGE</option>
+                    <option value="10">10 PER PAGE</option>
+                    <option value="20">20 PER PAGE</option>
+                    <option value="50">50 PER PAGE</option>
+                    <option value="100">100 PER PAGE</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}
