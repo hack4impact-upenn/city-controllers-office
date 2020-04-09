@@ -94,42 +94,43 @@
         %}
       #}
 
-  <!-- {% block nav %}
+        <!-- {% block nav %}
           {# add dropdown variable here to the render_nav method to render dropdowns #}
           {{ nav.render_nav(current_user) }}
         {% endblock %} -->
+  
+</html>
+        {% include 'partials/_flashes.html' %}
+        {# When extended, the content block contains all the html of the webpage #}
+        {% block content %}
+        {% endblock %}
 
-  {% include 'partials/_flashes.html' %}
-  {# When extended, the content block contains all the html of the webpage #}
-  {% block content %}
-  {% endblock %}
+        {# Implement CSRF protection for site #}
+        {% if csrf_token()|safe %}
+            <div style="visibility: hidden; display: none">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}">
+            </div>
+        {% endif %}
+    </body>
 
-  {# Implement CSRF protection for site #}
-  {% if csrf_token()|safe %}
-  <div style="visibility: hidden; display: none">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token()|safe }}">
-  </div>
-  {% endif %}
-</body>
-
-<footer>
-  <div class="ui grid" style="margin: 8% 5% 3% 5%;">
-    <div class="bottom-nav">
-      City Controller
-    </div>
-    <div class="bottom-nav">
-      Search Tips
-    </div>
-    <div class="bottom-nav">
-      Report Fraud
-    </div>
-    <div class="bottom-nav">
-      Contact Us
-    </div>
-    <div class="copyright">
-      Copyright 2020, Philadelphia City Controller
-    </div>
-  </div>
-</footer>
+    <footer>
+      <div class="ui grid" style="margin: 8% 5% 3% 5%;">
+        <div class="bottom-nav">
+          City Controller
+        </div>
+        <div class="bottom-nav">
+          Search Tips
+        </div>
+        <div class="bottom-nav">
+          Report Fraud
+        </div>
+        <div class="bottom-nav">
+          Contact Us
+        </div>
+        <div class="copyright">
+          Copyright 2020, Philadelphia City Controller
+        </div>
+      </div>
+    </footer>
 
 </html>

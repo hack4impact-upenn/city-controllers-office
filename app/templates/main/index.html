@@ -1,17 +1,53 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-    <div class="ui text container">
-      <h1>Hello {% if not (current_user.is_authenticated) %} world {% else %} {{ current_user.full_name() }} {% endif %},</h1>
-
-        <p>This is <a href="http://hack4impact.org">Hack4Impact</a>'s web application template. We'll use this as a
-        foundation for each of our <a href="http://flask.pocoo.org">Flask</a> projects. The goal is to reduce the work
-        necessary to get a new project off the ground, by providing boilerplate code (such as account management
-        facilities), as well as uncontroversial and extensible defaults. We have integrated an
-        <a href="http://sass-lang.com">SCSS</a>-based asset pipeline based around a (fantastic!) framework
-        called <a href="http://semantic-ui.com">Semantic UI</a>. Much of this code is appropriated from the examples
-        in Miguel Grinberg's book, <a href="http://flaskbook.com"><em>Flask Web Development</em></a>.</p>
-
-        <p>{{ lipsum(6) }}</p>
+    <div class="ui grid">
+        <div class="sixteen wide column" id="landing">
+          <div class="ui text container">
+            <h1 class="ui header">City of Philadelphia’s  government contracts,
+              campaign finance reports, and lobbyists.</h1>
+            <p>
+              Search Open Book Philadelphia for City contracts, campaign donations and expenditures of 
+              candidates for a City office, and lobbyists that do business with the City of Philadelphia.
+            </p>
+          </div>
+        </div>
+        <div class="five wide column"></div>
+        <div class="two wide column">
+          <div class="ui button">CITY CONTRACTS</div>
+          <p>
+            Search contracts for all city departments.
+          </p>
+          <p>
+            <a href="https://google.com" id="custom_link">
+              Find City Contracts →
+            </a>
+          </p>
+        </div>
+        <div class="two wide column">
+          <div class="ui button">CAMPAIGN FINANCE</div>
+          <p>
+            Search for campaign contributions and expenditures of candidates for Mayor, 
+            Controller and City Council.
+          </p>
+          <p>
+            <a href="https://google.com" id="custom_link">
+              Search Campaign Finance →
+            </a>
+          </p>
+        </div>
+        <div class="two wide column">
+          <div class="ui button">LOBBYISTS</div>
+          <p>
+            See those who are registered as lobbyists with the City of Pittsburgh.
+          </p>
+          <p>
+            <a href="https://google.com" id="custom_link">
+              Find Lobbyists →
+            </a>
+          </p>
+        </div>
+        <div class="five wide column"></div>
+      </div>
     </div>
 {% endblock %}
