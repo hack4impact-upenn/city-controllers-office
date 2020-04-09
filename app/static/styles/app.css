@@ -45,7 +45,7 @@ body {
   }
 }
 
-.ui.grid {
+.ui.centered.grid {
   height: vh;
 }
 
@@ -84,6 +84,8 @@ body {
 .two.wide.column {
   margin-top: 35px;
   margin-bottom: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .ui.stackable.grid.container {
@@ -138,4 +140,9 @@ body {
 
 #about {
   padding-top: 80px;
+}
+
+#row_padding {
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
