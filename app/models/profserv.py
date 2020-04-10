@@ -10,9 +10,21 @@ class Exempt_Status(enum.Enum):
     EXEMPT = 102
     ADVERTISED = 1
 
+    def __str__(self):
+        return self.name
+
+    def __html__(self):
+        return self.value
+
 class Profit_Status(enum.Enum):
     For_Profit = "For Profit"
     Non_Profit = "Non Profit"
+
+    def __str__(self):
+        return self.name
+
+    def __html__(self):
+        return self.value
 
 class ProfServ(db.Model):
     __tablename__ = 'prof_serv'
@@ -28,7 +40,13 @@ class ProfServ(db.Model):
     amt = db.Column(db.Double)
     tot_payments = db.Column(db.Double)
     orig_vendor = db.Column(db.String(64))
-    exempt_status = db.Enum(Exempt_Status)
-    adv_or_exempt = db.Enum(Profit_Status)
+    exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
+    adv_or_exempt = db.Column(db.Enum(Profit_Status), default=0)
 
-   
+    def __repr__(self):
+       return ('<Professional Services Contract \n'
+             f'original contract id: {self.original_contract_id}\n')
+
+
+    def __str__(self):
+      return self.__repr__()
