@@ -12,4 +12,4 @@ from flask_rq import get_queue
 from app import db
 from app.models import ProfServ
 
-contact = Blueprint('account', __name__)
+contract = Blueprint('profserv', __name__)
