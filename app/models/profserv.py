@@ -6,6 +6,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from .. import db, login_manager
 
+import enum
+
 class Exempt_Status(enum.Enum):
     EXEMPT = 102
     ADVERTISED = 1
@@ -37,11 +39,12 @@ class ProfServ(db.Model):
     start_dt = db.Column(db.Date)
     end_dt = db.Column(db.Date)
     days_remaining = db.Column(db.Integer)
-    amt = db.Column(db.Double)
-    tot_payments = db.Column(db.Double)
+    amt = db.Column(db.Float)
+    tot_payments = db.Column(db.Float)
     orig_vendor = db.Column(db.String(64))
     exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
-    adv_or_exempt = db.Column(db.Enum(Profit_Status), default=0)
+    adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0) #make sure to display as string in UI
+    profit_status = db.Column(db.Enum(Profit_Status), default=0)
 
     def __repr__(self):
        return ('<Professional Services Contract \n'

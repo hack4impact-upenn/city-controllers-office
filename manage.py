@@ -2,6 +2,11 @@
 import os
 import subprocess
 
+import csv
+import datetime
+
+from app.contracts import views
+
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Shell
 from redis import Redis
@@ -43,6 +48,8 @@ def recreate_db():
     db.create_all()
     db.session.commit()
 
+    filename = '/Users/gautam/Documents/UPenn/Hack4Impact/city-controllers-office/app/contracts/sample_prof_serv_contracts.csv'
+    views.readCSV(filename)
 
 @manager.option(
     '-n',
