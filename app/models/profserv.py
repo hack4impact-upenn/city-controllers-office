@@ -13,7 +13,7 @@ class Exempt_Status(enum.Enum):
     def __str__(self):
         return self.name
 
-    def __html__(self):
+    def __html__(self): 
         return self.value
 
 class Profit_Status(enum.Enum):
