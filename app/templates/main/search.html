@@ -137,14 +137,61 @@
                     </div>
                 </div>
                 <div class="container">
-                    <button class="ui primary fluid button" style="margin-top: 20px;">
+                    <button id="viewButton" class="ui primary fluid button" style="margin-top: 20px;">
                         View Contract
                     </button>
+                    <script>
+                        document.getElementById("viewButton").onclick = function () {
+                            var numResultsVal = $("#resultsDropdown :selected").val();
+                            var numResults = parseInt(numResultsVal);
+                            var container = document.getElementById('resultsContainer');
+                            var html = ''
+                            html += '<div><h2>Instructions</h2></div>'
+                            for(var i = 1; i <= numResults; i++){  
+                                html += 
+                                '<div class="paper">'
+                                +    '<div class="ui grid">'
+                                +        '<div class="eight wide column">'
+                                +            '<h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">'
+                                +               'Vehicle Service #'+ i 
+                                +            '</h3>'
+                                +            '<p><i>FLEET MANAGEMENT SERVICES</i></p>'
+                                +        '</div>'
+                                +        '<div class="eight wide column">'
+                                +            '<div style="line-height: 20px; ">'
+                                +                '<div class="tag">'
+                                +                    'TYPE</div>'
+                                +                '<b>PROFESSIONAL'
+                                +                    'SERVICES</b>'
+                                +            '</div>'
+                                +            '<div style=" line-height: 20px;">'
+                                +                '<div class="tag">'
+                                +                    'DEPT</div><b>MANAGEMENT & BUDGET</b>'
+                                +            '</div>'
+                                +        '</div>'
+                                +        '<div class="eight wide column">'
+                                +            '<p><b>Current contact amount:</b> $XXXXX</p>'
+                                +            '<p><b>Contract:</b> $XXXXX</p>'
+                                +        '</div>'
+                                +        '<div class="eight wide column">'
+                                +            '<p><b>Original contact amount:</b> $XXXXX</p>'
+                                +            '<p><b>Contract Term:</b> $XXXXX</p>'
+                                +        '</div>'
+                                +    '</div>'
+                                +    '<button class="ui primary button" style="margin-top: 20px;">'
+                                +        'View Contract'
+                                +    '</button>'
+                                +'</div>'
+                            }
+                            container.innerHTML = html;
+                        };
+                    </script>
                 </div>
             </div>
         </div>
 
-        <div class="twelve wide column", style="margin-top: 10px">
+        <div class="twelve wide column", style="margin-top: 10px" id="instructions">
+            <div id="resultsContainer"></div>
             <div>
                 <h2>
                     Instructions
@@ -186,8 +233,8 @@
                 <label style="display: block; padding-bottom: 5px;">
                     VIEW RESULTS: 1 - 5 OF 100
                 </label>
-                <select class="ui selection dropdown">
-                    <option value="">RESULTS PER PAGE</option>
+                <select class="ui selection dropdown" id="resultsDropdown">
+                    <option value="5">RESULTS PER PAGE</option>
                     <option value="5">5 PER PAGE</option>
                     <option value="10">10 PER PAGE</option>
                     <option value="20">20 PER PAGE</option>

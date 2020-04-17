@@ -70,7 +70,53 @@
                     Results
                 </h2>
             </div>
-            <div class="paper">
+
+            <div id="resultsContainer"></div>
+
+            <script>
+                var container = document.getElementById('resultsContainer');
+                var html = ''
+                var result =
+                '<div class="paper">'
+                +    '<div class="ui grid">'
+                +        '<div class="eight wide column">'
+                +            '<h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">First Vehicle Service</h3>'
+                +            '<p><i>FLEET MANAGEMENT SERVICES</i></p>'
+                +        '</div>'
+                +        '<div class="eight wide column">'
+                +            '<div style="line-height: 20px; ">'
+                +                '<div class="tag">'
+                +                    'TYPE</div>'
+                +                '<b>PROFESSIONAL'
+                +                    'SERVICES</b>'
+                +            '</div>'
+                +            '<div style=" line-height: 20px;">'
+                +                '<div class="tag">'
+                +                    'DEPT</div><b>MANAGEMENT & BUDGET</b>'
+                +            '</div>'
+                +        '</div>'
+                +        '<div class="eight wide column">'
+                +            '<p><b>Current contact amount:</b> $XXXXX</p>'
+                +            '<p><b>Contract:</b> $XXXXX</p>'
+                +        '</div>'
+                +        '<div class="eight wide column">'
+                +            '<p><b>Original contact amount:</b> $XXXXX</p>'
+                +            '<p><b>Contract Term:</b> $XXXXX</p>'
+                +        '</div>'
+                +    '</div>'
+                +    '<button class="ui primary button" style="margin-top: 20px;">'
+                +        'View Contract'
+                +    '</button>'
+                +'</div>'
+                for(var i = 0; i < 10; i++){  
+                    html += result;
+                }
+                container.innerHTML = html;
+            </script>
+
+
+
+            <!-- <div class="paper">
                 <div class="ui grid">
                     <div class="eight wide column">
                         <h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">First Vehicle Service</h3>
@@ -101,103 +147,7 @@
                 <button class="ui primary button" style="margin-top: 20px;">
                     View Contract
                 </button>
-            </div>
-            <div class="paper">
-                <div class="ui grid">
-                    <div class="eight wide column">
-                        <h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">First Vehicle Service</h3>
-                        <p><i>FLEET MANAGEMENT SERVICES</i></p>
-                    </div>
-                    <div class="eight wide column">
-                        <div style="line-height: 20px; ">
-                            <div class="tag">
-                                TYPE</div>
-                            <b>PROFESSIONAL
-                                SERVICES</b>
-                        </div>
-                        <div style=" line-height: 20px;">
-                            <div class="tag">
-                                DEPT</div><b>MANAGEMENT & BUDGET</b>
-                        </div>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Current contact amount:</b> $XXXXX</p>
-                        <p><b>Contract:</b> $XXXXX</p>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Original contact amount:</b> $XXXXX</p>
-                        <p><b>Contract Term:</b> $XXXXX</p>
-                    </div>
-                </div>
-
-                <button class="ui primary button" style="margin-top: 20px;">
-                    View Contract
-                </button>
-            </div>
-            <div class="paper">
-                <div class="ui grid">
-                    <div class="eight wide column">
-                        <h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">First Vehicle Service</h3>
-                        <p><i>FLEET MANAGEMENT SERVICES</i></p>
-                    </div>
-                    <div class="eight wide column">
-                        <div style="line-height: 20px; ">
-                            <div class="tag">
-                                TYPE</div>
-                            <b>PROFESSIONAL
-                                SERVICES</b>
-                        </div>
-                        <div style=" line-height: 20px;">
-                            <div class="tag">
-                                DEPT</div><b>MANAGEMENT & BUDGET</b>
-                        </div>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Current contact amount:</b> $XXXXX</p>
-                        <p><b>Contract:</b> $XXXXX</p>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Original contact amount:</b> $XXXXX</p>
-                        <p><b>Contract Term:</b> $XXXXX</p>
-                    </div>
-                </div>
-
-                <button class="ui primary button" style="margin-top: 20px;">
-                    View Contract
-                </button>
-            </div>
-            <div class="paper">
-                <div class="ui grid">
-                    <div class="eight wide column">
-                        <h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">First Vehicle Service</h3>
-                        <p><i>FLEET MANAGEMENT SERVICES</i></p>
-                    </div>
-                    <div class="eight wide column">
-                        <div style="line-height: 20px; ">
-                            <div class="tag">
-                                TYPE</div>
-                            <b>PROFESSIONAL
-                                SERVICES</b>
-                        </div>
-                        <div style=" line-height: 20px;">
-                            <div class="tag">
-                                DEPT</div><b>MANAGEMENT & BUDGET</b>
-                        </div>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Current contact amount:</b> $XXXXX</p>
-                        <p><b>Contract:</b> $XXXXX</p>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Original contact amount:</b> $XXXXX</p>
-                        <p><b>Contract Term:</b> $XXXXX</p>
-                    </div>
-                </div>
-
-                <button class="ui primary button" style="margin-top: 20px;">
-                    View Contract
-                </button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
