@@ -22,8 +22,20 @@ def readCSV(filename):
     with open(filename) as csvDataFile:
         csvReader = csv.reader(csvDataFile)
         next(csvReader)
+        i = 1;
         for row in csvReader:
+            #if int(row[12]) == 102:
+            #    exstat = Exempt_Status.EXEMPT
+            #    advext = Exempt_Status.EXEMPT
+            #else:
+            #    exstat = Exempt_Status.ADVERTISED
+            #    advext = Exempt_Status.ADVERTISED
+            if row[14] == 'For Profit':
+                profstat = Profit_Status.For_Profit
+            else:
+                profstat = Profit_Status.Non_Profit
             contract = ProfServ(
+                id = i,
                 original_contract_id = row[0],
                 current_item_id = row[1],
                 department_name = row[2],
@@ -36,10 +48,10 @@ def readCSV(filename):
                 amt = float(row[9]),
                 tot_payments = float(row[10]),
                 orig_vendor = row[11],
-                exempt_status = int(row[12]),
-                adv_or_exempt = int(row[12]),
-                profit_status = row[14]
+                exempt_status = row[12],
+                adv_or_exempt = row[13],
+                profit_status = profstat
             )
             db.session.add(contract)
             db.session.commit()
-            
+            i += 1;

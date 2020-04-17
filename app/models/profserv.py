@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db, login_manager
 
 import enum
-
+#fix enum (more options)
 class Exempt_Status(enum.Enum):
     EXEMPT = 102
     ADVERTISED = 1
@@ -15,7 +15,7 @@ class Exempt_Status(enum.Enum):
     def __str__(self):
         return self.name
 
-    def __html__(self): 
+    def __html__(self):
         return self.value
 
 class Profit_Status(enum.Enum):
@@ -30,7 +30,8 @@ class Profit_Status(enum.Enum):
 
 class ProfServ(db.Model):
     __tablename__ = 'prof_serv'
-    original_contract_id = db.Column(db.String(64), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    original_contract_id = db.Column(db.String(64))
     current_item_id = db.Column(db.String(64))
     department_name = db.Column(db.String(64))
     vendor = db.Column(db.String(64))
@@ -42,13 +43,15 @@ class ProfServ(db.Model):
     amt = db.Column(db.Float)
     tot_payments = db.Column(db.Float)
     orig_vendor = db.Column(db.String(64))
-    exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
-    adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0) #make sure to display as string in UI
+    exempt_status = db.Column(db.String(64))
+    adv_or_exempt = db.Column(db.String(64))
+    #exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
+    #adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0)
     profit_status = db.Column(db.Enum(Profit_Status), default=0)
 
     def __repr__(self):
        return ('<Professional Services Contract \n'
-             f'original contract id: {self.original_contract_id}\n')
+             f'key: {self.id}\n')
 
 
     def __str__(self):
