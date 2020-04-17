@@ -35,3 +35,8 @@ def contact():
 @main.route('/tips')
 def tips():
     return render_template('main/tips.html')
+
+# Route to report page, where users can report page
+@main.route('/report')
+def report():
+    return render_template('main/report.html')
