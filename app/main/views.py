@@ -30,3 +30,8 @@ def results():
 @main.route('/contact')
 def contact():
     return render_template('main/contact.html')
+
+# Route to tips page, where users can find search tips
+@main.route('/tips')
+def tips():
+    return render_template('main/tips.html')
