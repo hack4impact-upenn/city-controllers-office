@@ -21,11 +21,6 @@ def about():
 def search():
     return render_template('main/search.html')
 
-# Route to results page, where results of city contracts searching appear
-@main.route('/results')
-def results():
-    return render_template('main/results.html')
-
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
 def contact():
