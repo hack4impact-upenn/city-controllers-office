@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
 
 {% block content %}
 <!-- html for search page -->
@@ -53,10 +54,16 @@
     </style>
 
     <div class="ui grid" style="margin-top: 50px;">
-      <form method="POST">
-        {{ form.csrf_token }}
+
         <div class="four wide column">
             <div style="margin-top: 50px;">
+              {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+            {{ f.begin_form(form, flashes) }}
                 <div style="margin-top: 20px;">
                     <label style="display: block; margin-bottom: 10px;">DEPARTMENT</label>
                     <select class="ui selection dropdown search">
@@ -78,11 +85,11 @@
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
-                  <div>{{ form.vendor_name.label }}: {{ form.vendor_name(class="ui class") }}</div>
-                    <label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
+                  {{ f.render_form_field(form.vendor_name) }}
+                    <!--<label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
                     <div class="ui input">
                         <input type="text" placeholder="Search..." style="width: 195px">
-                    </div>
+                    </div>-->
                 </div>
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">KEYWORD</label>
@@ -143,12 +150,14 @@
                 </div>
                 <div class="container">
 
-                    <button class="ui primary fluid button" type="submit" style="margin-top: 20px;">
+                    <!-- <button class="ui primary fluid button" type="submit" style="margin-top: 20px;">
                         <span>View Results</span>
-                    </button>
-
+                    </button> -->
+                    {{ f.render_form_field(form.submit) }}
                 </div>
+                {{ f.end_form(form) }}
             </div>
+
         </div>
 
         <div class="twelve wide column", style="margin-top: 10px">
@@ -203,7 +212,7 @@
                 </select>
             </div>
         </div>
-    </form>
+
     </div>
 </div>
 </div>

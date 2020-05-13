@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, url_for
 
-from app.models import EditableHTML, Department, ContrType
+from app.models import EditableHTML, Department, ContrType, ProfServ
 
 from app.main.forms import ResultsForm
 
@@ -25,7 +25,8 @@ def search():
     depts = Department.query.all()
     types = ContrType.query.all()
     if form.validate():
-        return redirect('results')
+        filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data)
+        return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 
 # Route to results page, where results of city contracts searching appear
