@@ -1,3 +1,4 @@
+
 {% extends 'layouts/base.html' %}
 
 {% block content %}
@@ -53,8 +54,6 @@
     </style>
 
     <div class="ui grid" style="margin-top: 50px;">
-      <form method="POST">
-        {{ form.csrf_token }}
         <div class="four wide column">
             <div style="margin-top: 50px;">
                 <div style="margin-top: 20px;">
@@ -78,8 +77,16 @@
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
-                  <div>{{ form.vendor_name.label }}: {{ form.vendor_name(class="ui class") }}</div>
                     <label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
+                    <form method="POST" action="/results">
+                      {{ form.csrf_token }}
+                      {{ form.name }}
+                      <input type=submit>
+                      <div>{{ form.vendor_name.label }}: {{ form.vendor_name(class="ui input") }}</div>
+                      <button class="ui primary fluid button" type="submit" style="margin-top: 20px;">
+                          <span>View Results</span>
+                      </button>
+                    </form>
                     <div class="ui input">
                         <input type="text" placeholder="Search..." style="width: 195px">
                     </div>
@@ -203,7 +210,7 @@
                 </select>
             </div>
         </div>
-    </form>
+
     </div>
 </div>
 </div>

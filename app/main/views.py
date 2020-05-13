@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 from app.models import EditableHTML, Department, ContrType
+
+from app.main.forms import ResultsForm
 
 main = Blueprint('main', __name__)
 
@@ -17,16 +19,20 @@ def about():
         'main/about.html', editable_html_obj=editable_html_obj)
 
 # Route to search page, where users can search for city contracts
-@main.route('/search')
+@main.route('/search', methods=['GET', 'POST'])
 def search():
+    form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
-    return render_template('main/search.html', depts = depts, types = types)
+    if form.validate():
+        return redirect('results')
+    return render_template('main/search.html', depts = depts, types = types, form = form)
 
 # Route to results page, where results of city contracts searching appear
-@main.route('/results')
+@main.route('/results', methods=['GET', 'POST'])
 def results():
     return render_template('main/results.html')
+
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
