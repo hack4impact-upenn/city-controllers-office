@@ -1,1 +1,1 @@
-from app.contracts.views import contract # noqa
+from app.contracts.views import contract, deptnames, typenames # noqa

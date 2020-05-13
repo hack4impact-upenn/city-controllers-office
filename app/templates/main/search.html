@@ -11,7 +11,7 @@
             padding: 30px;
             border-radius: 5px;
         }
-        
+
         .paper-mini {
             background-color: #f7f7f7;
             margin-top: 5px;
@@ -60,17 +60,19 @@
                     <select class="ui selection dropdown search">
                         <option value="">ALL DEPARTMENTS</option>
                         <option value="0">ALL DEPARTMENTS</option>
-                        <option value="1">Option A</option>
-                        <option value="2">Option B</option>
+                        {% for dept in depts %}
+                        <option value="{{ dept.department_name }}">{{ dept.department_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
-                    <label style="display: block; margin-bottom: 10px;">CONTACT TYPE</label>
+                    <label style="display: block; margin-bottom: 10px;">CONTRACT TYPE</label>
                     <select class="ui selection dropdown search">
                         <option value="">ALL SERVICES</option>
                         <option value="0">ALL SERVICES</option>
-                        <option value="1">Option A</option>
-                        <option value="2">Option B</option>
+                        {% for type in types %}
+                        <option value="{{ type.contract_structure_type }}">{{ type.contract_structure_type }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
@@ -107,7 +109,7 @@
                 </div>
                 <div style="margin-top: 20px;">
                     <label style="display: block; margin-top: 10px; margin-bottom: 10px;">SEARCH BY AMOUNT</label>
-                    <div class="two wide column"> 
+                    <div class="two wide column">
                         <div class="ui checkbox" style="width: 50%;">
                             <input type="checkbox" style="width: 50%;">
                             <label>CONTRACT</label>
@@ -117,11 +119,11 @@
                             <label>PAID</label>
                         </div>
                     </div>
-                    
+
                     <!-- Semanitic UI does not support sliders: need to make a dynamic slider later-->
                     <label style="display: block; margin-top: 10px; font-size: 10px">MINIMUM</label>
                     <div class="three wide column">
-                        <div class="paper-mini"> 
+                        <div class="paper-mini">
                             <div class="ui input">
                                 <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
                             </div>
@@ -129,7 +131,7 @@
                     </div>
                     <label style="display: block; margin-top: 10px; font-size: 10px">MAXIMUM</label>
                     <div class="three wide column">
-                        <div class="paper-mini"> 
+                        <div class="paper-mini">
                             <div class="ui input">
                                 <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
                             </div>
@@ -156,8 +158,8 @@
                         Searching
                     </h3>
                     <p class="theme-secondary">
-                        Search here for city contracts. You can filter by department, contract type, 
-                        approval date, or restrict to a contract dollar amount range. You can also search 
+                        Search here for city contracts. You can filter by department, contract type,
+                        approval date, or restrict to a contract dollar amount range. You can also search
                         by specific vendor names or keywords.
                     </p>
 
@@ -177,11 +179,11 @@
                     <p class="theme-secondary">
                         Since the number of results might be quite large, contracts are presented one page at a time.
                         <br><br>
-                        You can set the page size from 10-100, and also sort by most of these criteria 
+                        You can set the page size from 10-100, and also sort by most of these criteria
                         (click on the arrow to the right to change the sort direction).
                     </p>
                 </div>
-            </div> 
+            </div>
             <div class="view-results-style">
                 <label style="display: block; padding-bottom: 5px;">
                     VIEW RESULTS: 1 - 5 OF 100

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from app.models import EditableHTML
+from app.models import EditableHTML, Department, ContrType
 
 main = Blueprint('main', __name__)
 
@@ -19,7 +19,9 @@ def about():
 # Route to search page, where users can search for city contracts
 @main.route('/search')
 def search():
-    return render_template('main/search.html')
+    depts = Department.query.all()
+    types = ContrType.query.all()
+    return render_template('main/search.html', depts = depts, types = types)
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results')
