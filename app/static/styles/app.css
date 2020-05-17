@@ -56,11 +56,15 @@ body {
   width: 54%;
 }
 
-.text.container h1.header {
+.text.container h1 {
   font-size: 36px;
   font-family: "Avenir", sans-serif;
   font-weight: 600;
   text-align: left;
+}
+
+.text.container .blue_header {
+  color: #0f4d90;
 }
 
 .text.container p {
@@ -78,13 +82,13 @@ body {
   color: #333333;
 }
 
-.six.wide.column {
+.five.wide.column {
   margin-top: 10%;
   margin-right: 2%;
   margin-left: 2%;
 }
 
-.six.wide.column img {
+.five.wide.column img {
   margin-top: 10%;
   width: 100%;
 }
@@ -124,6 +128,7 @@ body {
 
 .row {
   margin-top: 10%;
+  margin-bottom: -7%;
 }
 
 .ui.segment p {
@@ -211,4 +216,54 @@ body {
 .nav-rectangle-right img {
   height: 100%;
   margin-left: 10%;
+}
+
+.paper {
+  background-color: #f7f7f7;
+  margin-top: 10px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.paper h2 {
+  font-family: "Avenir";
+  color: #2176d2;
+}
+
+.ui.text.container .paper ul {
+  font-family: "Avenir";
+  color: #333333;
+  list-style-type: none;
+  padding-left: 0px;
+  font-weight: 450;
+}
+
+.column {
+  margin-top: 7%;
+}
+
+.ui.text.container h1 {
+  font-family: "Avenir";
+}
+
+.ui.text.container h2 {
+  font-size: 20px;
+  color: #0f4d90;
+}
+
+.ui.text.container .ui.form {
+  font-family: "Avenir";
+  font-weight: 600;
+  margin-top: -5%;
+  color: #444;
+}
+
+.ui.text.container .ui.form .ui.button {
+  margin-top: 30px; 
+  width: 200px; 
+  height: 40px; 
+  float: right;
+  font-family: "Avenir";
+  background-color: #0f4d90;
+  color: #F7F7F7;
 }
