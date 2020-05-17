@@ -71,6 +71,22 @@ body {
   font-weight: 500;
   text-align: left;
   padding-top: 3%;
+  text-align: justify;
+}
+
+.text.container .regular {
+  color: #333333;
+}
+
+.six.wide.column {
+  margin-top: 10%;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+
+.six.wide.column img {
+  margin-top: 10%;
+  width: 100%;
 }
 
 .three.wide.column .ui.button {
@@ -128,10 +144,6 @@ body {
 #custom_link {
   color: #2176d2;
   font-weight: 600;
-}
-
-#about {
-  padding-top: 80px;
 }
 
 .nav-rectangle {
