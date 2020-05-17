@@ -2,57 +2,16 @@
 
 <!DOCTYPE html>
 <html>
-<style>
-  .nav-rectangle {
-    height: 8%;
-    width: 100%;
-    background-color: rgba(62, 104, 143, 0.28);
-    vertical-align: baseline;
-  }
-
-  .nav-rectangle-right {
-    position: absolute;
-    height: 8%;
-    width: 20%;
-    right: 0px;
-    background-color: #3E688F;
-  }
-
-  .top-nav {
-    color: #333333;
-    font-weight: bold;
-    font-size: 15px;
-    margin-top: 4%;
-    margin-right: 3%;
-  }
-
-  .bottom-nav {
-    color: #3E688F;
-    font-weight: bold;
-    font-size: 15px;
-    margin-right: 3%;
-  }
-
-  .copyright {
-    position: absolute;
-    right: 5%;
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
-  }
-
-  .nav-link {
-    color: #333333;
-  }
-</style>
 
 <head>
   {% include 'partials/_head.html' %}
   {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
   {% block custom_head_tags %}{% endblock %}
   <div class="nav-rectangle">
-    <div class="nav-rectangle-right"></div>
-    <div class="ui grid" style="margin: 0 0 5% 50%;">
+    <div class="nav-rectangle-right">
+      <img src="https://i0.wp.com/www.urbansolarcorp.com/wp-content/uploads/2019/05/city-of-philadelphia-logo.png?fit=470%2C200&ssl=1">
+    </div>
+    <div class="ui grid" style="margin: 0 0 0% 65%;">
       <div class="top-nav">
         <a href="/" class="nav-link">
           Home
