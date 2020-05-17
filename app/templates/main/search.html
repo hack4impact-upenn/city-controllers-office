@@ -8,8 +8,9 @@
         .paper {
             background-color: #f7f7f7;
             margin-top: 10px;
-            padding: 30px;
-            border-radius: 5px;
+            padding: 40px;
+            border-radius: 6px;
+            padding-top: -10px;
         }
         
         .paper-mini {
@@ -17,6 +18,7 @@
             margin-top: 5px;
             padding: 10px;
             border-radius: 5px;
+            width: 80%;
         }
 
         .button-mini {
@@ -25,15 +27,18 @@
         }
 
         .theme-primary {
-            color: #3E688F;
+            color: #0f4d90;
             font-size: 20px;
             margin-top: 10px;
+            font-family: Avenir;
         }
 
         .theme-secondary {
             color: #333333;
             font-size: 16px;
             line-height: 1.4;
+            font-family: Avenir;
+            font-weight: 450;
         }
 
         .view-results-style {
@@ -54,8 +59,8 @@
 
     <div class="ui grid" style="margin-top: 50px;">
         <div class="four wide column">
-            <div style="margin-top: 50px;">
-                <div style="margin-top: 20px;">
+            <div>
+                <div>
                     <label style="display: block; margin-bottom: 10px;">DEPARTMENT</label>
                     <select class="ui selection dropdown search">
                         <option value="">ALL DEPARTMENTS</option>
@@ -76,32 +81,32 @@
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
                     <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px">
+                        <input type="text" placeholder="Search..." style="width: 100%">
                     </div>
                 </div>
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">KEYWORD</label>
                     <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px;">
+                        <input type="text" placeholder="Search..." style="width: 100%;">
                     </div>
                 </div>
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
                     <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px;">
+                        <input type="text" placeholder="Search..." style="width: 100%;">
                     </div>
                 </div>
                 <div style="margin-top: 40px;">
                     <label style="display: block; margin-bottom: 10px;">CONTRACT APPROVAL DATE</label>
-                    <div class="paper-mini">
+                    <div class="paper-mini" style="width: 73%">
                         <label style="display: block; margin-bottom: 10px;">FROM</label>
                         <div class="ui input">
-                            <input type="text" placeholder="MM-DD-YYYY" style="width: 195px;">
+                            <input type="text" placeholder="MM-DD-YYYY" style="width: 100%;">
                         </div>
 
                         <label style="display: block; margin-top: 10px; margin-bottom: 10px;">TO</label>
                         <div class="ui input">
-                            <input type="text" placeholder="MM-DD-YYYY" style="width: 195px;">
+                            <input type="text" placeholder="MM-DD-YYYY" style="width: 100%;">
                         </div>
                     </div>
                 </div>
@@ -123,7 +128,7 @@
                     <div class="three wide column">
                         <div class="paper-mini"> 
                             <div class="ui input">
-                                <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
+                                <input type="text" placeholder="$XXX,XXX" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -131,13 +136,13 @@
                     <div class="three wide column">
                         <div class="paper-mini"> 
                             <div class="ui input">
-                                <input type="text" placeholder="$XXX,XXX" style="width: 195px;">
+                                <input type="text" placeholder="$XXX,XXX" style="width: 100%;">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="container">
-                    <button id="viewButton" class="ui primary fluid button" style="margin-top: 20px;">
+                    <button id="viewButton" class="ui primary fluid button" style="margin-top: 7%; width: 72%; background-color:#0f4d90">
                         View Contract
                     </button>
                     <!-- Upon clicking "View Contract",
@@ -250,17 +255,15 @@
             </div>
         </div>
 
-        <div class="twelve wide column", style="margin-top: 10px">
+        <div class="twelve wide column", style="margin-top: 5%">
             <div id="resultsContainer"></div>
             <div id="instructionsContainer">
-                <div>
-                    <h2>
-                        Instructions
-                    </h2>
-                </div>
+                <h2 style="font-family: Avenir">
+                    Instructions
+                </h2>
                 <div class="paper">
                     <div class="ui grid">
-                        <h3 class="theme-primary" style="margin-top: 10px;">
+                        <h3 class="theme-primary" style="margin-top: 10px">
                             Searching
                         </h3>
                         <p class="theme-secondary">
@@ -275,16 +278,16 @@
                         <p class="theme-secondary">
                             Contract Amount can be selected based on a range from the minimum to maximum.
                             Use the sliders to select the maximum or minimum amounts.
-                            <br><br>
+                            <br></br>
                             Contract Approval Date can be selected based on a range using the two date widgets to the left.
                         </p>
 
                         <h3 class="theme-primary">
                             Search Results
                         </h3>
-                        <p class="theme-secondary">
+                        <p class="theme-secondary" style="padding-bottom: 25px">
                             Since the number of results might be quite large, contracts are presented one page at a time.
-                            <br><br>
+                            <br></br>
                             You can set the page size from 10-100, and also sort by most of these criteria 
                             (click on the arrow to the right to change the sort direction).
                         </p>
