@@ -123,16 +123,6 @@ body {
   font-weight: 500;
   text-align: left;
 }
-
-.sixteen.wide.column .ui.text.container .ui.segment {
-  background-color: #F7F7F7;
-  color: #333333;
-}
-
-.sixteen.wide.column .ui.text.container .ui.segment p {
-  color: #333333;
-}
-
 /* custom ids */
 
 #custom_link {
@@ -172,7 +162,7 @@ body {
 }
 
 .top-nav a:hover {
-  color:#96c9ff;
+  color: #96c9ff;
 }
 
 .bottom-nav {
@@ -192,6 +182,14 @@ body {
   font-weight: bold;
   font-size: 14px;
   font-family: "Avenir";
+}
+
+.copyright a {
+  color: #f3c613;
+}
+
+.copyright a:hover {
+  color: #2176d2;
 }
 
 .nav-link {
