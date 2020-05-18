@@ -280,4 +280,10 @@ body {
   margin-left: 5%;
   font-weight: 450;
   font-size: 15px;
+  line-height: 1.6;
+  
+}
+
+.ui.text.container ul.fraud_list li {
+  padding-top: 1%;
 }
