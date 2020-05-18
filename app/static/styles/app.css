@@ -46,7 +46,7 @@ body {
 }
 
 .ui.centered.grid {
-  height: 100vh;
+  height: 100vmin;
 }
 
 .row .text.container {
@@ -266,4 +266,18 @@ body {
   font-family: "Avenir";
   background-color: #0f4d90;
   color: #F7F7F7;
+}
+
+.ui.text.container p {
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: -2%;
+}
+
+.ui.text.container ul.fraud_list {
+  list-style-type: disc;
+  margin-left: 5%;
+  font-weight: 450;
+  font-size: 15px;
 }
