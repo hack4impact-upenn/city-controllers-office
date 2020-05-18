@@ -1,56 +1,51 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<div class="ui text container">
-    <style>
-        .paper {
-            background-color: #f7f7f7;
-            margin-top: 10px;
-            padding: 30px;
-            border-radius: 5px;
-        }
-    </style>
-
-    <h1 style="margin-top: 50px;">Contact the City Controller's Office</h1>
-    <div class="ui stackable centered grid container">
-        <div class="sixteen wide column">
+<div class="ui centered grid">
+    <div class="column">
+        <div class="ui text container">
+            <h1>Contact the City Controller's Office</h1>
+            <h2 style="font-family: Avenir; color:black; font-weight: 500;margin-bottom: 40px; font-size: 18px;">Email or fill out the contact form below.</h2>
+            
             <div class="paper">
-                <h2 style="color: #47688c;">
-                    Controller's Office Address
-                </h2>
-                <ul style="list-style-type: none;">
+                <h2>Office Address</h2>
+                <ul>
                     <li>414 Grant Street</li>
                     <li>Pittsburgh, PA 15219</li>
-                    <li>Phone: (412)255-2054</li>
+                </ul>
+
+                <h2>Contact Information</h2>
+                <ul>
+                    <li><a>example@email.com</a></li>
+                    <li>(412)-255-2054</li>
                 </ul>
             </div>
 
-            <div class="sixteen wide column" style="margin-top: 30px">
-                <form class="ui form">
-                    <div class="ui three column grid">
-                        <div class="row">
-                            <div class="column">
-                                <label>FIRST NAME</label>
-                                <input type="text" name="contact[first-name]" placeholder="First Name">
-                            </div>
-                            <div class="column">
-                                <label>LAST NAME</label>
-                                <input type="text" name="contact[last-name]" placeholder="Last Name">
-                            </div>
-                            <div class="column">
-                                <label>EMAIL</label>
-                                <input type="text" name="contact[email]" placeholder="Email">
-                            </div>
+            <form class="ui form">
+                <div class="ui three column grid">
+                    <div class="row">
+                        <div class="column">
+                            <label>FIRST NAME</label>
+                            <input type="text" name="contact[first-name]" placeholder="First Name">
+                        </div>
+                        <div class="column">
+                            <label>LAST NAME</label>
+                            <input type="text" name="contact[last-name]" placeholder="Last Name">
+                        </div>
+                        <div class="column">
+                            <label>EMAIL</label>
+                            <input type="text" name="contact[email]" placeholder="Email">
                         </div>
                     </div>
-                    <div style="margin-top: 30px">
-                        <label>COMMENTS</label>
-                        <textarea name="contact[comments]"></textarea>
-                    </div>
-                    <button class="ui primary button" type="submit"
-                        style="margin-top: 30px; width: 200px; height: 40px; float:right;">Submit</button>
-                </form>
-            </div>
+                </div>
+                <div style="margin-top: 10%">
+                    <label>COMMENTS</label>
+                    <textarea name="contact[comments]"></textarea>
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
         </div>
-    </div>
-    {% endblock %}
+    </div>  
+
+</div>
+{% endblock %}
