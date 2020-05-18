@@ -6,4 +6,5 @@ from wtforms.fields import (
 
 class ResultsForm(FlaskForm):
     vendor_name = StringField('Vendor Name')
+    contract_number = StringField('Contract Number')
     submit = SubmitField('View Results')

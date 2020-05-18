@@ -99,6 +99,15 @@
                 </div>
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
+                    <form method="POST" action="/results">
+                        {{ form.csrf_token }}
+                        {{ form.name }}
+                        <input type=submit>
+                        <div>{{ form.contract_number.label }}: {{ form.contract_number(class="ui input") }}</div>
+                        <button class="ui primary fluid button" type="submit" style="margin-top: 20px;">
+                            <span>View Results</span>
+                        </button>
+                      </form>
                     <div class="ui input">
                         <input type="text" placeholder="Search..." style="width: 195px;">
                     </div>
