@@ -25,7 +25,10 @@ def search():
     depts = Department.query.all()
     types = ContrType.query.all()
     if form.validate():
-        filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data, original_contract_id=form.contract_number.data)
+        if form.vendor_name.data != "":
+            filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data)
+        if form.contract_number.data != "":
+            filtered = ProfServ.query.filter_by(original_contract_id=form.contract_number.data)
         return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 
