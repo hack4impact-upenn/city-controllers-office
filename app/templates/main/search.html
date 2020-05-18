@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
 
 {% block content %}
 <!-- html for search page -->
@@ -12,7 +13,7 @@
             border-radius: 6px;
             padding-top: -10px;
         }
-        
+
         .paper-mini {
             background-color: #f7f7f7;
             margin-top: 5px;
@@ -58,31 +59,42 @@
     </style>
 
     <div class="ui grid" style="margin-top: 50px;">
+
         <div class="four wide column">
-            <div>
-                <div>
+            <div style="margin-top: 50px;">
+              {% set flashes = {
+                'error':   get_flashed_messages(category_filter=['form-error']),
+                'warning': get_flashed_messages(category_filter=['form-check-email']),
+                'info':    get_flashed_messages(category_filter=['form-info']),
+                'success': get_flashed_messages(category_filter=['form-success'])
+            } %}
+            {{ f.begin_form(form, flashes) }}
+                <div style="margin-top: 20px;">
                     <label style="display: block; margin-bottom: 10px;">DEPARTMENT</label>
                     <select class="ui selection dropdown search">
                         <option value="">ALL DEPARTMENTS</option>
                         <option value="0">ALL DEPARTMENTS</option>
-                        <option value="1">Option A</option>
-                        <option value="2">Option B</option>
+                        {% for dept in depts %}
+                        <option value="{{ dept.department_name }}">{{ dept.department_name }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
-                    <label style="display: block; margin-bottom: 10px;">CONTACT TYPE</label>
+                    <label style="display: block; margin-bottom: 10px;">CONTRACT TYPE</label>
                     <select class="ui selection dropdown search">
                         <option value="">ALL SERVICES</option>
                         <option value="0">ALL SERVICES</option>
-                        <option value="1">Option A</option>
-                        <option value="2">Option B</option>
+                        {% for type in types %}
+                        <option value="{{ type.contract_structure_type }}">{{ type.contract_structure_type }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div style="margin-top: 25px;">
-                    <label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
+                  {{ f.render_form_field(form.vendor_name) }}
+                    <!--<label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
                     <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 100%">
-                    </div>
+                        <input type="text" placeholder="Search..." style="width: 195px">
+                    </div>-->
                 </div>
                 <div style="margin-top: 25px;">
                     <label style="display: block; margin-bottom: 10px;">KEYWORD</label>
@@ -91,10 +103,11 @@
                     </div>
                 </div>
                 <div style="margin-top: 25px;">
-                    <label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
+                    {{ f.render_form_field(form.contract_number) }}
+                    <!--label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
                     <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 100%;">
-                    </div>
+                        <input type="text" placeholder="Search..." style="width: 195px;">
+                    </div-->
                 </div>
                 <div style="margin-top: 40px;">
                     <label style="display: block; margin-bottom: 10px;">CONTRACT APPROVAL DATE</label>
@@ -112,7 +125,7 @@
                 </div>
                 <div style="margin-top: 20px;">
                     <label style="display: block; margin-top: 10px; margin-bottom: 10px;">SEARCH BY AMOUNT</label>
-                    <div class="two wide column"> 
+                    <div class="two wide column">
                         <div class="ui checkbox" style="width: 50%;">
                             <input type="checkbox" style="width: 50%;">
                             <label>CONTRACT</label>
@@ -122,11 +135,11 @@
                             <label>PAID</label>
                         </div>
                     </div>
-                    
+
                     <!-- Semanitic UI does not support sliders: need to make a dynamic slider later-->
                     <label style="display: block; margin-top: 10px; font-size: 10px">MINIMUM</label>
                     <div class="three wide column">
-                        <div class="paper-mini"> 
+                        <div class="paper-mini">
                             <div class="ui input">
                                 <input type="text" placeholder="$XXX,XXX" style="width: 100%;">
                             </div>
@@ -134,7 +147,7 @@
                     </div>
                     <label style="display: block; margin-top: 10px; font-size: 10px">MAXIMUM</label>
                     <div class="three wide column">
-                        <div class="paper-mini"> 
+                        <div class="paper-mini">
                             <div class="ui input">
                                 <input type="text" placeholder="$XXX,XXX" style="width: 100%;">
                             </div>
@@ -142,6 +155,11 @@
                     </div>
                 </div>
                 <div class="container">
+
+                    <!-- <button class="ui primary fluid button" type="submit" style="margin-top: 20px;">
+                        <span>View Results</span>
+                    </button> -->
+                    {{ f.render_form_field(form.submit) }}
                     <button id="viewButton" class="ui primary fluid button" style="margin-top: 7%; width: 72%; background-color:#0f4d90">
                         View Contract
                     </button>
@@ -252,7 +270,9 @@
                         };
                     </script>
                 </div>
+                {{ f.end_form(form) }}
             </div>
+
         </div>
 
         <div class="twelve wide column", style="margin-top: 5%">
@@ -261,16 +281,17 @@
                 <h2 style="font-family: Avenir">
                     Instructions
                 </h2>
-                <div class="paper">
-                    <div class="ui grid">
-                        <h3 class="theme-primary" style="margin-top: 10px">
-                            Searching
-                        </h3>
-                        <p class="theme-secondary">
-                            Search here for city contracts. You can filter by department, contract type, 
-                            approval date, or restrict to a contract dollar amount range. You can also search 
-                            by specific vendor names or keywords.
-                        </p>
+            </div>
+            <div class="paper">
+                <div class="ui grid">
+                    <h3 class="theme-primary" style="margin-top: 10px;">
+                        Searching
+                    </h3>
+                    <p class="theme-secondary">
+                        Search here for city contracts. You can filter by department, contract type,
+                        approval date, or restrict to a contract dollar amount range. You can also search
+                        by specific vendor names or keywords.
+                    </p>
 
                         <h3 class="theme-primary">
                             Search Criteria
@@ -282,16 +303,15 @@
                             Contract Approval Date can be selected based on a range using the two date widgets to the left.
                         </p>
 
-                        <h3 class="theme-primary">
-                            Search Results
-                        </h3>
-                        <p class="theme-secondary" style="padding-bottom: 25px">
-                            Since the number of results might be quite large, contracts are presented one page at a time.
-                            <br></br>
-                            You can set the page size from 10-100, and also sort by most of these criteria 
-                            (click on the arrow to the right to change the sort direction).
-                        </p>
-                    </div>
+                    <h3 class="theme-primary">
+                        Search Results
+                    </h3>
+                    <p class="theme-secondary">
+                        Since the number of results might be quite large, contracts are presented one page at a time.
+                        <br><br>
+                        You can set the page size from 10-100, and also sort by most of these criteria
+                        (click on the arrow to the right to change the sort direction).
+                    </p>
                 </div>
             </div>
             <div class="view-results-style">
