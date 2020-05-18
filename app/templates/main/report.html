@@ -1,25 +1,63 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<div class="ui text container">
-    <style>
-        .paper {
-            background-color: #f7f7f7;
-            margin-top: 10px;
-            padding: 30px;
-            border-radius: 5px;
-        }
-    </style>
-
-    <h1 style="margin-top: 50px;">Report Fraud</h1>
-    <div class="ui stackable centered grid container">
-        <div class="sixteen wide column">
+<div class="ui centered grid" style="height: 120vh">
+    <div class="column">
+        <div class="ui text container">
+            <h1>Report Fraud</h1>
+            <h2 style="font-family: Avenir; color:black; font-weight: 500;margin-bottom: 40px; font-size: 18px;">Report fraudulent contracts or data contained in the database according to conditions outlined below.</h2>
+            
             <div class="paper">
-                <h2 style="color: #47688c;">
-                    --- Report Fraud Here ---
-                </h2>
+                <p>
+                    Report waste, fraud, mismanagement of your city tax dollars. Use the below form to report allegations of:
+                </p>
+
+                <ul class="fraud_list">
+                    <li>Inefficiency</li>
+                    <li>Waste</li>
+                    <li>Corruption</li>
+                    <li>Mismanagement</li>
+                    <li>Abuse of city tax dollars</li>
+                </ul>
+
+                <p>
+                    Complete the form below with as much information as possible. Be assured that your information will be held in the strictest of confidence. When you complete the form, click submit to send the information. If you have problems completing the form, or wish to speak with someone in person, please call at XXX-XXX-XXXX.
+                    
+                <br></br>
+
+                    This hotline works for you!
+                </p>
             </div>
+
+            <form class="ui form">
+                <div class="ui three column grid">
+                    <div class="row">
+                        <div class="column">
+                            <label>FIRST NAME</label>
+                            <input type="text" name="fraud[first-name]" placeholder="First Name">
+                        </div>
+                        <div class="column">
+                            <label>LAST NAME</label>
+                            <input type="text" name="fraud[last-name]" placeholder="Last Name">
+                        </div>
+                        <div class="column">
+                            <label>EMAIL</label>
+                            <input type="text" name="fraud[email]" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="column" style="margin-top: 10%">
+                    <label>LOCATION OF FRAUD, WASTE, OR ABUSE</label>
+                    <input type="text" name="fraud[location]" placeholder="Email">
+                </div>
+                <div style="margin-top: 2%">
+                    <label>DESCRIPTION OF FRAUDULENT ACT</label>
+                    <textarea name="fraud[desc]"></textarea>
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
         </div>
-    </div>
+    </div>  
+
 </div>
 {% endblock %}
