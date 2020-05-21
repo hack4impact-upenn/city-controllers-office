@@ -228,3 +228,8 @@ def upload_csv():
 
     return render_template('admin/upload_csv.html', form=form)
 
+@admin.route('/download-csv', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def download_csv():
+    return render_template('admin/download_csv.html')

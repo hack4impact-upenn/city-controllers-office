@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Download CSV File
+                <div class="sub header">
+                    View and manage CSV files.
+                </div>
+            </h2> 
+
+            <!-- <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
+            {{ form.csrf_token }}
+            <div class="field">
+                <input class="inputfile" type = "file" name = "document"></input>
+            </div> -->
+            <div class="field">
+                <button class="ui button primary" type="submit">Download</button>
+            </div>
+            </form>
+
+         
+
+            </div>
+        </div>
+    </div>
+
+  
+{% endblock %}
