@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import ValidationError
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.fields import (
@@ -72,3 +73,9 @@ class NewUserForm(InviteUserForm):
     password2 = PasswordField('Confirm password', validators=[InputRequired()])
 
     submit = SubmitField('Create')
+
+class CSVUploadForm(FlaskForm):
+    document = FileField('Document', validators=[FileRequired(), FileAllowed(['csv'], 'CSV Document only!')])
+
+class CSVDownloadForm(FlaskForm):
+    download_csv = SubmitField("Download CSV")

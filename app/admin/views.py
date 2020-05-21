@@ -17,6 +17,8 @@ from app.admin.forms import (
     ChangeUserEmailForm,
     InviteUserForm,
     NewUserForm,
+    CSVUploadForm,
+    CSVDownloadForm,
 )
 from app.decorators import admin_required
 from app.email import send_email
@@ -206,9 +208,6 @@ def update_editor_contents():
 
     return 'OK', 200
 
-class CSVUploadForm(FlaskForm):
-    document = FileField('Document', validators=[FileRequired(), FileAllowed(['csv'], 'CSV Document only!')])
-
 @admin.route('/upload-csv', methods = ['GET', 'POST'])
 @login_required
 @admin_required
@@ -232,4 +231,4 @@ def upload_csv():
 @login_required
 @admin_required
 def download_csv():
-    return render_template('admin/download_csv.html')
+    return render_template('admin/download_csv.html', form=None)
