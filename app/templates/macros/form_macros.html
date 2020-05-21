@@ -117,6 +117,7 @@
             </div>
         {% endif %}
     </div>
+
 {% endmacro %}
 
 {% macro render_form_input(field) %}
@@ -133,6 +134,16 @@
                 {{ item.label }}
             </div>
         {% endfor %}
+    {% elif field.type == 'MultipleFileUploadField' %}
+            <strong>Upload File</strong>
+            <input type="file" id="file-{{field.id}}" style=""><br>
+            <div style="display:none">{{ field }}</div>
+            <div id="{{ field.id }}_list">
+              {% if field.data %}
+                {% set data = field.data.split(',') %}
+              {% endif %}
+            </div>
+
     {% elif field.type == 'SubmitField' %}
         {{ field(class='ui button') }}
     {% elif field.type == 'FormField' %}

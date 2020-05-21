@@ -1,28 +1,40 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<div class="ui text container">
-    <style>
-        .paper {
-            background-color: #f7f7f7;
-            margin-top: 10px;
-            padding: 30px;
-            border-radius: 5px;
-        }
-    </style>
-
-    <h1 style="margin-top: 50px;">Search Tips</h1>
-    <div class="ui stackable centered grid container">
-        <div class="sixteen wide column">
+<div class="ui centered grid" style="height: 110vh">
+    <div class="column">
+        <div class="ui text container">
+            <h1>Search Tips</h1>
+            <h2 style="font-family: Avenir; color:black; font-weight: 500;margin-bottom: 40px; font-size: 18px;">Email or fill out the contact form below.</h2>
+            
             <div class="paper">
-                <h2 style="color: #47688c;">
-                    Search Tip #1
-                </h2>
-                <ul style="list-style-type: none;">
-                    <li>--- Tip #1 goes here ---</li>
+                <h2>Searching by City Contracts</h2>
+                <ul class="fraud_list">
+                    <li>Select the desired City Department from the drop down box. This box will display a list of City Departments. You can select only one.</li>
+                    <li>Type in your the Vendor name you are searching. Does not have to be the exact name. If you do not know the vendor name, leave blank.</li>
+                    <li>Select the desired Contract Type from the dropdown menu. This box will display a list of Contract Types. You can select only one.</li>
+                    <li>Type in any keywords associated with this contract, separated by commas.</li>
+                    <li>Select the contract approval date to narrow your search.</li>
+                    <li>Select the amount the contract was for and then Click Search.</li>
+                </ul>
+
+                <h2>Searching by Political Contributions</h2>
+                <ul class="fraud_list">
+                    <li>Select a Candidate name from the dropdown box. This box will display a list of political cadidates. You can only select one.</li>
+                    <li>Select the Office.</li>
+                    <li>Search by Committee or Contributor. Then type in the text field.</li>
+                    <li>Type in the employer you wish to search in the Text field.</li>
+                </ul>
+
+                <h2>Searching by Political Expenditures</h2>
+                <ul class="fraud_list">
+                    <li>Select the desired Candidate from the drop down box. This box will display a list of Candidates.</li>
+                    <li>Type in the Vendor name you are searching.</li>
+                    <li>Type in any keywords into the text box provided.</li>
                 </ul>
             </div>
         </div>
-    </div>
+    </div>  
+
 </div>
 {% endblock %}

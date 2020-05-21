@@ -9,6 +9,7 @@ from flask import (
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
+from werkzeug import secure_filename
 
 from app import db
 from app.admin.forms import (
@@ -20,6 +21,14 @@ from app.admin.forms import (
 from app.decorators import admin_required
 from app.email import send_email
 from app.models import EditableHTML, Role, User
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
+import os
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms.validators import DataRequired, Email
+import calendar
+import time
+from ..contracts.views import readCSV
 
 admin = Blueprint('admin', __name__)
 
@@ -196,3 +205,26 @@ def update_editor_contents():
     db.session.commit()
 
     return 'OK', 200
+
+class CSVUploadForm(FlaskForm):
+    document = FileField('Document', validators=[FileRequired(), FileAllowed(['csv'], 'CSV Document only!')])
+
+@admin.route('/upload-csv', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def upload_csv():
+    form = CSVUploadForm()
+    if form.validate_on_submit():
+        upload_dir = "uploads"
+        f = form.document.data
+        time_stamp = calendar.timegm(time.gmtime())
+        # prepending time stamp
+        filename = str(time_stamp) + '_' + secure_filename(f.filename) 
+        # filepath
+        filepath = os.path.join(upload_dir, filename)
+        f.save(filepath)
+        # something wrong with this line
+        # readCSV(filename=filepath)
+
+    return render_template('admin/upload_csv.html', form=form)
+
