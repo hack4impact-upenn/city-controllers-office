@@ -145,10 +145,7 @@
             </div>
 
     {% elif field.type == 'SubmitField' %}
-        <!-- {{ field(class='ui button') }} -->
-        <button id="viewButton" class="ui primary fluid button" style="margin-top: 7%; width: 72%; background-color:#0f4d90">
-            View Contract
-        </button>
+        {{ field(class='ui button') }}
     {% elif field.type == 'FormField' %}
         {{ render_form(field) }}
     {% elif field.type == 'CustomSelectField' %}
