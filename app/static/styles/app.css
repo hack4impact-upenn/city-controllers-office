@@ -287,3 +287,67 @@ body {
 .ui.text.container ul.fraud_list li {
   padding-top: 1%;
 }
+
+.paper {
+  background-color: #f7f7f7;
+  margin-top: 10px;
+  padding: 40px;
+  border-radius: 6px;
+  padding-top: -10px;
+}
+
+.paper-mini {
+  background-color: #f7f7f7;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 80%;
+}
+
+.button-mini {
+  border-radius: 15px;
+  size: 5px;
+}
+
+.theme-primary {
+  color: #0f4d90;
+  font-size: 20px;
+  margin-top: 10px;
+  font-family: Avenir;
+}
+
+.theme-secondary {
+  color: #333333;
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: Avenir;
+  font-weight: 450;
+}
+
+.view-results-style {
+  padding-top: 40px;
+  float: right;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #c5cfd9;
+  color: white;
+  border-radius: 5px;
+  margin: 2px;
+  padding: 0px 15px;
+  margin-right: 5px;
+}
+
+.label {
+  font-weight: 600; 
+  font-family: Avenir;
+  display: block; 
+  margin-bottom: 10px;
+}
+
+.search-form {
+  margin-top: 25px;
+  font-family: Avenir;
+  width: 80%;
+}
