@@ -20,10 +20,15 @@
                 </div>
             </h2>
 
-            <form class="field" method="POST">
+            <!-- <form class="field" method="POST">
                 <button class="ui button primary" type="submit">Download</button>
-            </form>
+            </form> -->
             
+            <td>
+                {{ f.begin_form(download_csv_form, flashes) }}
+                {{ f.render_form(download_csv_form) }}
+                {{ f.end_form(download_csv_form) }}
+            </td>
 
         </div>
     </div>

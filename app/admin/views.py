@@ -23,7 +23,7 @@ from app.admin.forms import (
 )
 from app.decorators import admin_required
 from app.email import send_email
-from app.models import EditableHTML, Role, User
+from app.models import EditableHTML, Role, User, ProfServ
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 import os
@@ -235,17 +235,20 @@ def upload_csv():
 @login_required
 @admin_required
 def download_csv():
-    download_form = CSVDownloadForm()
+    download_csv_form = CSVDownloadForm()
 
     if request.method == 'POST':
-        print ("hi")
         # make csv file and writer variables
         csv_file = io.StringIO()
-        csv_writer(csv_file)
+        csv_writer = csv.writer(csv_file)
         filename = 'contracts' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.csv'
 
         # write data from contracts db to csv
+        prof_servs = ProfServ.query.all()
+
         csv_writer.writerow(['A', 'B', 'C'])
+        for prof_serv in prof_servs:
+            print (prof_serv)
 
         # prepare file bytes for download
         csv_bytes = io.BytesIO()
@@ -256,4 +259,4 @@ def download_csv():
         return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
 
-    return render_template('admin/download_csv.html', download_form=download_form)
+    return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
