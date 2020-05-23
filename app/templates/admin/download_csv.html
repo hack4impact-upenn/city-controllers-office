@@ -1,30 +1,30 @@
 {% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
 
 {% block content %}
+    {% set flashes = {
+        'success': get_flashed_messages(category_filter=['form-success'])
+    } %}
+    
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
                 <i class="caret left icon"></i>
                 Back to dashboard
             </a>
+
             <h2 class="ui header">
                 Download CSV File
                 <div class="sub header">
                     Download .csv of All Contract Data.
                 </div>
-            </h2> 
+            </h2>
 
-            <!-- <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
-            {{ form.csrf_token }}
-            <div class="field">
-                <input class="inputfile" type = "file" name = "document"></input>
-            </div> -->
-            <div class="field">
+            <form class="field" method="POST">
                 <button class="ui button primary" type="submit">Download</button>
-            </div>
-            <!-- </form> -->
+            </form>
+            
 
-            </div>
         </div>
     </div>
 

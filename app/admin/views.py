@@ -6,6 +6,7 @@ from flask import (
     render_template,
     request,
     url_for,
+    send_file
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
@@ -30,6 +31,9 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import DataRequired, Email
 import calendar
 import time
+import io
+import csv
+from datetime import datetime
 from ..contracts.views import readCSV
 
 admin = Blueprint('admin', __name__)
@@ -231,4 +235,25 @@ def upload_csv():
 @login_required
 @admin_required
 def download_csv():
-    return render_template('admin/download_csv.html', form=None)
+    download_form = CSVDownloadForm()
+
+    if request.method == 'POST':
+        print ("hi")
+        # make csv file and writer variables
+        csv_file = io.StringIO()
+        csv_writer(csv_file)
+        filename = 'contracts' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.csv'
+
+        # write data from contracts db to csv
+        csv_writer.writerow(['A', 'B', 'C'])
+
+        # prepare file bytes for download
+        csv_bytes = io.BytesIO()
+        csv_bytes.write(csv_file.getvalue().encode('utf-8'))
+        csv_bytes.seek(0)
+
+        # send file for download
+        return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
+
+
+    return render_template('admin/download_csv.html', download_form=download_form)
