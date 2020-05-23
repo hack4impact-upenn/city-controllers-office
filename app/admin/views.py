@@ -246,9 +246,43 @@ def download_csv():
         # write data from contracts db to csv
         prof_servs = ProfServ.query.all()
 
-        csv_writer.writerow(['A', 'B', 'C'])
-        for prof_serv in prof_servs:
-            print (prof_serv)
+        csv_writer.writerow([
+            'ID',
+            'Original Contract ID',
+            'Current Item ID',
+            'Department Name',
+            'Vendor',
+            'Contract Structure Type',
+            'Short Description',
+            'Start Date',
+            'End Date',
+            'Days Remaining',
+            'Amount', # Should specify the denomination
+            'Total Payments',
+            'Original Vendor',
+            'Exempt Status',
+            'Advertised or Exempt',
+            'Profit or Nonprofit'
+        ])
+        for ps in prof_servs:
+            csv_writer.writerow([
+                ps.id,
+                ps.original_contract_id,
+                ps.current_item_id,
+                ps.department_name,
+                ps.vendor,
+                ps.contract_structure_type,
+                ps.short_desc,
+                ps.start_dt,
+                ps.end_dt,
+                ps.days_remaining,
+                ps.amt, 
+                ps.tot_payments,
+                ps.orig_vendor,
+                ps.exempt_status,
+                ps.adv_or_exempt,
+                ps.profit_status
+            ])
 
         # prepare file bytes for download
         csv_bytes = io.BytesIO()
