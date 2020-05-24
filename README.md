@@ -1,18 +1,6 @@
 # City Controller's Office
 
 ## Setting up
-
-##### Create your own repository from this Template
-
-Navigate to the [main project page](https://github.com/hack4impact/flask-base) and click the big, green "Use this template" button at the top right of the page. Give your new repository a name and save it.
-
-##### Clone the repository 
-
-```
-$ git clone https://github.com/hack4impact/city-controllers-office.git
-$ cd city-controllers-office
-```
-
 ##### Initialize a virtual environment
 
 Windows:
