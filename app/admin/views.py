@@ -247,7 +247,6 @@ def download_csv():
         prof_servs = ProfServ.query.all()
 
         csv_writer.writerow([
-            'ID',
             'Original Contract ID',
             'Current Item ID',
             'Department Name',
@@ -266,7 +265,6 @@ def download_csv():
         ])
         for ps in prof_servs:
             csv_writer.writerow([
-                ps.id,
                 ps.original_contract_id,
                 ps.current_item_id,
                 ps.department_name,

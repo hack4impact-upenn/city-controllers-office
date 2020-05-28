@@ -1,6 +1,10 @@
 {% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
 
 {% block content %}
+    {% set flashes = {
+      'success': get_flashed_messages(category_filter=['form-success'])
+    } %}
 
     <!-- <div class="ui centered grid">
         <div class="sixteen wide column" id="landing">
@@ -51,6 +55,26 @@
       </div>
       </div> -->
 
+      {% macro dashboard_option(title, endpoint, description=None, icon=None) %}
+      <a class="column" href="{{ url_for(endpoint) }}">
+        <div class="ui padded segment">
+            <h3 class="ui header">
+                {% if icon is not none %}
+                    <i class="{{ icon }}"></i>
+                {% endif %}
+                <div class="content">
+                    {{ title }}
+                    {% if description is not none %}
+                        <div class="sub header">
+                            {{ description }}
+                        </div>
+                    {% endif %}
+                </div>
+            </h3>
+        </div>
+      </a>
+      {% endmacro %} 
+
       <div class="ui centered grid">
 
           <!-- text blurb -->
@@ -64,6 +88,14 @@
               </p>
             </div>
           </div>
+
+          <!-- <a href="{{ url_for('main.download_database') }}"> -->
+            <div>
+              {{ f.begin_form(database_csv_form, flashes) }}
+              {{ f.render_form(database_csv_form) }}
+              {{ f.end_form(database_csv_form) }}
+            </div>
+          <!-- </a> -->
 
           <!-- buttons -->
           <!-- <div class="row"> -->
@@ -105,5 +137,6 @@
             </div>
           <!-- </div> -->
       </div>
+
 
 {% endblock %}

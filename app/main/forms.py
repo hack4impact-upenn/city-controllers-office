@@ -8,3 +8,9 @@ class ResultsForm(FlaskForm):
     vendor_name = StringField('Vendor Name')
     contract_number = StringField('Contract Number')
     submit = SubmitField('View Results')
+
+class CSVDownloadDBForm(FlaskForm):
+    database_csv_form = SubmitField("Download Database")
+
+class CSVDownloadSCForm(FlaskForm):
+    searches_csv_form = SubmitField("Download Searches")
