@@ -6,9 +6,11 @@ from flask import (
     render_template,
     request,
     url_for,
+    send_file
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
+from werkzeug import secure_filename
 
 from app import db
 from app.admin.forms import (
@@ -16,10 +18,23 @@ from app.admin.forms import (
     ChangeUserEmailForm,
     InviteUserForm,
     NewUserForm,
+    CSVUploadForm,
+    CSVDownloadForm,
 )
 from app.decorators import admin_required
 from app.email import send_email
-from app.models import EditableHTML, Role, User
+from app.models import EditableHTML, Role, User, ProfServ
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
+import os
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+from wtforms.validators import DataRequired, Email
+import calendar
+import time
+import io
+import csv
+from datetime import datetime
+from ..contracts.views import readCSV
 
 admin = Blueprint('admin', __name__)
 
@@ -196,3 +211,86 @@ def update_editor_contents():
     db.session.commit()
 
     return 'OK', 200
+
+@admin.route('/upload-csv', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def upload_csv():
+    form = CSVUploadForm()
+    if form.validate_on_submit():
+        upload_dir = "uploads"
+        f = form.document.data
+        time_stamp = calendar.timegm(time.gmtime())
+        # prepending time stamp
+        filename = str(time_stamp) + '_' + secure_filename(f.filename) 
+        # filepath
+        filepath = os.path.join(upload_dir, filename)
+        f.save(filepath)
+        # something wrong with this line
+        # readCSV(filename=filepath)
+
+    return render_template('admin/upload_csv.html', form=form)
+
+@admin.route('/download-csv', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def download_csv():
+    download_csv_form = CSVDownloadForm()
+
+    if request.method == 'POST':
+        # make csv file and writer variables
+        csv_file = io.StringIO()
+        csv_writer = csv.writer(csv_file)
+        filename = 'contracts' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.csv'
+
+        # write data from contracts db to csv
+        prof_servs = ProfServ.query.all()
+
+        csv_writer.writerow([
+            'ID',
+            'Original Contract ID',
+            'Current Item ID',
+            'Department Name',
+            'Vendor',
+            'Contract Structure Type',
+            'Short Description',
+            'Start Date',
+            'End Date',
+            'Days Remaining',
+            'Amount', # Should specify the denomination
+            'Total Payments',
+            'Original Vendor',
+            'Exempt Status',
+            'Advertised or Exempt',
+            'Profit or Nonprofit'
+        ])
+        for ps in prof_servs:
+            csv_writer.writerow([
+                ps.id,
+                ps.original_contract_id,
+                ps.current_item_id,
+                ps.department_name,
+                ps.vendor,
+                ps.contract_structure_type,
+                ps.short_desc,
+                ps.start_dt,
+                ps.end_dt,
+                ps.days_remaining,
+                ps.amt, 
+                ps.tot_payments,
+                ps.orig_vendor,
+                ps.exempt_status,
+                ps.adv_or_exempt,
+                ps.profit_status
+            ])
+
+        # prepare file bytes for download
+        csv_bytes = io.BytesIO()
+        csv_bytes.write(csv_file.getvalue().encode('utf-8'))
+        csv_bytes.seek(0)
+
+        # send file for download
+        return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
+
+
+    return render_template('admin/download_csv.html', download_csv_form=download_csv_form)

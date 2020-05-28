@@ -18,7 +18,7 @@
             </h3>
         </div>
     </a>
-{% endmacro %}
+{% endmacro %} 
 
 {% block content %}
     <div class="ui stackable centered grid container">
@@ -34,6 +34,10 @@
                                     description='View and manage admin accounts', icon='users icon') }}
                 {{ dashboard_option('Add New User', 'admin.new_user',
                                     description='Create a new user account', icon='add user icon') }}
+                {{ dashboard_option('Upload CSV', 'admin.upload_csv',
+                                    description='Upload a CSV file', icon='upload icon') }}
+                {{ dashboard_option('Download CSV', 'admin.download_csv',
+                                    description='Download the CSV file', icon='download icon') }}
             </div>
         </div>
     </div>

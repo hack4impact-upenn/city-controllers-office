@@ -17,7 +17,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 mail = Mail()
 db = SQLAlchemy()
 csrf = CSRFProtect()
-compress = Compress()
+compress = Compress() 
 
 # Set up Flask-Login
 login_manager = LoginManager()
