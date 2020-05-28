@@ -89,14 +89,6 @@
             </div>
           </div>
 
-          <!-- <a href="{{ url_for('main.download_database') }}"> -->
-            <div>
-              {{ f.begin_form(database_csv_form, flashes) }}
-              {{ f.render_form(database_csv_form) }}
-              {{ f.end_form(database_csv_form) }}
-            </div>
-          <!-- </a> -->
-
           <!-- buttons -->
           <!-- <div class="row"> -->
             <div class="three wide column">
@@ -135,8 +127,25 @@
                 </a>
               </p>
             </div>
-          <!-- </div> -->
-      </div>
 
+            <div class="ui stackable grid container">
+              <a href="{{ url_for('main.download_database') }}">
+                <div class = "ui compact">
+                  {{ f.begin_form(database_csv_form, flashes) }}
+                  {{ f.render_form(database_csv_form) }}
+                  {{ f.end_form(database_csv_form) }}
+                </div>
+              </a>
+              <a href="{{ url_for('main.download_searches') }}">
+                <div class = "ui compact">
+                  {{ f.begin_form(searches_csv_form, flashes) }}
+                  {{ f.render_form(searches_csv_form) }}
+                  {{ f.end_form(searches_csv_form) }}
+                </div>
+              </a>
+            </div>
+
+            <!-- </div> -->
+      </div>
 
 {% endblock %}
