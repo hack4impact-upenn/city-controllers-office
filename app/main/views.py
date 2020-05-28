@@ -32,6 +32,7 @@ def search():
         return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 
+
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
 def results():
