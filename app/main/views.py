@@ -25,6 +25,7 @@ def search():
     depts = Department.query.all()
     types = ContrType.query.all()
     if form.validate():
+        filtered = ProfServ.query.all()
         if form.vendor_name.data != "":
             filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data)
         if form.contract_number.data != "":
