@@ -30,7 +30,7 @@ class Profit_Status(enum.Enum):
 
 class ProfServ(db.Model):
     __tablename__ = 'prof_serv'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(164), primary_key=True)
     original_contract_id = db.Column(db.String(64))
     current_item_id = db.Column(db.String(64))
     department_name = db.Column(db.String(64))
@@ -48,6 +48,7 @@ class ProfServ(db.Model):
     #exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
     #adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0)
     profit_status = db.Column(db.Enum(Profit_Status), default=0)
+    timestamp = db.Column((db.DateTime))
 
     def __repr__(self):
        return ('<Professional Services Contract \n'
