@@ -4,6 +4,8 @@ from app.models import EditableHTML, Department, ContrType, ProfServ
 
 from app.main.forms import ResultsForm
 
+from datetime import datetime
+
 main = Blueprint('main', __name__)
 
 
@@ -24,12 +26,17 @@ def search():
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
+    format = '%MM/%DD/%YYYY'
     if form.validate():
         filtered = ProfServ.query.all()
         if form.vendor_name.data != "":
             filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data)
         if form.contract_number.data != "":
             filtered = ProfServ.query.filter_by(original_contract_id=form.contract_number.data)
+        if form.start_date.data != "":
+            filtered = ProfServ.query.filter_by(start_dt <= datetime.strptime(form.start_date.data, format))
+        if form.end_date.data != "":
+            filtered = ProfServ.query.filter_by(end_dt <= datetime.strptime(form.end_date.data, format))
         return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 

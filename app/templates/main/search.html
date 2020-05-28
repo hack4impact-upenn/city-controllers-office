@@ -59,17 +59,8 @@
                 </div>
                 <div class="search-form">
                     <label class="label">Contract Approval Date</label>
-                    <div class="paper-mini" style="width: 73%">
-                        <label style="display: block; margin-bottom: 10px;">FROM</label>
-                        <div class="ui input">
-                            <input type="text" placeholder="MM-DD-YYYY">
-                        </div>
-
-                        <label style="display: block; margin-top: 10px; margin-bottom: 10px;">TO</label>
-                        <div class="ui input">
-                            <input type="text" placeholder="MM-DD-YYYY">
-                        </div>
-                    </div>
+                    {{ f.render_form_field(form.start_date) }}
+                    {{ f.render_form_field(form.end_date) }}
                 </div>
                 <div class="search-form">
                     <label class="label">Search by Amount</label>
