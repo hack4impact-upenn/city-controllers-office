@@ -10,7 +10,7 @@ class ResultsForm(FlaskForm):
     submit = SubmitField('View Results')
 
 class CSVDownloadDBForm(FlaskForm):
-    database_csv_form = SubmitField("Download Database")
+    database_csv_submit = SubmitField("Download Database")
 
 class CSVDownloadSCForm(FlaskForm):
-    searches_csv_form = SubmitField("Download Searches")
+    searches_csv_submit = SubmitField("Download Searches")
