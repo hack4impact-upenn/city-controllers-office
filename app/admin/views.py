@@ -222,12 +222,12 @@ def upload_csv():
         f = form.document.data
         time_stamp = calendar.timegm(time.gmtime())
         # prepending time stamp
-        filename = str(time_stamp) + '_' + secure_filename(f.filename) 
+        filename = str(time_stamp) + '_' + secure_filename(f.filename)
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
         # something wrong with this line
-        # readCSV(filename=filepath)
+        readCSV(filename=filepath)
 
     return render_template('admin/upload_csv.html', form=form)
 
@@ -276,7 +276,7 @@ def download_csv():
                 ps.start_dt,
                 ps.end_dt,
                 ps.days_remaining,
-                ps.amt, 
+                ps.amt,
                 ps.tot_payments,
                 ps.orig_vendor,
                 ps.exempt_status,

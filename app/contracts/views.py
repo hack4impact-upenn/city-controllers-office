@@ -46,7 +46,7 @@ def readCSV(filename):
             else:
                 profstat = Profit_Status.Non_Profit
             contract = ProfServ(
-                id=row[0] + row[1] + row[6],
+                id=row[0] + row[1] + row[6] + str(now),
                 original_contract_id=row[0],
                 current_item_id=row[1],
                 department_name=row[2],

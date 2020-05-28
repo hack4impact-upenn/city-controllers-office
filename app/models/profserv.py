@@ -30,7 +30,7 @@ class Profit_Status(enum.Enum):
 
 class ProfServ(db.Model):
     __tablename__ = 'prof_serv'
-    id = db.Column(db.String(164), primary_key=True)
+    id = db.Column(db.String(256), primary_key=True)
     original_contract_id = db.Column(db.String(64))
     current_item_id = db.Column(db.String(64))
     department_name = db.Column(db.String(64))
