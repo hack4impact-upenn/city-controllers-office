@@ -28,14 +28,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    database_csv_form = CSVDownloadDBForm()
-    searches_csv_form = CSVDownloadSCForm()
-    if request.method == 'POST':
-        if database_csv_form.database_csv_submit.data and database_csv_form.validate():
-            return download_database()
-        if searches_csv_form.searches_csv_submit.data and searches_csv_form.validate():
-            return download_searches()
-    return render_template('main/index.html', database_csv_form=database_csv_form, searches_csv_form=searches_csv_form)
+    return render_template('main/index.html')
 
 
 @main.route('/about')
@@ -48,26 +41,30 @@ def about():
 @main.route('/search', methods=['GET', 'POST'])
 def search():
     database_csv_form = CSVDownloadDBForm()
-    searches_csv_form = CSVDownloadRSForm()
+    results_csv_form = CSVDownloadRSForm()
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
     if request.method == 'POST':
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
-            return download_database(filtered)
+            return download_database()
     if form.validate():
         filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data, original_contract_id=form.contract_number.data)
-        # filtered = ProfServ.query.filter_by(vendor='Acacia Financial Group, Inc.')
-        return render_template('main/results.html', filtered = filtered, searches_csv_form=searches_csv_form) #may change to redirect url_for
+        return results(filtered, results_csv_form)
+        # return render_template('main/results.html', filtered = filtered, results_csv_form=results_csv_form) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
-def results():
+def results(filtered=None, results_csv_form=None):
+    # use list as an error code => no form is passed in
     if request.method == 'POST':
-        if results_csv_form.results_csv_submit.data and results_csv_form.validate():
-            return download_results([])
-    return render_template('main/results.html', results_csv_form=CSVDownloadRSForm())
+        if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
+            return download_results(filtered)
+    if filtered and results_csv_form:
+        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
+    else:
+        return render_template('main/results.html')
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
@@ -171,6 +168,7 @@ def download_results(filtered):
 
     if filtered:
         for rs in filtered:
+            print (rs)
             csv_writer.writerow([
                 rs.original_contract_id,
                 rs.current_item_id,
