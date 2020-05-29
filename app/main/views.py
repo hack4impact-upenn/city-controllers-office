@@ -73,20 +73,23 @@ def search():
             except:
                 pass
         filtered = query.all()
-        return results(filtered, results_csv_form)
+        fl = FilteredList(filtered)
+        return results(fl, results_csv_form)
         return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
+class FilteredList(filtered_list):
+    list = filtered_list
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
-def results(filtered=None, results_csv_form=None):
+def results(filtered, results_csv_form=None):
     # use list as an error code => no form is passed in
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
-            return download_results(filtered)
+            return download_results(filtered.list)
     if filtered and results_csv_form:
-        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
+        return render_template('main/results.html', filtered=filtered.list, results_csv_form=results_csv_form)
     else:
         return render_template('main/results.html')
 
