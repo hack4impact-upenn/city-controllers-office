@@ -109,7 +109,7 @@
                     </div>
                     <div class="eight wide column">
                         <p><b>Days Remaining:</b> {{ entry.days_remaining }} </p>
-                        <p><b>Contract Term:</b> {{ entry.start_dt }} to {{ entry.end_dt }} </p>
+                        <p><b>Contract Term:</b> {{ entry.start_dt.strftime("%m-%d-%Y") }} to {{ entry.end_dt.strftime("%m-%d-%Y") }} </p>
                     </div>
                 </div>
                 <br>

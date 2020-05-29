@@ -1,24 +1,29 @@
 from flask import (
-    Blueprint, 
-    render_template, 
-    redirect, 
-    url_for, 
+=======
+    Blueprint,
+    render_template,
+    redirect,
+    url_for,
     send_file,
     request
 )
-
 from app.models import (
-    EditableHTML, 
-    Department, 
-    ContrType, 
+    EditableHTML,
+    Department,
+    ContrType,
     ProfServ
 )
-
 from app.main.forms import (
-    ResultsForm, 
-    CSVDownloadDBForm, 
+    ResultsForm,
+    CSVDownloadDBForm,
     CSVDownloadRSForm
 )
+import io
+import csv
+from datetime import datetime
+from app import db
+from sqlalchemy import or_
+
 
 import io
 import csv
@@ -49,10 +54,29 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data, original_contract_id=form.contract_number.data)
-        return results(filtered, results_csv_form)
-        # return render_template('main/results.html', filtered = filtered, results_csv_form=results_csv_form) #may change to redirect url_for
+        query = ProfServ.query
+        if form.vendor.data:
+            query = query.filter(ProfServ.vendor == form.vendor.data)
+        if form.original_contract_id.data:
+            query = query.filter(ProfServ.original_contract_id == form.original_contract_id.data)
+        if form.start_dt.data:
+            query = query.filter(ProfServ.start_dt >= form.start_dt.data)
+        if form.end_dt.data:
+            query = query.filter(ProfServ.end_dt <= form.end_dt.data)
+        if str(form.minimum.data) != "":
+            try:
+                query = query.filter(ProfServ.amt >= form.minimum.data)
+            except:
+                pass
+        if str(form.maximum.data) != "":
+            try:
+                query = query.filter(ProfServ.amt <= form.maximum.data)
+            except:
+                pass
+        return results(query.all(), results_csv_form)
+        return render_template('main/results.html', filtered = query.all()) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
+
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
@@ -79,7 +103,7 @@ def tips():
 # Route to report page, where users can report page
 @main.route('/report')
 def report():
-    return render_template('main/report.html')
+   return render_template('main/report.html')
 
 # Function to download csv of database
 @main.route('/download-database', methods = ['GET', 'POST'])
@@ -122,7 +146,7 @@ def download_database():
                 ps.start_dt,
                 ps.end_dt,
                 ps.days_remaining,
-                ps.amt, 
+                ps.amt,
                 ps.tot_payments,
                 ps.orig_vendor,
                 ps.exempt_status,
@@ -179,7 +203,7 @@ def download_results(filtered):
                 rs.start_dt,
                 rs.end_dt,
                 rs.days_remaining,
-                rs.amt, 
+                rs.amt,
                 rs.tot_payments,
                 rs.orig_vendor,
                 rs.exempt_status,
