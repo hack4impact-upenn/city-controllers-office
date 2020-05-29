@@ -58,44 +58,18 @@
                     </div-->
                 </div>
                 <div class="search-form">
-                    <label class="label">Contract Approval Date</label>
+                    <label class="label">Date Range</label>
                     {{ f.render_form_field(form.start_dt) }}
                     {{ f.render_form_field(form.end_dt) }}
                 </div>
                 <div class="search-form">
-                    <label class="label">Search by Amount</label>
-                    <div class="two wide column">
-                        <div class="ui checkbox" style="width: 50%;">
-                            <input type="checkbox" style="width: 50%;">
-                            <label>CONTRACT</label>
-                        </div>
-                        <div class="ui checkbox">
-                            <input type="checkbox" style="width: 50%;">
-                            <label>PAID</label>
-                        </div>
-                    </div>
-
-                    <!-- Semanitic UI does not support sliders: need to make a dynamic slider later-->
-                    <label style="display: block; margin-top: 15px; font-size: 13px">Minimum</label>
-                    <div class="three wide column">
-                        <div class="paper-mini">
-                            <div class="ui input">
-                                <input type="text" placeholder="$XXX,XXX">
-                            </div>
-                        </div>
-                    </div>
-                    <label style="display: block; margin-top: 15px; font-size: 13px">Maximum</label>
-                    <div class="three wide column">
-                        <div class="paper-mini">
-                            <div class="ui input">
-                                <input type="text" placeholder="$XXX,XXX">
-                            </div>
-                        </div>
-                    </div>
+                  <label class="label">Amount Range</label>
+                  {{ f.render_form_field(form.minimum) }}
+                  {{ f.render_form_field(form.maximum) }}
                 </div>
                 <div class="container" style="margin-top: 20px; width: 100%; font-family: Avenir;">
-
                     {{ f.render_form_field(form.submit) }}
+                    <input class="ui primary button" style="margin-top: 20px;" type="reset" value="Clear">
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.

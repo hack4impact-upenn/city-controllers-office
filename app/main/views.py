@@ -3,6 +3,7 @@ from app.models import EditableHTML, Department, ContrType, ProfServ
 from app.main.forms import ResultsForm
 from datetime import datetime
 from app import db
+from sqlalchemy import or_
 
 main = Blueprint('main', __name__)
 
@@ -32,9 +33,19 @@ def search():
         if form.original_contract_id.data:
             query = query.filter(ProfServ.original_contract_id == form.original_contract_id.data)
         if form.start_dt.data:
-            query = query.filter(ProfServ.start_dt >= datetime.strptime(form.start_dt.data, format))
+            query = query.filter(ProfServ.start_dt >= form.start_dt.data)
         if form.end_dt.data:
-            query = query.filter(ProfServ.end_dt <= datetime.strptime(form.end_dt.data, format))
+            query = query.filter(ProfServ.end_dt <= form.end_dt.data)
+        if str(form.minimum.data) != "":
+            try:
+                query = query.filter(ProfServ.amt >= form.minimum.data)
+            except:
+                pass
+        if str(form.maximum.data) != "":
+            try:
+                query = query.filter(ProfServ.amt <= form.maximum.data)
+            except:
+                pass
         return render_template('main/results.html', filtered = query.all()) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 

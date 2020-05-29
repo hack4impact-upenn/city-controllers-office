@@ -3,13 +3,17 @@ from datetime import datetime
 from wtforms.fields import (
     StringField,
     SubmitField,
-    DateField
+    DateField,
+    DecimalField
 )
+from wtforms import validators
 from app.models import ProfServ
 
 class ResultsForm(FlaskForm):
     vendor = StringField('Vendor Name')
     original_contract_id = StringField('Contract Number')
-    start_dt = StringField('Start Date')
-    end_dt = StringField('End Date')
+    start_dt = DateField('Start Date (MM-DD-YYYY)', format='%m-%d-%Y', validators=(validators.Optional(),))
+    end_dt = DateField('End Date (MM-DD-YYYY)', format='%m-%d-%Y', validators=(validators.Optional(),))
+    minimum = DecimalField('Minimum', places=2, validators=(validators.Optional(),))
+    maximum = DecimalField('Maximum', places=2, validators=(validators.Optional(),))
     submit = SubmitField('View Results')
