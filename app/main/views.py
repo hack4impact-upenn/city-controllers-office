@@ -25,7 +25,6 @@ def search():
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
-    format = '%m-%d-%Y'
     if form.validate():
         query = ProfServ.query
         if form.vendor.data:
