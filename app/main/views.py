@@ -72,8 +72,9 @@ def search():
                 query = query.filter(ProfServ.amt <= form.maximum.data)
             except:
                 pass
-        return results(query.all(), results_csv_form)
-        return render_template('main/results.html', filtered = query.all()) #may change to redirect url_for
+        filtered = query.all()
+        return results(filtered, results_csv_form)
+        return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 
