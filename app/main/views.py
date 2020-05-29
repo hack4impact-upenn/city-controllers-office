@@ -1,10 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for
-
 from app.models import EditableHTML, Department, ContrType, ProfServ
-
 from app.main.forms import ResultsForm
-
 from datetime import datetime
+from app import db
 
 main = Blueprint('main', __name__)
 
@@ -28,16 +26,16 @@ def search():
     types = ContrType.query.all()
     format = '%m-%d-%Y'
     if form.validate():
-        filtered = ProfServ.query.all()
-        if form.vendor_name.data != "":
-            filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data)
-        if form.contract_number.data != "":
-            filtered = ProfServ.query.filter_by(original_contract_id=form.contract_number.data)
-        if form.start_date.data != "":
-            filtered = ProfServ.query.filter(ProfServ.start_dt >= datetime.strptime(form.start_date.data, format))
-        if form.end_date.data != "":
-            filtered = ProfServ.query.filter(ProfServ.end_dt <= datetime.strptime(form.end_date.data, format))
-        return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
+        query = ProfServ.query
+        if form.vendor.data:
+            query = query.filter(ProfServ.vendor == form.vendor.data)
+        if form.original_contract_id.data:
+            query = query.filter(ProfServ.original_contract_id == form.original_contract_id.data)
+        if form.start_dt.data:
+            query = query.filter(ProfServ.start_dt >= datetime.strptime(form.start_dt.data, format))
+        if form.end_dt.data:
+            query = query.filter(ProfServ.end_dt <= datetime.strptime(form.end_dt.data, format))
+        return render_template('main/results.html', filtered = query.all()) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form)
 
 

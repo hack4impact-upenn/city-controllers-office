@@ -38,7 +38,7 @@
                     </select>
                 </div>
                 <div class="search-form">
-                  {{ f.render_form_field(form.vendor_name) }}
+                  {{ f.render_form_field(form.vendor) }}
                     <!--<label style="display: block; margin-bottom: 10px;">VENDOR NAME</label>
                     <div class="ui input">
                         <input type="text" placeholder="Search..." style="width: 195px">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="search-form">
-                    {{ f.render_form_field(form.contract_number) }}
+                    {{ f.render_form_field(form.original_contract_id) }}
                     <!--label style="display: block; margin-bottom: 10px;">CONTRACT NUMBER</label>
                     <div class="ui input">
                         <input type="text" placeholder="Search..." style="width: 195px;">
@@ -59,8 +59,8 @@
                 </div>
                 <div class="search-form">
                     <label class="label">Contract Approval Date</label>
-                    {{ f.render_form_field(form.start_date) }}
-                    {{ f.render_form_field(form.end_date) }}
+                    {{ f.render_form_field(form.start_dt) }}
+                    {{ f.render_form_field(form.end_dt) }}
                 </div>
                 <div class="search-form">
                     <label class="label">Search by Amount</label>
@@ -119,13 +119,13 @@
                             var html = ''
                             if (numResults > 0) { // Populate resultsContainer and displaysContainer, depending on result of dropdown
                                 html += '<div><h2>Contract Results</h2></div>'
-                                for(var i = 1; i <= numResults; i++){  
-                                    html += 
+                                for(var i = 1; i <= numResults; i++){
+                                    html +=
                                     '<div class="paper">'
                                     +    '<div class="ui grid">'
                                     +        '<div class="eight wide column">'
                                     +            '<h3 class="theme-primary" style="line-height: 10px; margin-top: 5px;">'
-                                    +               'Vehicle Service #'+ i 
+                                    +               'Vehicle Service #'+ i
                                     +            '</h3>'
                                     +            '<p><i>FLEET MANAGEMENT SERVICES</i></p>'
                                     +        '</div>'
@@ -159,7 +159,7 @@
                                 displaysContainer.innerHTML = 'VIEW RESULTS: 1 -' + numResults + ' OF 100'
                             }
                             else { // Populates instructionsContainer and displaysContainer if default is selected
-                                html += 
+                                html +=
                                 '<div id="instructionsContainer">'
                                 +    '<div>'
                                 +        '<h2>'

@@ -5,10 +5,11 @@ from wtforms.fields import (
     SubmitField,
     DateField
 )
+from app.models import ProfServ
 
 class ResultsForm(FlaskForm):
-    vendor_name = StringField('Vendor Name')
-    contract_number = StringField('Contract Number')
-    start_date = StringField('Start Date')
-    end_date = StringField('End Date')
+    vendor = StringField('Vendor Name')
+    original_contract_id = StringField('Contract Number')
+    start_dt = StringField('Start Date')
+    end_dt = StringField('End Date')
     submit = SubmitField('View Results')
