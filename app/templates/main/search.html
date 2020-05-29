@@ -4,11 +4,22 @@
 {% block content %}
 <!-- html for search page -->
 <!-- @dev: Robin -->
+{% set flashes = {
+    'success': get_flashed_messages(category_filter=['form-success'])
+  } %}
 <div style="width: 70%; margin: auto;">
 
     <div class="ui grid" style="margin-top: 50px; height: auto; min-height: 100%; position: relative; margin-bottom: 10%;">
 
         <div class="four wide column">
+            <div class="ui stackable grid container">
+                <div class = "ui compact">
+                  {{ f.begin_form(database_csv_form, flashes) }}
+                  {{ f.render_form(database_csv_form) }}
+                  {{ f.end_form(database_csv_form) }}
+                </div>
+            </div>
+            
             <div style="margin-top: 50px;">
               {% set flashes = {
                 'error':   get_flashed_messages(category_filter=['form-error']),
