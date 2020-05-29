@@ -17,3 +17,10 @@ class ResultsForm(FlaskForm):
     minimum = DecimalField('Minimum', places=2, validators=(validators.Optional(),))
     maximum = DecimalField('Maximum', places=2, validators=(validators.Optional(),))
     submit = SubmitField('View Results')
+
+
+class CSVDownloadDBForm(FlaskForm):
+    database_csv_submit = SubmitField("Download Database")
+
+class CSVDownloadRSForm(FlaskForm):
+    results_csv_submit = SubmitField("Download Results") 
