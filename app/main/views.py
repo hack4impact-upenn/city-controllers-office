@@ -26,7 +26,6 @@ from datetime import datetime
 
 main = Blueprint('main', __name__)
 
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
     database_csv_form = CSVDownloadDBForm()
@@ -48,13 +47,18 @@ def about():
 # Route to search page, where users can search for city contracts
 @main.route('/search', methods=['GET', 'POST'])
 def search():
+    database_csv_form = CSVDownloadDBForm()
+    searches_csv_form = CSVDownloadSCForm()
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
+    if request.method == 'POST':
+        if database_csv_form.database_csv_submit.data and database_csv_form.validate():
+            return download_database()
     if form.validate():
         filtered = ProfServ.query.filter_by(vendor=form.vendor_name.data, original_contract_id=form.contract_number.data)
         return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
-    return render_template('main/search.html', depts = depts, types = types, form = form)
+    return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
@@ -141,8 +145,6 @@ def download_searches():
     filename = 'searches' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.csv'
 
     # write data from searches to csv
-    searches = ProfServ.query.all()
-
     csv_writer.writerow([
         'Original Contract ID',
         'Current Item ID',
@@ -160,26 +162,30 @@ def download_searches():
         'Advertised or Exempt',
         'Profit or Nonprofit'
     ])
-    print('reached')
-    for s in searches:
-        print (s)
-        # csv_writer.writerow([
-        #     ps.original_contract_id,
-        #     ps.current_item_id,
-        #     ps.department_name,
-        #     ps.vendor,
-        #     ps.contract_structure_type,
-        #     ps.short_desc,
-        #     ps.start_dt,
-        #     ps.end_dt,
-        #     ps.days_remaining,
-        #     ps.amt, 
-        #     ps.tot_payments,
-        #     ps.orig_vendor,
-        #     ps.exempt_status,
-        #     ps.adv_or_exempt,
-        #     ps.profit_status
-        # ])
+
+    if searches:
+        for s in searches:
+            print (s)
+            csv_writer.writerow([
+
+            ])
+            # csv_writer.writerow([
+            #     ps.original_contract_id,
+            #     ps.current_item_id,
+            #     ps.department_name,
+            #     ps.vendor,
+            #     ps.contract_structure_type,
+            #     ps.short_desc,
+            #     ps.start_dt,
+            #     ps.end_dt,
+            #     ps.days_remaining,
+            #     ps.amt, 
+            #     ps.tot_payments,
+            #     ps.orig_vendor,
+            #     ps.exempt_status,
+            #     ps.adv_or_exempt,
+            #     ps.profit_status
+            # ])
 
     # prepare file bytes for download
     csv_bytes = io.BytesIO()
