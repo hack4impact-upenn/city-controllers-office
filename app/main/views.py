@@ -4,7 +4,8 @@ from flask import (
     redirect,
     url_for,
     send_file,
-    request
+    request,
+    make_response
 )
 from app.models import (
     EditableHTML,
@@ -29,6 +30,7 @@ import csv
 from datetime import datetime
 
 main = Blueprint('main', __name__)
+
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -57,7 +59,8 @@ def search():
         if form.vendor.data:
             query = query.filter(ProfServ.vendor == form.vendor.data)
         if form.original_contract_id.data:
-            query = query.filter(ProfServ.original_contract_id == form.original_contract_id.data)
+            query = query.filter(
+                ProfServ.original_contract_id == form.original_contract_id.data)
         if form.start_dt.data:
             query = query.filter(ProfServ.start_dt >= form.start_dt.data)
         if form.end_dt.data:
@@ -73,19 +76,24 @@ def search():
             except:
                 pass
         filtered = query.all()
-        return results(filtered, results_csv_form)
-        return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
-    return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
+        return redirect("/results")
+        # return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, filtered_len=len(filtered))
+    return render_template('main/search.html', depts=depts, types=types, form=form, database_csv_form=database_csv_form)
 
 
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
-def results(filtered=None, results_csv_form=None):
+def results():
+    # for testing only, DElETE THIS
+    results_csv_form = CSVDownloadRSForm()
+    filtered = ProfServ.query.all()
+
     # use list as an error code => no form is passed in
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
     if filtered and results_csv_form:
+        # pagenate here
         return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
     else:
         return render_template('main/results.html')
@@ -103,10 +111,10 @@ def tips():
 # Route to report page, where users can report page
 @main.route('/report')
 def report():
-   return render_template('main/report.html')
+    return render_template('main/report.html')
 
 # Function to download csv of database
-@main.route('/download-database', methods = ['GET', 'POST'])
+@main.route('/download-database', methods=['GET', 'POST'])
 def download_database():
     # make csv file and writer variables
     csv_file = io.StringIO()
@@ -126,7 +134,7 @@ def download_database():
         'Start Date',
         'End Date',
         'Days Remaining',
-        'Amount', # Should specify the denomination
+        'Amount',  # Should specify the denomination
         'Total Payments',
         'Original Vendor',
         'Exempt Status',
@@ -163,7 +171,7 @@ def download_database():
     return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
 # Function to download csv of results
-@main.route('/download-results', methods = ['GET', 'POST'])
+@main.route('/download-results', methods=['GET', 'POST'])
 def download_results(filtered):
 
     # make csv file and writer variables
@@ -182,7 +190,7 @@ def download_results(filtered):
         'Start Date',
         'End Date',
         'Days Remaining',
-        'Amount', # Should specify the denomination
+        'Amount',  # Should specify the denomination
         'Total Payments',
         'Original Vendor',
         'Exempt Status',
@@ -192,7 +200,7 @@ def download_results(filtered):
 
     if filtered:
         for rs in filtered:
-            print (rs)
+            print(rs)
             csv_writer.writerow([
                 rs.original_contract_id,
                 rs.current_item_id,
