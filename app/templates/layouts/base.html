@@ -9,7 +9,7 @@
   {% block custom_head_tags %}{% endblock %}
   <div class="nav-rectangle">
     <a class="nav-rectangle-left" href="/">
-      <img src="https://i0.wp.com/www.urbansolarcorp.com/wp-content/uploads/2019/05/city-of-philadelphia-logo.png?fit=470%2C200&ssl=1">
+      <img src="https://3og1cv1uvq3u3skase2jhb69-wpengine.netdna-ssl.com/wp-content/uploads/2018/04/crest.png">
     </a>
     <div class="nav-wrapper">
       <ul class="nav-top">
@@ -64,36 +64,7 @@
     </body>
 
     <footer>
-      <!-- <div class="ui grid bottom-nav-layout" style="margin: 8% 5% 3% 5%; position: fixed;">
-        <div class="bottom-nav">
-          <a href="https://controller.phila.gov/" class="nav-link">
-            City Controller
-          </a>
-        </div>
-        <div class="bottom-nav">
-          <a href="/tips" class="nav-link">
-            Search Tips
-          </a>
-        </div>
-        <div class="bottom-nav">
-          <a href="/report" class="nav-link">
-            Report Fraud
-          </a>
-        </div>
-        <div class="bottom-nav">
-          <a href="/contact" class="nav-link">
-            Contact Us
-          </a>
-        </div>
-        <div class="bottom-nav">
-          <a href="/account/login" class="nav-link">
-            Admin Login
-          </a>
-        </div>
-        <div class="copyright">
-          © 2020 <a href="https://controller.phila.gov/">Philadelphia City Controller</a>
-        </div>
-      </div> -->
+
       <div class="bottom-nav-wrapper">
         <ul>
           <li>
@@ -116,11 +87,16 @@
               Contact Us
             </a>
           </li>
-          <li>
-            <a href="/account/login" class="nav-link">
-              Admin Login
-            </a>
-          </li>
+          
+          {% if not is_authenticated %}
+            <li>
+              <a href="/account/login" class="nav-link">
+                Admin Login
+              </a>
+            </li>
+          
+          {% endif %}
+
           <li class="copyright">
             © 2020 <a href="https://controller.phila.gov/">Philadelphia City Controller</a>
           </li>
