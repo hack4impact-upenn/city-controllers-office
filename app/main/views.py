@@ -73,8 +73,10 @@ def search():
             except:
                 pass
         filtered = query.all()
-        return results(filtered, results_csv_form)
-        return render_template('main/results.html', filtered = filtered) #may change to redirect url_for
+        print(len(filtered))
+        results(filtered, results_csv_form)
+        print(len(filtered))
+        return render_template('main/results.html', filtered = filtered, results_csv_form=results_csv_form) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 
@@ -83,8 +85,10 @@ def search():
 def results(filtered=None, results_csv_form=None):
     # use list as an error code => no form is passed in
     if request.method == 'POST':
+        filtered_data = filtered
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
-            return download_results(filtered)
+            print(len(filtered_data))
+            return download_results(filtered_data)
     if filtered and results_csv_form:
         return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
     else:
@@ -164,7 +168,7 @@ def download_database():
 
 # Function to download csv of results
 @main.route('/download-results', methods = ['GET', 'POST'])
-def download_results(filtered):
+def download_results(filtered=None):
 
     # make csv file and writer variables
     csv_file = io.StringIO()
