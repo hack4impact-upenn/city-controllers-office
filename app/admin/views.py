@@ -247,6 +247,7 @@ def download_csv():
         prof_servs = ProfServ.query.all()
 
         csv_writer.writerow([
+            'Contract ID',
             'Original Contract ID',
             'Current Item ID',
             'Department Name',
@@ -261,10 +262,12 @@ def download_csv():
             'Original Vendor',
             'Exempt Status',
             'Advertised or Exempt',
-            'Profit or Nonprofit'
+            'Profit or Nonprofit',
+            "Timestamp"
         ])
         for ps in prof_servs:
             csv_writer.writerow([
+                ps.id,
                 ps.original_contract_id,
                 ps.current_item_id,
                 ps.department_name,
@@ -279,7 +282,8 @@ def download_csv():
                 ps.orig_vendor,
                 ps.exempt_status,
                 ps.adv_or_exempt,
-                ps.profit_status
+                ps.profit_status,
+                ps.timestamp
             ])
 
         # prepare file bytes for download
