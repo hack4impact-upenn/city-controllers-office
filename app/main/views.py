@@ -55,16 +55,16 @@ def search():
     if form.validate():
         query = ProfServ.query
         if form.vendor.data:
-            query = query.filter(ProfServ.vendor == form.vendor.data)
+            query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(form.vendor.data)))
         if form.original_contract_id.data:
-            query = query.filter(ProfServ.original_contract_id == form.original_contract_id.data)
+            query = query.filter(ProfServ.original_contract_id.ilike('%{0}%'.format(form.original_contract_id.data)))
         if form.start_dt.data:
             query = query.filter(ProfServ.start_dt >= form.start_dt.data)
         if form.end_dt.data:
             query = query.filter(ProfServ.end_dt <= form.end_dt.data)
         if str(form.minimum.data) != "":
             try:
-                query = query.filter(ProfServ.amt >= form.minimum.data)
+                query = query.filter(ProfServ.amt >= form.minimum.data) 
             except:
                 pass
         if str(form.maximum.data) != "":
@@ -74,7 +74,7 @@ def search():
                 pass
         filtered = query.all()
         print(len(filtered))
-        results(filtered, results_csv_form)
+        #results(filtered, results_csv_form)
         print(len(filtered))
         return render_template('main/results.html', filtered = filtered, results_csv_form=results_csv_form) #may change to redirect url_for
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
