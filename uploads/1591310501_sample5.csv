@@ -1,2 +1,0 @@
-original_contract_id,current_item_id,department_name,vendor,contract_structure_type,short_desc,start_dt,end_dt,days_remaining,amt,tot_payments,orig_vendor,exempt_status,adv_or_exempt,profit_status
-ABCD,ABCD01,CITY CONTROLLERS OFFICE,"Robin Tan, Inc.",Miscellaneous,Robin's Test,9/8/2000,9/8/2001,180,1000,102,Robin Tan,102,EXEMPT,FOR PROFIT
