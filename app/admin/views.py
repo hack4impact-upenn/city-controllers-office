@@ -217,6 +217,10 @@ def update_editor_contents():
 @admin_required
 def upload_csv():
     form = CSVUploadForm()
+    upload_successful = False
+    found_duplicate = False
+    found_broken_row = False
+    
     if form.validate_on_submit():
         upload_dir = "uploads"
         f = form.document.data
@@ -226,10 +230,12 @@ def upload_csv():
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
-        # something wrong with this line
-        readCSV(filename=filepath)
 
-    return render_template('admin/upload_csv.html', form=form)
+        # uploads csv file; returns upload alert logic variables
+        upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
+
+    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful, \
+        found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
 @admin.route('/download-csv', methods = ['GET', 'POST'])
 @login_required
@@ -247,6 +253,7 @@ def download_csv():
         prof_servs = ProfServ.query.all()
 
         csv_writer.writerow([
+            'Contract ID',
             'Original Contract ID',
             'Current Item ID',
             'Department Name',
@@ -261,10 +268,12 @@ def download_csv():
             'Original Vendor',
             'Exempt Status',
             'Advertised or Exempt',
-            'Profit or Nonprofit'
+            'Profit or Nonprofit',
+            "Timestamp"
         ])
         for ps in prof_servs:
             csv_writer.writerow([
+                ps.id,
                 ps.original_contract_id,
                 ps.current_item_id,
                 ps.department_name,
@@ -279,7 +288,8 @@ def download_csv():
                 ps.orig_vendor,
                 ps.exempt_status,
                 ps.adv_or_exempt,
-                ps.profit_status
+                ps.profit_status,
+                ps.timestamp
             ])
 
         # prepare file bytes for download
@@ -289,6 +299,5 @@ def download_csv():
 
         # send file for download
         return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
-
 
     return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
