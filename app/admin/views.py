@@ -217,11 +217,11 @@ def update_editor_contents():
 @admin_required
 def upload_csv():
     form = CSVUploadForm()
-    download_successful = False
+    upload_successful = False
     found_duplicate = False
     found_broken_row = False
+    
     if form.validate_on_submit():
-        print ("validated")
         upload_dir = "uploads"
         f = form.document.data
         time_stamp = calendar.timegm(time.gmtime())
@@ -230,10 +230,11 @@ def upload_csv():
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
-        download_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
-        print (download_successful)
 
-    return render_template('admin/upload_csv.html', form=form, download_successful=download_successful, \
+        # upload alert logic variables
+        upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
+
+    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful, \
         found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
 @admin.route('/download-csv', methods = ['GET', 'POST'])

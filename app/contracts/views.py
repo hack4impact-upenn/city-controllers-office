@@ -27,14 +27,14 @@ def readCSV(filename):
     dept_names = []
     contr_type_names = []
     now=datetime.now()
-    download_successful = False
+    upload_successful = False
     found_duplicate= False
     found_broken_row = False
 
     with open(filename) as csvDataFile:
             csvReader = csv.reader(csvDataFile)
             next(csvReader)
-            download_successful = True
+            upload_successful = True
             for row in csvReader:
                 # if int(row[12]) == 102:
                 #    exstat = Exempt_Status.EXEMPT
@@ -98,4 +98,4 @@ def readCSV(filename):
                     found_broken_row = True
                     db.session.rollback()
 
-    return (download_successful, found_duplicate, found_broken_row)
+    return (upload_successful, found_duplicate, found_broken_row)
