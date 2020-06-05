@@ -25,3 +25,6 @@ class CSVDownloadDBForm(FlaskForm):
 
 class CSVDownloadRSForm(FlaskForm):
     results_csv_submit = SubmitField("Download Results")
+
+class SortByAmountHiLoForm(FlaskForm):
+    amount_hi_lo_submit = SubmitField("Sort By Amount (High to Low)")

@@ -17,7 +17,8 @@ from app.models import (
 from app.main.forms import (
     ResultsForm,
     CSVDownloadDBForm,
-    CSVDownloadRSForm
+    CSVDownloadRSForm,
+    SortByAmountHiLoForm
 )
 import io
 import csv
@@ -102,6 +103,7 @@ def search():
 @main.route('/results', methods=['GET', 'POST'])
 def results():
     results_csv_form = CSVDownloadRSForm()
+    high_to_low_form = SortByAmountHiLoForm()
     vendor = request.args.get('vendor')
     num = request.args.get('num')
     sd = request.args.get('sd')
@@ -135,12 +137,15 @@ def results():
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
+        if high_to_low_form and high_to_low_form.amount_hi_lo_submit.data and high_to_low_form.validate():
+            ordered = query.order_by(ProfServ.amt.desc())
+            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
     if filtered:
         #global global_filter
         #global_filter = filtered
-        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
+        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
     else:
-        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)
+        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
