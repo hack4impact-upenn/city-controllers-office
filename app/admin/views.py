@@ -231,7 +231,7 @@ def upload_csv():
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
 
-        # upload alert logic variables
+        # uploads csv file; returns upload alert logic variables
         upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
 
     return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful, \

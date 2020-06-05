@@ -34,6 +34,7 @@ def readCSV(filename):
     with open(filename) as csvDataFile:
             csvReader = csv.reader(csvDataFile)
             next(csvReader)
+            # if reached this step, then csv file upload is successful
             upload_successful = True
             for row in csvReader:
                 # if int(row[12]) == 102:
@@ -42,6 +43,8 @@ def readCSV(filename):
                 # else:
                 #    exstat = Exempt_Status.ADVERTISED
                 #    advext = Exempt_Status.ADVERTISED
+
+                # try/except statement for detecting broken rows
                 try:
                     if Department.query.filter_by(department_name=row[2]).first() is None:
                         dept = Department(department_name=row[2])
@@ -54,7 +57,6 @@ def readCSV(filename):
                     else:
                         profstat = Profit_Status.Non_Profit
                     contract = ProfServ(
-                        # id=row[0] + row[1] + row[6] + str(now),
                         # hash logic: original contract id - current item id - start date
                         id=row[0] + '-' + row[1] + '-' + row[6],
                         original_contract_id=row[0],
@@ -74,6 +76,7 @@ def readCSV(filename):
                         profit_status=profstat,
                         timestamp=now
                     )
+                    # try/except statement for detecting duplicates, i.e. db finds primary key collision
                     try:
                         db.session.add(contract)
                         db.session.commit()
@@ -87,15 +90,16 @@ def readCSV(filename):
                         dupl_days_remaining = int(row[8])
 
                         # if days_remaining of the duplicate contract has less days remaining,
-                        # update ALL entries of original contract
+                        # update the following entries: days remaining, amount, time stamp
                         if dupl_days_remaining < orig_days_remaining:
                             orig_contract.days_remaining = contract.days_remaining
                             orig_contract.amt = contract.amt
                             orig_contract.timestamp = contract.timestamp
 
                         db.session.commit()
-                except: # problem with parsing csv row
+                except:
                     found_broken_row = True
                     db.session.rollback()
 
+    # return three logic variables for upload alert
     return (upload_successful, found_duplicate, found_broken_row)
