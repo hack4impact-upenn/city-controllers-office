@@ -58,44 +58,44 @@ def search():
         return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data))
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
-global_filter = []
+#global_filter = []
 
 # pagenation loading route
-@main.route('/load')
-def load():
-    if request.args:
-        counter = int(request.args.get('c'))
-        filtered = global_filter
-        num_entries = len(filtered)
-        num_per_page = 20
-
-        filtered_json = []
-
-        # convert filtered into [json]
-        for entry in filtered:
-            entry_json = dict()
-            entry_json['vendor'] = entry.vendor
-            entry_json['original_contract_id'] = entry.original_contract_id
-            entry_json['contract_structure_type'] = entry.contract_structure_type
-            entry_json['department_name'] = entry.department_name
-            entry_json['amt'] = entry.amt
-            entry_json['tot_payments'] = entry.tot_payments
-            entry_json['days_remaining'] = entry.days_remaining
-            entry_json['start_dt'] = entry.start_dt
-            entry_json['end_dt'] = entry.end_dt
-            entry_json['short_desc'] = entry.short_desc
-
-            filtered_json.append(entry_json)
-
-        if counter == 0:
-            res = make_response(jsonify(filtered_json[0: num_per_page]), 200)
-        elif counter == num_entries:
-            res = make_response(jsonify({}), 200)
-        else:
-            res = make_response(
-                jsonify(filtered_json[counter: counter + num_per_page]), 200)
-
-        return res
+# @main.route('/load')
+# def load():
+#     if request.args:
+#         counter = int(request.args.get('c'))
+#         filtered = global_filter
+#         num_entries = len(filtered)
+#         num_per_page = 20
+#
+#         filtered_json = []
+#
+#         # convert filtered into [json]
+#         for entry in filtered:
+#             entry_json = dict()
+#             entry_json['vendor'] = entry.vendor
+#             entry_json['original_contract_id'] = entry.original_contract_id
+#             entry_json['contract_structure_type'] = entry.contract_structure_type
+#             entry_json['department_name'] = entry.department_name
+#             entry_json['amt'] = entry.amt
+#             entry_json['tot_payments'] = entry.tot_payments
+#             entry_json['days_remaining'] = entry.days_remaining
+#             entry_json['start_dt'] = entry.start_dt
+#             entry_json['end_dt'] = entry.end_dt
+#             entry_json['short_desc'] = entry.short_desc
+#
+#             filtered_json.append(entry_json)
+#
+#         if counter == 0:
+#             res = make_response(jsonify(filtered_json[0: num_per_page]), 200)
+#         elif counter == num_entries:
+#             res = make_response(jsonify({}), 200)
+#         else:
+#             res = make_response(
+#                 jsonify(filtered_json[counter: counter + num_per_page]), 200)
+#
+#         return res
 
 
 # Route to results page, where results of city contracts searching appear
@@ -133,8 +133,8 @@ def results():
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
     if filtered:
-        global global_filter
-        global_filter = filtered
+        #global global_filter
+        #global_filter = filtered
         return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
     else:
         return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)

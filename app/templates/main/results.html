@@ -7,8 +7,6 @@
   } %}
 
 <div style="width: 70%; margin: auto;">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-
     <style>
         .paper {
             background-color: #f7f7f7;
@@ -31,16 +29,14 @@
             margin-right: 5px;
         }
     </style>
-    <div class="ui grid" style="margin-top: 50px;" id="scroller">
+    <div class="ui grid" style="margin-top: 50px;">
         <div class="four wide column">
             <div class="ui stackable grid container">
-                {% if results_CSV_form %}
-                <div class="ui compact">
+                <div class = "ui compact">
                     {{ f.begin_form(results_csv_form, flashes) }}
                     {{ f.render_form(results_csv_form) }}
                     {{ f.end_form(results_csv_form) }}
                 </div>
-                {% endif %}
             </div>
 
             <div style="margin-top: 50px;">
@@ -88,119 +84,41 @@
                     Results
                 </h2>
             </div>
-            <template id="post_template">
-                <div class="paper">
-                    <div class="ui grid">
-                        <div class="eight wide column">
-                            <h3 class="theme-primary" style="line-height: 20px; margin-top: 5px;" id="title"></h3>
-                            <p><i id="contract-structure-type"></i></p>
+            {% for entry in filtered %}
+            <div class="paper">
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        <h3 class="theme-primary" style="line-height: 20px; margin-top: 5px;">{{ entry.vendor, entry.original_contract_id }}</h3>
+                        <p><i>{{ entry.contract_structure_type }}</i></p>
+                    </div>
+                    <div class="eight wide column">
+                        <div style="line-height: 20px; ">
+                            <div class="tag">
+                                TYPE</div>
+                            <b>PROFESSIONAL
+                                SERVICES</b>
                         </div>
-                        <div class="eight wide column">
-                            <div style="line-height: 20px; ">
-                                <div class="tag">
-                                    TYPE</div>
-                                <b>PROFESSIONAL
-                                    SERVICES</b>
-                            </div>
-                            <div style=" line-height: 20px;">
-                                <div class="tag">
-                                    DEPT</div><b id="department-name"></b>
-                            </div>
-                        </div>
-                        <div class="eight wide column">
-                            <p><b>Contact Amount:</b>
-                                <div id="amt"></div>
-                            </p>
-                            <p><b>Total Payments:</b>
-                                <div id="tot-payments"></div>
-                            </p>
-                        </div>
-                        <div class="eight wide column">
-                            <p><b>Days Remaining:</b>
-                                <div id="days-remaining"></div>
-                            </p>
-                            <p><b>Contract Term:</b>
-                                <div id="contract-term"></div>
-                            </p>
+                        <div style=" line-height: 20px;">
+                            <div class="tag">
+                                DEPT</div><b>{{ entry.department_name }}</b>
                         </div>
                     </div>
-                    <br>
-                    <p><b>Description:</b>
-                        <div id="short-desc"></div>
-                    </p>
+                    <div class="eight wide column">
+                        <p><b>Contact Amount:</b> {{ entry.amt }} </p>
+                        <p><b>Total Payments:</b> {{ entry.tot_payments }} </p>
+                    </div>
+                    <div class="eight wide column">
+                        <p><b>Days Remaining:</b> {{ entry.days_remaining }} </p>
+                        <p><b>Contract Term:</b> {{ entry.start_dt.strftime("%m-%d-%Y") }} to {{ entry.end_dt.strftime("%m-%d-%Y") }} </p>
+                    </div>
                 </div>
-
-            </template>
+                <br>
+                <p><b>Description:</b> {{ entry.short_desc }} </p>
+            </div>
+            {% endfor %}
         </div>
-    </div>
-    <!-- element to trigger the IntersectionObserver -->
-    <div class="d-flex justify-content-center mb-3" id="sentinel">
-        <div class="spinner-border" role="status"></div>
+
     </div>
 </div>
-<script>
-    var scroller = document.querySelector("#scroller");
-    var template = document.querySelector('#post_template');
-    var sentinel = document.querySelector('#sentinel');
-
-    var counter = 0;
-
-    function loadItems() {
-
-        fetch(`/load?c=${counter}`).then((response) => {
-
-
-            response.json().then((data) => {
-
-                console.log(data)
-
-
-                if (!data.length) {
-                    sentinel.innerHTML = "No more posts";
-                    return;
-                }
-
-                for (var i = 0; i < data.length; i++) {
-
-                    let template_clone = template.content.cloneNode(true);
-
-                    template_clone.querySelector("#title").innerHTML =
-                        `${data[i].vendor}, ${data[i].original_contract_id}`;
-                    template_clone.querySelector("#contract-structure-type").innerHTML =
-                        `${data[i].contract_structure_type}`;
-                    template_clone.querySelector("#department-name").innerHTML =
-                        `${data[i].department_name}`;
-                    template_clone.querySelector("#amt").innerHTML =
-                        `${data[i].amt}`;
-                    template_clone.querySelector("#tot-payments").innerHTML =
-                        `${data[i].tot_payments}`;
-                    template_clone.querySelector("#days-remaining").innerHTML =
-                        `${data[i].days_remaining}`;
-                    template_clone.querySelector("#contract-term").innerHTML =
-                        `${data[i].start_dt} to ${data[i].end_dt}`;
-
-                    template_clone.querySelector("#short-desc").innerHTML =
-                        `${data[i].short_desc}`;
-
-                    scroller.appendChild(template_clone);
-
-                    counter += 1;
-
-                }
-            })
-        })
-    }
-
-    var intersectionObserver = new IntersectionObserver(entries => {
-        if (entries[0].intersectionRatio <= 0) {
-            return;
-        }
-
-        loadItems();
-    });
-
-
-    intersectionObserver.observe(sentinel);
-</script>
 </div>
 {% endblock %}
