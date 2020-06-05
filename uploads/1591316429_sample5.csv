@@ -1,0 +1,2 @@
+original_contract_id,current_item_id,department_name,vendor,contract_structure_type,short_desc,start_dt,end_dt,days_remaining,amt,tot_payments,orig_vendor,exempt_status,adv_or_exempt,profit_status
+EFGH,ABCD01,CITY CONTROLLERS OFFICEE,"Robean Tan, Inc.",Miscellaneous,"Robin's test,, modified",9/8/2000,9/8/2002,10,42,50,Robin Tan,1,ADVERTISED,FOR PROFIT

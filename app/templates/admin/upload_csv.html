@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
@@ -24,9 +25,27 @@
             </div>
             </form>
 
-         
+            <div id="downloadSuccessfulContainer"></div>
+            <div id="foundDuplicateContainer"></div>
 
-            </div>
+            {% if download_successful %}
+                <div class="ds-container">
+                    download successful
+                </div>
+            {% endif %}
+
+            {% if found_duplicate %}
+                <div class="fd-container">
+                    found duplicate
+                </div>
+            {% endif %}
+
+            {% if found_broken_row %}
+                <div class="fbr-container">
+                    found broken row
+                </div>
+            {% endif %}
+
         </div>
     </div>
 

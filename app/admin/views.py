@@ -217,7 +217,11 @@ def update_editor_contents():
 @admin_required
 def upload_csv():
     form = CSVUploadForm()
+    download_successful = False
+    found_duplicate = False
+    found_broken_row = False
     if form.validate_on_submit():
+        print ("validated")
         upload_dir = "uploads"
         f = form.document.data
         time_stamp = calendar.timegm(time.gmtime())
@@ -226,10 +230,11 @@ def upload_csv():
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
-        # something wrong with this line
-        readCSV(filename=filepath)
+        download_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
+        print (download_successful)
 
-    return render_template('admin/upload_csv.html', form=form)
+    return render_template('admin/upload_csv.html', form=form, download_successful=download_successful, \
+        found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
 @admin.route('/download-csv', methods = ['GET', 'POST'])
 @login_required
@@ -293,6 +298,5 @@ def download_csv():
 
         # send file for download
         return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
-
 
     return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
