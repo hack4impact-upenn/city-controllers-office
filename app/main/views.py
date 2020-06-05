@@ -52,36 +52,7 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-<<<<<<< HEAD
-        params = [None, None, form.vendor.data, None, form.original_contract_id.data, form.start_dt.data, form.end_dt.data, form.minimum.data, form.maximum.data]
-
-        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data)) #may change to redirect url_for
-=======
-        query = ProfServ.query
-        if form.vendor.data:
-            query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(form.vendor.data)))
-        if form.original_contract_id.data:
-            query = query.filter(ProfServ.original_contract_id.ilike('%{0}%'.format(form.original_contract_id.data)))
-        if form.start_dt.data:
-            query = query.filter(ProfServ.start_dt >= form.start_dt.data)
-        if form.end_dt.data:
-            query = query.filter(ProfServ.end_dt <= form.end_dt.data)
-        if str(form.minimum.data) != "":
-            try:
-                query = query.filter(ProfServ.amt >= form.minimum.data) 
-            except:
-                pass
-        if str(form.maximum.data) != "":
-            try:
-                query = query.filter(ProfServ.amt <= form.maximum.data)
-            except:
-                pass
-        filtered = query.all()
-        print(len(filtered))
-        #results(filtered, results_csv_form)
-        print(len(filtered))
-        return render_template('main/results.html', filtered = filtered, results_csv_form=results_csv_form) #may change to redirect url_for
->>>>>>> 4592ddd3dd75e087e031be4bc38661168d4dd6e5
+        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data))
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 
@@ -97,7 +68,7 @@ def results():
     max = request.args.get('max')
     query = ProfServ.query
     if vendor:
-        query = query.filter(ProfServ.vendor == vendor)
+        query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(vendor)))
     if num:
         query = query.filter(ProfServ.original_contract_id == num)
     if sd:
@@ -122,7 +93,7 @@ def results():
     if filtered:
         return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
     else:
-        return render_template('main/results.html')
+        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
