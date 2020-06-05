@@ -1,6 +1,39 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+
+    <style>
+        .us-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: green;
+            display:inline-block;
+        }
+
+        .fd-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: #d68b00;
+            display:inline-block;
+        }
+
+        .fbr-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: red;
+            display:inline-block;
+        }
+    </style>
+
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
@@ -24,11 +57,28 @@
             </div>
             </form>
 
-         
+            <!-- The following three containers are upload alerts after CSV has been uploaded by admin -->
+            {% if upload_successful %}
+                <div class="us-container">
+                    Upload Successful!
+                </div>
+                <br>
+            {% endif %}
 
-            </div>
+            {% if found_duplicate %}
+                <div class="fd-container">
+                    WARNING: Duplicate contracts detected.
+                </div>
+                <br>
+            {% endif %}
+
+            {% if found_broken_row %}
+                <div class="fbr-container">
+                    WARNING: Trouble uploading some rows.
+                </div>
+            {% endif %}
+
         </div>
     </div>
-
   
 {% endblock %}

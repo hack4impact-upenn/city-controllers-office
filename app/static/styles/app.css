@@ -127,8 +127,8 @@ body {
 }
 
 .row {
-  margin-top: 10%;
-  margin-bottom: -7%;
+  margin-top: 100px;
+  margin-bottom: -10%;
 }
 
 .ui.segment p {
@@ -162,9 +162,9 @@ body {
 .nav-rectangle-left {
   position: absolute;
   height: 60px;
-  width: 200px;
+  width: 80px;
   left: 0px;
-  background-color: #ffefa2;
+  background-color: #0f4d90;
   /* position: fixed; */
 }
 
