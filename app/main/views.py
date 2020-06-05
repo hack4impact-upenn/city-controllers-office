@@ -55,7 +55,7 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data))
+        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data, kw = form.keyword.data))
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 #global_filter = []
@@ -108,6 +108,7 @@ def results():
     ed = request.args.get('ed')
     min = request.args.get('min')
     max = request.args.get('max')
+    kw = request.args.get('kw')
     query = ProfServ.query
     if vendor:
         query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(vendor)))
@@ -127,6 +128,8 @@ def results():
             query = query.filter(ProfServ.amt <= max)
         except:
             pass
+    if kw:
+        query = query.filter((ProfServ.vendor.ilike('%{0}%'.format(kw))) | (ProfServ.department_name.ilike(kw)) | (ProfServ.contract_structure_type.ilike(kw)) | (ProfServ.adv_or_exempt.ilike(kw)) | (ProfServ.orig_vendor.ilike(kw)) | (ProfServ.short_desc.ilike('%{0}%'.format(kw))) | (ProfServ.profit_status.ilike(kw)))
     filtered = query.all()
 
     if request.method == 'POST':

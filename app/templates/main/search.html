@@ -56,10 +56,11 @@
                     </div>-->
                 </div>
                 <div class="search-form">
-                    <label class="label">Keyword</label>
+                    {{ f.render_form_field(form.keyword) }}
+                    <!--<label class="label">Keyword</label>
                     <div class="ui input">
                         <input type="text" placeholder="Search...">
-                    </div>
+                    </div>-->
                 </div>
                 <div class="search-form">
                     {{ f.render_form_field(form.original_contract_id) }}

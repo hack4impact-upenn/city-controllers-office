@@ -16,6 +16,7 @@ class ResultsForm(FlaskForm):
     end_dt = DateField('End Date (MM-DD-YYYY)', format='%m-%d-%Y', validators=(validators.Optional(),))
     minimum = DecimalField('Minimum', places=2, validators=(validators.Optional(),))
     maximum = DecimalField('Maximum', places=2, validators=(validators.Optional(),))
+    keyword = StringField('Keyword')
     submit = SubmitField('View Results')
 
 
