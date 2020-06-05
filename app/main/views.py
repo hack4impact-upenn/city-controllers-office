@@ -4,7 +4,9 @@ from flask import (
     redirect,
     url_for,
     send_file,
-    request
+    request,
+    make_response,
+    jsonify
 )
 from app.models import (
     EditableHTML,
@@ -23,12 +25,13 @@ from datetime import datetime
 from app import db
 from sqlalchemy import or_
 
-
+import json
 import io
 import csv
 from datetime import datetime
 
 main = Blueprint('main', __name__)
+
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -54,6 +57,46 @@ def search():
     if form.validate():
         return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data))
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
+
+global_filter = []
+
+# pagenation loading route
+@main.route('/load')
+def load():
+    if request.args:
+        counter = int(request.args.get('c'))
+        # IMPLEMENT THIS based on global_filter
+        filtered = ProfServ.query.all()
+        num_entries = len(filtered)
+        num_per_page = 20
+
+        filtered_json = []
+
+        # convert filtered into [json]
+        for entry in filtered:
+            entry_json = dict()
+            entry_json['vendor'] = entry.vendor
+            entry_json['original_contract_id'] = entry.original_contract_id
+            entry_json['contract_structure_type'] = entry.contract_structure_type
+            entry_json['department_name'] = entry.department_name
+            entry_json['amt'] = entry.amt
+            entry_json['tot_payments'] = entry.tot_payments
+            entry_json['days_remaining'] = entry.days_remaining
+            entry_json['start_dt'] = entry.start_dt
+            entry_json['end_dt'] = entry.end_dt
+            entry_json['short_desc'] = entry.short_desc
+
+            filtered_json.append(entry_json)
+
+        if counter == 0:
+            res = make_response(jsonify(filtered_json[0: num_per_page]), 200)
+        elif counter == num_entries:
+            res = make_response(jsonify({}), 200)
+        else:
+            res = make_response(
+                jsonify(filtered_json[counter: counter + num_per_page]), 200)
+
+        return res
 
 
 # Route to results page, where results of city contracts searching appear
@@ -91,7 +134,10 @@ def results():
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
     if filtered:
-        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
+        global global_filter
+        global_filter = filtered
+        return render_template('main/results.html', results_csv_form=results_csv_form)
+
     else:
         return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)
 
@@ -108,10 +154,10 @@ def tips():
 # Route to report page, where users can report page
 @main.route('/report')
 def report():
-   return render_template('main/report.html')
+    return render_template('main/report.html')
 
 # Function to download csv of database
-@main.route('/download-database', methods = ['GET', 'POST'])
+@main.route('/download-database', methods=['GET', 'POST'])
 def download_database():
     # make csv file and writer variables
     csv_file = io.StringIO()
@@ -131,7 +177,7 @@ def download_database():
         'Start Date',
         'End Date',
         'Days Remaining',
-        'Amount', # Should specify the denomination
+        'Amount',  # Should specify the denomination
         'Total Payments',
         'Original Vendor',
         'Exempt Status',
@@ -169,7 +215,7 @@ def download_database():
 
 # Function to download csv of results
 @main.route('/download-results', methods = ['GET', 'POST'])
-def download_results(filtered=None):
+def download_results(filtered):
 
     # make csv file and writer variables
     csv_file = io.StringIO()
@@ -187,7 +233,7 @@ def download_results(filtered=None):
         'Start Date',
         'End Date',
         'Days Remaining',
-        'Amount', # Should specify the denomination
+        'Amount',  # Should specify the denomination
         'Total Payments',
         'Original Vendor',
         'Exempt Status',
@@ -197,7 +243,7 @@ def download_results(filtered=None):
 
     if filtered:
         for rs in filtered:
-            print (rs)
+            print(rs)
             csv_writer.writerow([
                 rs.original_contract_id,
                 rs.current_item_id,
