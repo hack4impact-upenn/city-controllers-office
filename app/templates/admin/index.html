@@ -2,12 +2,12 @@
 
 {% macro dashboard_option(title, endpoint, description=None, icon=None) %}
     <a class="column" href="{{ url_for(endpoint) }}">
-        <div class="ui padded segment">
+        <div class="ui padded segment" style="margin-bottom: -50px;">
             <h3 class="ui header">
                 {% if icon is not none %}
                     <i class="{{ icon }}"></i>
                 {% endif %}
-                <div class="content">
+                <div class="content" style="font-family: Avenir Next">
                     {{ title }}
                     {% if description is not none %}
                         <div class="sub header">

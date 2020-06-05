@@ -23,4 +23,4 @@ class CSVDownloadDBForm(FlaskForm):
     database_csv_submit = SubmitField("Download Database")
 
 class CSVDownloadRSForm(FlaskForm):
-    results_csv_submit = SubmitField("Download Results") 
+    results_csv_submit = SubmitField("Download Results")

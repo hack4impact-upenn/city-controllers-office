@@ -48,7 +48,6 @@ def about():
 @main.route('/search', methods=['GET', 'POST'])
 def search():
     database_csv_form = CSVDownloadDBForm()
-    results_csv_form = CSVDownloadRSForm()
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
@@ -56,31 +55,8 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        query = ProfServ.query
-        if form.vendor.data:
-            query = query.filter(ProfServ.vendor == form.vendor.data)
-        if form.original_contract_id.data:
-            query = query.filter(
-                ProfServ.original_contract_id == form.original_contract_id.data)
-        if form.start_dt.data:
-            query = query.filter(ProfServ.start_dt >= form.start_dt.data)
-        if form.end_dt.data:
-            query = query.filter(ProfServ.end_dt <= form.end_dt.data)
-        if str(form.minimum.data) != "":
-            try:
-                query = query.filter(ProfServ.amt >= form.minimum.data)
-            except:
-                pass
-        if str(form.maximum.data) != "":
-            try:
-                query = query.filter(ProfServ.amt <= form.maximum.data)
-            except:
-                pass
-        filtered = query.all()
-        return redirect("/results")
-        # return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, filtered_len=len(filtered))
-    return render_template('main/search.html', depts=depts, types=types, form=form, database_csv_form=database_csv_form)
-
+        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data))
+    return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 global_filter = []
 
@@ -126,22 +102,44 @@ def load():
 # Route to results page, where results of city contracts searching appear
 @main.route('/results', methods=['GET', 'POST'])
 def results():
-    # for testing only, CHANGE THIS TO ACTUAL QUERY / FILTER
     results_csv_form = CSVDownloadRSForm()
-    filtered = ProfServ.query.all()
+    vendor = request.args.get('vendor')
+    num = request.args.get('num')
+    sd = request.args.get('sd')
+    ed = request.args.get('ed')
+    min = request.args.get('min')
+    max = request.args.get('max')
+    query = ProfServ.query
+    if vendor:
+        query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(vendor)))
+    if num:
+        query = query.filter(ProfServ.original_contract_id == num)
+    if sd:
+        query = query.filter(ProfServ.start_dt >= sd)
+    if ed:
+        query = query.filter(ProfServ.end_dt <= ed)
+    if str(min) != "":
+        try:
+            query = query.filter(ProfServ.amt >= min)
+        except:
+            pass
+    if str(max) != "":
+        try:
+            query = query.filter(ProfServ.amt <= max)
+        except:
+            pass
+    filtered = query.all()
 
-    # use list as an error code => no form is passed in
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
-    if filtered and results_csv_form:
-        # set the filter here for the load function
-        # IMPLEMENT THIS
+    if filtered:
         global global_filter
         global_filter = filtered
         return render_template('main/results.html', results_csv_form=results_csv_form)
+
     else:
-        return render_template('main/results.html')
+        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
@@ -216,7 +214,7 @@ def download_database():
     return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
 # Function to download csv of results
-@main.route('/download-results', methods=['GET', 'POST'])
+@main.route('/download-results', methods = ['GET', 'POST'])
 def download_results(filtered):
 
     # make csv file and writer variables
