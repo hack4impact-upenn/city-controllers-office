@@ -65,8 +65,7 @@ global_filter = []
 def load():
     if request.args:
         counter = int(request.args.get('c'))
-        # IMPLEMENT THIS based on global_filter
-        filtered = ProfServ.query.all()
+        filtered = global_filter
         num_entries = len(filtered)
         num_per_page = 20
 
@@ -136,8 +135,7 @@ def results():
     if filtered:
         global global_filter
         global_filter = filtered
-        return render_template('main/results.html', results_csv_form=results_csv_form)
-
+        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form)
     else:
         return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form)
 
