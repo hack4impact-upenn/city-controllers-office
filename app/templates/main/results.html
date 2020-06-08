@@ -31,21 +31,15 @@
     </style>
     <div class="ui grid" style="margin-top: 50px;">
         <div class="four wide column">
-            <div class="ui stackable grid container">
-                <div class = "ui compact">
-                    {{ f.begin_form(results_csv_form, flashes) }}
-                    {{ f.render_form(results_csv_form) }}
-                    {{ f.end_form(results_csv_form) }}
-                </div>
-                <br>
-                <div class = "ui compact">
-                    {{ f.begin_form(high_to_low_form, flashes) }}
-                    {{ f.render_form(high_to_low_form) }}
-                    {{ f.end_form(high_to_low_form) }}
-                </div>
-            </div>
+            {{ f.begin_form(results_csv_form, flashes) }}
+            {{ f.render_form(results_csv_form) }}
+            {{ f.end_form(results_csv_form) }}
+            <br />
+            {{ f.begin_form(high_to_low_form, flashes) }}
+            {{ f.render_form(high_to_low_form) }}
+            {{ f.end_form(high_to_low_form) }}
 
-            <div style="margin-top: 50px;">
+            <!-- <div style="margin-top: 50px;">
                 <div style="margin-top: 20px;">
                     <label style="display: block;">DEPARTMENT</label>
                     <select class="ui selection dropdown">
@@ -80,7 +74,7 @@
                         <input type="text" placeholder="Search..." style="width: 195px;">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
@@ -94,7 +88,7 @@
             <div class="paper">
                 <div class="ui grid">
                     <div class="eight wide column">
-                        <h3 class="theme-primary" style="line-height: 20px; margin-top: 5px;">{{ entry.vendor, entry.original_contract_id }}</h3>
+                        <h3 class="theme-primary">{{ entry.vendor, entry.original_contract_id }}</h3>
                         <p><i>{{ entry.contract_structure_type }}</i></p>
                     </div>
                     <div class="eight wide column">

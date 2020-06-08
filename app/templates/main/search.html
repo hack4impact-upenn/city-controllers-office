@@ -10,17 +10,8 @@
 <div style="width: 70%; margin: auto;">
 
     <div class="ui grid" style="margin-top: 50px; height: auto; min-height: 100%; position: relative; margin-bottom: 10%;">
-
         <div class="four wide column">
-            <div class="ui stackable grid container">
-                <div class = "ui compact">
-                  {{ f.begin_form(database_csv_form, flashes) }}
-                  {{ f.render_form(database_csv_form) }}
-                  {{ f.end_form(database_csv_form) }}
-                </div>
-            </div>
-            
-            <div style="margin-top: 50px;">
+            <div style="margin-top: 10px;">
               {% set flashes = {
                 'error':   get_flashed_messages(category_filter=['form-error']),
                 'warning': get_flashed_messages(category_filter=['form-check-email']),
@@ -81,7 +72,10 @@
                 </div>
                 <div class="container" style="margin-top: 20px; width: 100%; font-family: Avenir;">
                     {{ f.render_form_field(form.submit) }}
-                    <input class="ui primary button" style="margin-top: 20px;" type="reset" value="Clear">
+                    {{ f.begin_form(database_csv_form, flashes) }}
+                    {{ f.render_form(database_csv_form) }}
+                    {{ f.end_form(database_csv_form) }}
+                    <input class="ui primary button" type="reset" value="Clear All">
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.
@@ -194,7 +188,7 @@
 
         </div>
 
-        <div class="twelve wide column", style="margin-top: 5%">
+        <div class="twelve wide column" style="margin-top: 30px">
             <div id="resultsContainer"></div>
             <div id="instructionsContainer">
                 <h2 style="font-family: Avenir">
