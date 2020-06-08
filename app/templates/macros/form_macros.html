@@ -145,7 +145,7 @@
             </div>
 
     {% elif field.type == 'SubmitField' %}
-        {{ field(class='ui button') }}
+        {{ field(class='fluid ui button', id="custom-button") }}
     {% elif field.type == 'FormField' %}
         {{ render_form(field) }}
     {% elif field.type == 'CustomSelectField' %}
