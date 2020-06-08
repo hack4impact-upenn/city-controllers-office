@@ -104,16 +104,16 @@
                         </div>
                     </div>
                     <div class="eight wide column">
-                        <p><b>Contact Amount:</b> {{ entry.amt }} </p>
-                        <p><b>Total Payments:</b> {{ entry.tot_payments }} </p>
+                        <p><b>Contact Amount:</b> ${{ entry.amt }} USD </p>
+                        <p><b>Total Payments:</b> ${{ entry.tot_payments }} USD </p>
+                        <p><b>Description:</b> {{ entry.short_desc }} </p>
                     </div>
                     <div class="eight wide column">
-                        <p><b>Days Remaining:</b> {{ entry.days_remaining }} </p>
+                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">{{ entry.profit_status }} </p>
+                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">{{ entry.adv_or_exempt }}</p>
                         <p><b>Contract Term:</b> {{ entry.start_dt.strftime("%m-%d-%Y") }} to {{ entry.end_dt.strftime("%m-%d-%Y") }} </p>
                     </div>
                 </div>
-                <br>
-                <p><b>Description:</b> {{ entry.short_desc }} </p>
             </div>
             {% endfor %}
         </div>
