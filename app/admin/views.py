@@ -301,3 +301,9 @@ def download_csv():
         return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
     return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
+
+@admin.route('/view_database', methods = ['GET', 'POST'])
+@login_required
+@admin_required
+def view_database():
+    return render_template('admin/view_database.html')
