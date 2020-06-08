@@ -56,6 +56,13 @@ body {
   width: 54%;
 }
 
+.right-nav-link {
+  position: absolute;
+  left: 85px;
+  top: 22px;
+  color: white;
+}
+
 .text.container h1 {
   font-size: 36px;
   font-family: "Avenir", sans-serif;
