@@ -31,6 +31,10 @@
     </style>
     <div class="ui grid" style="margin-top: 60px;">
         <div class="four wide column" style="margin-top: 70px">
+            <a class="fluid ui labeled icon primary button" href="/search" style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: left">
+                <i class="left arrow icon"></i>
+                Back to Search
+            </a>
             {{ f.begin_form(results_csv_form, flashes) }}
             {{ f.render_form(results_csv_form) }}
             {{ f.end_form(results_csv_form) }}
