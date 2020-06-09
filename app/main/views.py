@@ -12,13 +12,17 @@ from app.models import (
     EditableHTML,
     Department,
     ContrType,
-    ProfServ
+    ProfServ,
+    Profit_Status
 )
 from app.main.forms import (
     ResultsForm,
     CSVDownloadDBForm,
     CSVDownloadRSForm,
-    SortByAmountHiLoForm
+    SortByAmountHiLoForm,
+    SortByAmountLoHiForm,
+    SortByABC,
+    SortByCBA
 )
 import io
 import csv
@@ -32,7 +36,6 @@ import csv
 from datetime import datetime
 
 main = Blueprint('main', __name__)
-
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -56,7 +59,7 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data, kw = form.keyword.data))
+        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data, kw = form.keyword.data, fp = form.for_profit.data, np = form.non_profit.data, adv = form.adv.data, ex = form.ex.data))
     return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
 
 #global_filter = []
@@ -104,6 +107,9 @@ def search():
 def results():
     results_csv_form = CSVDownloadRSForm()
     high_to_low_form = SortByAmountHiLoForm()
+    low_to_high_form = SortByAmountLoHiForm()
+    abc = SortByABC()
+    cba = SortByCBA()
     vendor = request.args.get('vendor')
     num = request.args.get('num')
     sd = request.args.get('sd')
@@ -111,6 +117,10 @@ def results():
     min = request.args.get('min')
     max = request.args.get('max')
     kw = request.args.get('kw')
+    fp = request.args.get('fp')
+    np = request.args.get('np')
+    adv = request.args.get('adv')
+    ex = request.args.get('ex')
     query = ProfServ.query
     if vendor:
         query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(vendor)))
@@ -131,21 +141,40 @@ def results():
         except:
             pass
     if kw:
-        query = query.filter((ProfServ.vendor.ilike('%{0}%'.format(kw))) | (ProfServ.department_name.ilike(kw)) | (ProfServ.contract_structure_type.ilike(kw)) | (ProfServ.adv_or_exempt.ilike(kw)) | (ProfServ.orig_vendor.ilike(kw)) | (ProfServ.short_desc.ilike('%{0}%'.format(kw))) | (ProfServ.profit_status.ilike(kw)))
-    filtered = query.all()
+        query = query.filter((ProfServ.vendor.ilike('%{0}%'.format(kw))) | (ProfServ.department_name.ilike(kw)) | (ProfServ.contract_structure_type.ilike(kw)) | (ProfServ.adv_or_exempt.ilike(kw)) | (ProfServ.short_desc.ilike('%{0}%'.format(kw))))
 
+    if str(fp) == "False":
+        query = query.filter(ProfServ.profit_status != Profit_Status.For_Profit)
+    if str(np) == "False":
+        query = query.filter(ProfServ.profit_status != Profit_Status.Non_Profit)
+    if str(adv) == "False":
+        query = query.filter(ProfServ.adv_or_exempt != "ADVERTISED")
+    if str(ex) == "False":
+        query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
+    filtered = query.all()
+    print (filtered[0])
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
         if high_to_low_form and high_to_low_form.amount_hi_lo_submit.data and high_to_low_form.validate():
-            ordered = query.order_by(ProfServ.amt.desc())
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
+            ordered = query.order_by(ProfServ.amt.desc()).all()
+
+            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        if low_to_high_form and low_to_high_form.amount_lo_hi_submit.data and low_to_high_form.validate():
+            ordered = query.order_by(ProfServ.amt.asc()).all()
+            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        if abc and abc.name_abc.data and abc.validate():
+            ordered = query.order_by(ProfServ.vendor.asc()).all()
+            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        if cba and cba.name_cba.data and cba.validate():
+            ordered = query.order_by(ProfServ.vendor.desc()).all()
+            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     if filtered:
         #global global_filter
         #global_filter = filtered
-        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
+        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     else:
-        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form, high_to_low_form=high_to_low_form)
+        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')

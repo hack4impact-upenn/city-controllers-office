@@ -70,12 +70,22 @@
                   {{ f.render_form_field(form.minimum) }}
                   {{ f.render_form_field(form.maximum) }}
                 </div>
+                <div class="search-form">
+                  <label class="label">Profit Status:</label>
+                    {{ f.render_form_field(form.for_profit) }}
+                    {{ f.render_form_field(form.non_profit) }}
+                </div>
+                <div class="search-form">
+                  <label class="label">Exempt Status:</label>
+                    {{ f.render_form_field(form.adv) }}
+                    {{ f.render_form_field(form.ex) }}
+                </div>
                 <div class="container" style="margin-top: 20px; width: 100%; font-family: Avenir;">
                     {{ f.render_form_field(form.submit) }}
                     {{ f.begin_form(database_csv_form, flashes) }}
                     {{ f.render_form(database_csv_form) }}
                     {{ f.end_form(database_csv_form) }}
-                    <input class="fluid ui primary button" style="font-family: Avenir; width: 80%" type="reset" value="Clear All">
+                    <input class="fluid ui primary button" style="font-family: Avenir; width: 80%" type="reset" value="Reset All">
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.

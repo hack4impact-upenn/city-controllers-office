@@ -4,7 +4,8 @@ from wtforms.fields import (
     StringField,
     SubmitField,
     DateField,
-    DecimalField
+    DecimalField,
+    BooleanField
 )
 from wtforms import validators
 from app.models import ProfServ
@@ -17,6 +18,10 @@ class ResultsForm(FlaskForm):
     minimum = DecimalField('Minimum', places=2, validators=(validators.Optional(),))
     maximum = DecimalField('Maximum', places=2, validators=(validators.Optional(),))
     keyword = StringField('Keyword')
+    for_profit = BooleanField('For Profit', default=True)
+    non_profit = BooleanField('Nonprofit', default=True)
+    adv = BooleanField('Advertised', default=True)
+    ex = BooleanField('Exempt', default=True)
     submit = SubmitField('View Results')
 
 
@@ -27,4 +32,13 @@ class CSVDownloadRSForm(FlaskForm):
     results_csv_submit = SubmitField("Download Results")
 
 class SortByAmountHiLoForm(FlaskForm):
-    amount_hi_lo_submit = SubmitField("Sort By Amount (High to Low)")
+    amount_hi_lo_submit = SubmitField("Amount (Descending)")
+
+class SortByAmountLoHiForm(FlaskForm):
+    amount_lo_hi_submit = SubmitField("Amount (Ascending)")
+
+class SortByABC(FlaskForm):
+    name_abc = SubmitField("Vendor Name (A-Z)")
+
+class SortByCBA(FlaskForm):
+    name_cba = SubmitField("Vendor Name (Z-A)")
