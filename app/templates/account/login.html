@@ -27,8 +27,10 @@
                 {{ f.form_message(flashes['warning'], header='Check your email.', class='warning') }}
                 {{ f.form_message(flashes['info'], header='Information', class='info') }}
                 {{ f.form_message(flashes['success'], header='Success!', class='success') }}
-
-                {{ f.render_form_field(form.submit) }}
+                <br />
+                <div style="width: 125%">
+                    {{ f.render_form_field(form.submit) }}
+                </div>
             {{ f.end_form(form) }}
         </div>
     </div>
