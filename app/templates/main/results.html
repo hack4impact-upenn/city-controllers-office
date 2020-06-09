@@ -29,23 +29,21 @@
             margin-right: 5px;
         }
     </style>
-    <div class="ui grid" style="margin-top: 50px;">
-        <div class="four wide column">
-            <div class="ui stackable grid container">
-                <div class = "ui compact">
-                    {{ f.begin_form(results_csv_form, flashes) }}
-                    {{ f.render_form(results_csv_form) }}
-                    {{ f.end_form(results_csv_form) }}
-                </div>
-                <br>
-                <div class = "ui compact">
-                    {{ f.begin_form(high_to_low_form, flashes) }}
-                    {{ f.render_form(high_to_low_form) }}
-                    {{ f.end_form(high_to_low_form) }}
-                </div>
-            </div>
+    <div class="ui grid" style="margin-top: 60px;">
+        <div class="four wide column" style="margin-top: 70px">
+            <a class="fluid ui labeled icon primary button" href="/search" style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: left">
+                <i class="left arrow icon"></i>
+                Back to Search
+            </a>
+            {{ f.begin_form(results_csv_form, flashes) }}
+            {{ f.render_form(results_csv_form) }}
+            {{ f.end_form(results_csv_form) }}
+            <br />
+            {{ f.begin_form(high_to_low_form, flashes) }}
+            {{ f.render_form(high_to_low_form) }}
+            {{ f.end_form(high_to_low_form) }}
 
-            <div style="margin-top: 50px;">
+            <!-- <div style="margin-top: 50px;">
                 <div style="margin-top: 20px;">
                     <label style="display: block;">DEPARTMENT</label>
                     <select class="ui selection dropdown">
@@ -80,7 +78,7 @@
                         <input type="text" placeholder="Search..." style="width: 195px;">
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
@@ -94,7 +92,7 @@
             <div class="paper">
                 <div class="ui grid">
                     <div class="eight wide column">
-                        <h3 class="theme-primary" style="line-height: 20px; margin-top: 5px;">{{ entry.vendor, entry.original_contract_id }}</h3>
+                        <h3 class="theme-primary">{{ entry.vendor, entry.original_contract_id }}</h3>
                         <p><i>{{ entry.contract_structure_type }}</i></p>
                     </div>
                     <div class="eight wide column">
@@ -110,16 +108,16 @@
                         </div>
                     </div>
                     <div class="eight wide column">
-                        <p><b>Contact Amount:</b> {{ entry.amt }} </p>
-                        <p><b>Total Payments:</b> {{ entry.tot_payments }} </p>
+                        <p><b>Contact Amount:</b> ${{ entry.amt }} USD </p>
+                        <p><b>Total Payments:</b> ${{ entry.tot_payments }} USD </p>
+                        <p><b>Description:</b> {{ entry.short_desc }} </p>
                     </div>
                     <div class="eight wide column">
-                        <p><b>Days Remaining:</b> {{ entry.days_remaining }} </p>
+                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">{{ entry.profit_status }} </p>
+                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">{{ entry.adv_or_exempt }}</p>
                         <p><b>Contract Term:</b> {{ entry.start_dt.strftime("%m-%d-%Y") }} to {{ entry.end_dt.strftime("%m-%d-%Y") }} </p>
                     </div>
                 </div>
-                <br>
-                <p><b>Description:</b> {{ entry.short_desc }} </p>
             </div>
             {% endfor %}
         </div>

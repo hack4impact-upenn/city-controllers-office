@@ -265,8 +265,8 @@ a.nav-rectangle-left:hover {
 .paper {
   background-color: #f7f7f7;
   margin-top: 10px;
-  padding: 30px;
   border-radius: 5px;
+  font-family: "Avenir";
 }
 
 .paper h2 {
@@ -277,13 +277,17 @@ a.nav-rectangle-left:hover {
 .ui.text.container .paper ul {
   font-family: "Avenir";
   color: #333333;
-  list-style-type: none;
+  list-style-type: none; 
   padding-left: 0px;
   font-weight: 450;
 }
 
+.paper .column {
+  margin-top: 8px;
+}
+
 .column {
-  margin-top: 7%;
+  margin-top: 20px;
 }
 
 .ui.text.container h1 {
@@ -392,6 +396,11 @@ a.nav-rectangle-left:hover {
 
 .search-form {
   margin-top: 25px;
+  font-family: Avenir;
+  width: 80%;
+}
+
+#custom-button {
   font-family: Avenir;
   width: 80%;
 }
