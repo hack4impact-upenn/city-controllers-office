@@ -37,6 +37,7 @@ from datetime import datetime
 
 main = Blueprint('main', __name__)
 
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('main/index.html')
@@ -59,47 +60,30 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        return redirect(url_for('main.results', vendor = form.vendor.data, num = form.original_contract_id.data, sd = form.start_dt.data, ed = form.end_dt.data, min = form.minimum.data, max = form.maximum.data, kw = form.keyword.data, fp = form.for_profit.data, np = form.non_profit.data, adv = form.adv.data, ex = form.ex.data))
-    return render_template('main/search.html', depts = depts, types = types, form = form, database_csv_form=database_csv_form)
+        return redirect(url_for('main.results', vendor=form.vendor.data, num=form.original_contract_id.data, sd=form.start_dt.data, ed=form.end_dt.data, min=form.minimum.data, max=form.maximum.data, kw=form.keyword.data, fp=form.for_profit.data, np=form.non_profit.data, adv=form.adv.data, ex=form.ex.data))
+    return render_template('main/search.html', depts=depts, types=types, form=form, database_csv_form=database_csv_form)
 
-#global_filter = []
 
-# pagenation loading route
-# @main.route('/load')
-# def load():
-#     if request.args:
-#         counter = int(request.args.get('c'))
-#         filtered = global_filter
-#         num_entries = len(filtered)
-#         num_per_page = 20
-#
-#         filtered_json = []
-#
-#         # convert filtered into [json]
-#         for entry in filtered:
-#             entry_json = dict()
-#             entry_json['vendor'] = entry.vendor
-#             entry_json['original_contract_id'] = entry.original_contract_id
-#             entry_json['contract_structure_type'] = entry.contract_structure_type
-#             entry_json['department_name'] = entry.department_name
-#             entry_json['amt'] = entry.amt
-#             entry_json['tot_payments'] = entry.tot_payments
-#             entry_json['days_remaining'] = entry.days_remaining
-#             entry_json['start_dt'] = entry.start_dt
-#             entry_json['end_dt'] = entry.end_dt
-#             entry_json['short_desc'] = entry.short_desc
-#
-#             filtered_json.append(entry_json)
-#
-#         if counter == 0:
-#             res = make_response(jsonify(filtered_json[0: num_per_page]), 200)
-#         elif counter == num_entries:
-#             res = make_response(jsonify({}), 200)
-#         else:
-#             res = make_response(
-#                 jsonify(filtered_json[counter: counter + num_per_page]), 200)
-#
-#         return res
+def modelListToJson(filtered):
+    filtered_json = []
+
+    # convert filtered into [json]
+    for entry in filtered:
+        entry_json = dict()
+        entry_json['vendor'] = entry.vendor
+        entry_json['original_contract_id'] = entry.original_contract_id
+        entry_json['contract_structure_type'] = entry.contract_structure_type
+        entry_json['department_name'] = entry.department_name
+        entry_json['amt'] = entry.amt
+        entry_json['tot_payments'] = entry.tot_payments
+        entry_json['days_remaining'] = entry.days_remaining
+        # entry_json['start_dt'] = entry.start_dt
+        # entry_json['end_dt'] = entry.end_dt
+        entry_json['short_desc'] = entry.short_desc
+
+        filtered_json.append(entry_json)
+
+    return json.dumps(filtered_json)
 
 
 # Route to results page, where results of city contracts searching appear
@@ -141,24 +125,26 @@ def results():
         except:
             pass
     if kw:
-        query = query.filter((ProfServ.vendor.ilike('%{0}%'.format(kw))) | (ProfServ.department_name.ilike(kw)) | (ProfServ.contract_structure_type.ilike(kw)) | (ProfServ.adv_or_exempt.ilike(kw)) | (ProfServ.short_desc.ilike('%{0}%'.format(kw))))
+        query = query.filter((ProfServ.vendor.ilike('%{0}%'.format(kw))) | (ProfServ.department_name.ilike(kw)) | (
+            ProfServ.contract_structure_type.ilike(kw)) | (ProfServ.adv_or_exempt.ilike(kw)) | (ProfServ.short_desc.ilike('%{0}%'.format(kw))))
 
     if str(fp) == "False":
-        query = query.filter(ProfServ.profit_status != Profit_Status.For_Profit)
+        query = query.filter(ProfServ.profit_status !=
+                             Profit_Status.For_Profit)
     if str(np) == "False":
-        query = query.filter(ProfServ.profit_status != Profit_Status.Non_Profit)
+        query = query.filter(ProfServ.profit_status !=
+                             Profit_Status.Non_Profit)
     if str(adv) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "ADVERTISED")
     if str(ex) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
     filtered = query.all()
-    print (filtered[0])
+    print(filtered[0])
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
         if high_to_low_form and high_to_low_form.amount_hi_lo_submit.data and high_to_low_form.validate():
             ordered = query.order_by(ProfServ.amt.desc()).all()
-
             return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if low_to_high_form and low_to_high_form.amount_lo_hi_submit.data and low_to_high_form.validate():
             ordered = query.order_by(ProfServ.amt.asc()).all()
@@ -170,9 +156,7 @@ def results():
             ordered = query.order_by(ProfServ.vendor.desc()).all()
             return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     if filtered:
-        #global global_filter
-        #global_filter = filtered
-        return render_template('main/results.html', filtered=filtered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     else:
         return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
 
@@ -249,7 +233,7 @@ def download_database():
     return send_file(csv_bytes, as_attachment=True, attachment_filename=filename, mimetype='text/csv')
 
 # Function to download csv of results
-@main.route('/download-results', methods = ['GET', 'POST'])
+@main.route('/download-results', methods=['GET', 'POST'])
 def download_results(filtered):
 
     # make csv file and writer variables
