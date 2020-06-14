@@ -7,7 +7,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db, login_manager
 
 import enum
-#fix enum (more options)
+# fix enum (more options)
+
+
 class Exempt_Status(enum.Enum):
     EXEMPT = 102
     ADVERTISED = 1
@@ -18,6 +20,7 @@ class Exempt_Status(enum.Enum):
     def __html__(self):
         return self.value
 
+
 class Profit_Status(enum.Enum):
     For_Profit = "For Profit"
     Non_Profit = "Nonprofit"
@@ -27,6 +30,7 @@ class Profit_Status(enum.Enum):
 
     def __html__(self):
         return self.value
+
 
 class ProfServ(db.Model):
     __tablename__ = 'prof_serv'
@@ -51,23 +55,23 @@ class ProfServ(db.Model):
     timestamp = db.Column((db.DateTime))
 
     def __repr__(self):
-       return ('<Professional Services Contract \n'
-             f'key: {self.id}\n')
-
+        return ('<Professional Services Contract \n'
+                f'key: {self.id}\n')
 
     def __str__(self):
-      return self.__repr__()
+        return self.__repr__()
+
 
 class Department(db.Model):
     __tablename__ = 'dept_names'
     department_name = db.Column(db.String(64), primary_key=True)
 
     def __repr__(self):
-       return ('<Department Name \n'
-             f'key: {self.department_name}\n')
+        return ('<Department Name \n'
+                f'key: {self.department_name}\n')
 
     def __str__(self):
-      return self.__repr__()
+        return self.__repr__()
 
 
 class ContrType(db.Model):
@@ -75,8 +79,8 @@ class ContrType(db.Model):
     contract_structure_type = db.Column(db.String(64), primary_key=True)
 
     def __repr__(self):
-       return ('<Contract Structure Type \n'
-             f'key: {self.contract_structure_type}\n')
+        return ('<Contract Structure Type \n'
+                f'key: {self.contract_structure_type}\n')
 
     def __str__(self):
-      return self.__repr__()
+        return self.__repr__()

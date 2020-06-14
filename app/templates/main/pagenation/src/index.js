@@ -20,6 +20,10 @@ const ResultList = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
 
+  useEffect(() => {
+    console.log(result_list[0]);
+  }, []);
+
   return (
     <>
       {result_list.slice(page.start, page.end).map((entry) => (
@@ -57,6 +61,40 @@ const ResultList = () => {
                   )}
                 </div>
               </div>
+            </div>
+            <div class="eight wide column">
+              <p>
+                <b>Total Payments:</b> {entry.tot_payments}
+              </p>
+              <p>
+                <b>Contact Amount:</b> {entry.amt}
+              </p>
+              <p
+                style={{
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  color: "#0f4d90",
+                }}
+              >
+                Profit Status: {entry.profit_status}{" "}
+              </p>
+            </div>
+            <div class="eight wide column">
+              <p>
+                <b>Description:</b> {entry.short_desc}
+              </p>
+              <p>
+                <b>Contract Term:</b> {entry.start_dt} to {entry.end_dt}
+              </p>
+              <p
+                style={{
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  color: "#0f4d90",
+                }}
+              >
+                Exempt Status: {entry.adv_or_exempt}
+              </p>
             </div>
           </div>
         </div>

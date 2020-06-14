@@ -77,9 +77,10 @@ def modelListToJson(filtered):
         entry_json['amt'] = entry.amt
         entry_json['tot_payments'] = entry.tot_payments
         entry_json['days_remaining'] = entry.days_remaining
-        # entry_json['start_dt'] = entry.start_dt
-        # entry_json['end_dt'] = entry.end_dt
+        entry_json['start_dt'] = str(entry.start_dt)
+        entry_json['end_dt'] = str(entry.end_dt)
         entry_json['short_desc'] = entry.short_desc
+        entry_json['profit_status'] = str(entry.profit_status)
 
         filtered_json.append(entry_json)
 
