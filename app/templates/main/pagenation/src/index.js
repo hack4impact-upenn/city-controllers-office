@@ -17,12 +17,9 @@ const ResultList = () => {
       end = activePage * 20;
 
     setPage({ start: start, end: end });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
 
-  useEffect(() => {
-    console.log("variable loaded!");
-    console.log(result_list[0]);
-  }, []);
   return (
     <>
       {result_list.slice(page.start, page.end).map((entry) => (
@@ -43,6 +40,21 @@ const ResultList = () => {
                 <div style={{ lineHeight: "20px" }}>
                   <div class="tag">DEPT</div>
                   <b>{entry.department_name}</b>
+                </div>
+                <div style={{ lineHeight: "20px" }}>
+                  {entry.amt == 0 ? (
+                    <div>
+                      <div class="tag">PAID</div>
+                      <b> 100.00%</b>
+                    </div>
+                  ) : (
+                    <div>
+                      <div class="tag">PAID</div>
+                      <b>
+                        {Math.round((100 * entry.tot_payments) / entry.amt)}%
+                      </b>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
