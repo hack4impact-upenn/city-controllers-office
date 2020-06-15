@@ -212,7 +212,8 @@ def update_editor_contents():
 
     return 'OK', 200
 
-@admin.route('/upload-csv', methods = ['GET', 'POST'])
+
+@admin.route('/upload-csv', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def upload_csv():
@@ -220,7 +221,7 @@ def upload_csv():
     upload_successful = False
     found_duplicate = False
     found_broken_row = False
-    
+
     if form.validate_on_submit():
         upload_dir = "uploads"
         f = form.document.data
@@ -232,12 +233,14 @@ def upload_csv():
         f.save(filepath)
 
         # uploads csv file; returns upload alert logic variables
-        upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
+        upload_successful, found_duplicate, found_broken_row = readCSV(
+            filename=filepath)
 
-    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful, \
-        found_duplicate=found_duplicate, found_broken_row=found_broken_row)
+    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful,
+                           found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
-@admin.route('/download-csv', methods = ['GET', 'POST'])
+
+@admin.route('/download-csv', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def download_csv():
@@ -263,7 +266,7 @@ def download_csv():
             'Start Date',
             'End Date',
             'Days Remaining',
-            'Amount', # Should specify the denomination
+            'Amount',  # Should specify the denomination
             'Total Payments',
             'Original Vendor',
             'Exempt Status',
@@ -302,8 +305,17 @@ def download_csv():
 
     return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
 
-@admin.route('/view_database', methods = ['GET', 'POST'])
+
+@admin.route('/view_database', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def view_database():
     return render_template('admin/view_database.html')
+
+
+@admin.route('/delete-csv', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def delete_csv():
+
+    return render_template('admin/delete_csv.html')
