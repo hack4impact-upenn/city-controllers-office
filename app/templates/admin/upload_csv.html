@@ -45,7 +45,27 @@
                 <div class="sub header">
                     View and manage CSV files.
                 </div>
-            </h2> 
+            </h2>
+
+            <div class="search-form">
+                <label class="ui header">Quarter</label>
+                <div style="margin-top: 1%">
+                    <select id="quarter-select" class="ui selection dropdown search">
+                        <option value="1">Q1</option>
+                        <option value="2">Q2</option>
+                        <option value="3">Q3</option>
+                        <option value="4">Q4</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-form" style="margin-top: 2%; margin-bottom: 3%">
+                <label class="ui header">Year</label>
+                <br>
+                <div class="ui input" style="margin-top: 1%">
+                    <input type="text" placeholder="Year">
+                </div>
+            </div>
 
             <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
             {{ form.csrf_token }}
