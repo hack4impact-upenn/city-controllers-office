@@ -55,45 +55,8 @@
             {{ f.begin_form(cba, flashes) }}
             {{ f.render_form(cba) }}
             {{ f.end_form(cba) }}
-
-            <!-- <div style="margin-top: 50px;">
-                <div style="margin-top: 20px;">
-                    <label style="display: block;">DEPARTMENT</label>
-                    <select class="ui selection dropdown">
-                        <option value="">ALL DEPARTMENTS</option>
-                        <option value="1">Option A</option>
-                        <option value="0">Option B</option>
-                    </select>
-                </div>
-                <div style="margin-top: 20px;">
-                    <label style="display: block;">CONTACT TYPE</label>
-                    <select class="ui selection dropdown">
-                        <option value="">ALL SERVICES</option>
-                        <option value="1">Option A</option>
-                        <option value="0">Option B</option>
-                    </select>
-                </div>
-                <div style="margin-top: 20px;">
-                    <label style="display: block;">VENDOR NAME</label>
-                    <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px;">
-                    </div>
-                </div>
-                <div style="margin-top: 20px;">
-                    <label style="display: block;">KEYWORD</label>
-                    <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px;">
-                    </div>
-                </div>
-                <div style="margin-top: 20px;">
-                    <label style="display: block;">CONTRACT NUMBER</label>
-                    <div class="ui input">
-                        <input type="text" placeholder="Search..." style="width: 195px;">
-                    </div>
-                </div>
-            </div> -->
-
         </div>
+        
 
         <div class="twelve wide column">
             <div>
@@ -105,46 +68,19 @@
             <br>
               <p style="font-size: 20px; font-weight: 600; text-transform: uppercase; color: #0f4d90">No Results Found</p>
             {% else %}
-            {% for entry in filtered %}
-            <div class="paper">
-                <div class="ui grid">
-                    <div class="eight wide column">
-                        <h3 class="theme-primary">{{ entry.vendor }}</h3>
-                        <p><i>ID: {{ entry.original_contract_id }}</i></p>
-                    </div>
-                    <div class="eight wide column">
-                        <div style="line-height: 20px; ">
-                            <div class="tag">TYPE</div>
-                            <b>{{ entry.contract_structure_type }}</b>
-                        </div>
-                        <div style=" line-height: 20px;">
-                            <div class="tag">DEPT</div><b>{{ entry.department_name }}</b>
-                        </div>
-                        <div style=" line-height: 20px;">
-                          {% if entry.amt == 0 %}
-                            <div class="tag">PAID</div><b> 100.00%</b>
-                          {% else %}
-                            <div class="tag">PAID</div><b> {{ (100*entry.tot_payments/entry.amt)|round(2) }}%</b>
-                          {% endif %}
-                        </div>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Total Payments:</b> {{ "${:,.2f}".format(entry.tot_payments) }}</p>
-                        <p><b>Contact Amount:</b> {{ "${:,.2f}".format(entry.amt) }}</p>
-                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">Profit Status: {{ entry.profit_status }} </p>
-                    </div>
-                    <div class="eight wide column">
-                        <p><b>Description:</b> {{ entry.short_desc }} </p>
-                        <p><b>Contract Term:</b> {{ entry.start_dt.strftime("%m-%d-%Y") }} to {{ entry.end_dt.strftime("%m-%d-%Y") }} </p>
-                        <p style="font-weight: 600; text-transform: uppercase; color: #0f4d90">Exempt Status: {{ entry.adv_or_exempt }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+            <div id="result-list-target"></div>
             {% endif %}
         </div>
-
+        <script>
+            const filtered_json = JSON.parse({{filtered_json|tojson}});
+            window.filtered_json = filtered_json
+        </script>
+        {% block javascript %}
+        <script type="text/javascript">
+            {% include "main/pagenation/dist/bundle.js" %}
+        </script>
+        {% endblock %}
     </div>
-</div>
+</div> 
 </div>
 {% endblock %}
