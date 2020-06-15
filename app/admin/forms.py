@@ -6,6 +6,7 @@ from wtforms.fields import (
     PasswordField,
     StringField,
     SubmitField,
+    SelectField,
 )
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import (
@@ -75,6 +76,8 @@ class NewUserForm(InviteUserForm):
     submit = SubmitField('Create')
 
 class CSVUploadForm(FlaskForm):
+    quarter_select = SelectField("Quarter", choices = [('1', 'Q1'), ('2', 'Q2'), ('3', 'Q3'), ('4', 'Q4')])
+    year_select = StringField("Year", validators=[InputRequired(), Length(1, 64)])
     document = FileField('Document', validators=[FileRequired(), FileAllowed(['csv'], 'CSV Document only!')])
 
 class CSVDownloadForm(FlaskForm):

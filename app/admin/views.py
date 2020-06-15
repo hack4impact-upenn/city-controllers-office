@@ -230,6 +230,11 @@ def upload_csv():
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
+        # process quarter and year
+        quarter = form.quarter_select.data
+        year = form.year_select.data
+        print(year)
+        print(quarter)
 
         # uploads csv file; returns upload alert logic variables
         upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath)
