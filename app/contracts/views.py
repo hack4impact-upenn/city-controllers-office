@@ -23,7 +23,7 @@ typenames = Blueprint('ContrType', __name__)
 
 
 @contract.route('/search')
-def readCSV(filename):
+def readCSV(filename, quarter_year="-"):
     dept_names = []
     contr_type_names = []
     now=datetime.now()
@@ -74,6 +74,7 @@ def readCSV(filename):
                         exempt_status=row[12],
                         adv_or_exempt=row[13],
                         profit_status=profstat,
+                        quarter_year=quarter_year,
                         timestamp=now
                     )
                     # try/except statement for detecting duplicates, i.e. db finds primary key collision
