@@ -45,16 +45,36 @@
                 <div class="sub header">
                     View and manage CSV files.
                 </div>
-            </h2> 
+            </h2>
 
             <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
-            {{ form.csrf_token }}
-            <div class="field">
-                <input class="inputfile" type = "file" name = "document"></input>
-            </div>
-            <div class="field">
-                <button class="ui button primary" type="submit">Upload</button>
-            </div>
+                {{ form.csrf_token }}
+                <div class="search-form">
+                    <label class="ui header">Quarter</label>
+                    <div style="margin-top: 1%">
+                        <select name="quarter_select" class="ui selection dropdown search">
+                            <option value="1">Q1</option>
+                            <option value="2">Q2</option>
+                            <option value="3">Q3</option>
+                            <option value="4">Q4</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="search-form" style="margin-top: 2%; margin-bottom: 3%">
+                    <label class="ui header">Year</label>
+                    <br>
+                    <div class="ui input" style="margin-top: 1%">
+                        <input name="year_select" type="text" placeholder="Year">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <input class="inputfile" type="file" name="document"></input>
+                </div>
+                <div class="field">
+                    <button class="ui button primary" type="submit">Upload</button>
+                </div>
             </form>
 
             <!-- The following three containers are upload alerts after CSV has been uploaded by admin -->
