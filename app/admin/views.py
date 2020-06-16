@@ -275,6 +275,7 @@ def download_csv():
             'Exempt Status',
             'Advertised or Exempt',
             'Profit or Nonprofit',
+            'As Of',
             "Timestamp"
         ])
         for ps in prof_servs:
@@ -295,6 +296,7 @@ def download_csv():
                 ps.exempt_status,
                 ps.adv_or_exempt,
                 ps.profit_status,
+                ps.as_of,
                 ps.timestamp
             ])
 

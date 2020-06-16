@@ -48,7 +48,7 @@
             </h2>
 
             <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
-
+                {{ form.csrf_token }}
                 <div class="search-form">
                     <label class="ui header">Quarter</label>
                     <div style="margin-top: 1%">
@@ -69,7 +69,6 @@
                     </div>
                 </div>
 
-                {{ form.csrf_token }}
                 <div class="field">
                     <input class="inputfile" type="file" name="document"></input>
                 </div>

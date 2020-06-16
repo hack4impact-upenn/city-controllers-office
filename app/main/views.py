@@ -202,6 +202,7 @@ def download_database():
         'Original Vendor',
         'Exempt Status',
         'Advertised or Exempt',
+        'As Of',
         'Profit or Nonprofit'
     ])
 
@@ -222,6 +223,7 @@ def download_database():
                 ps.orig_vendor,
                 ps.exempt_status,
                 ps.adv_or_exempt,
+                ps.as_of,
                 ps.profit_status
             ])
 
@@ -258,6 +260,7 @@ def download_results(filtered):
         'Original Vendor',
         'Exempt Status',
         'Advertised or Exempt',
+        'As Of',
         'Profit or Nonprofit'
     ])
 
@@ -279,6 +282,7 @@ def download_results(filtered):
                 rs.orig_vendor,
                 rs.exempt_status,
                 rs.adv_or_exempt,
+                rs.as_of,
                 rs.profit_status
             ])
 
