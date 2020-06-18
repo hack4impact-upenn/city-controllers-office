@@ -10,7 +10,7 @@
             <h2 class="ui header">
                 Delete CSV
                 <div class="sub header">
-                    View and manage currently registered users.
+                    View and delete CSV by timestamp.
                 </div>
             </h2> 
 
@@ -19,7 +19,56 @@
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}
             <div style="overflow-x: scroll;">
-                <h1>Table</h1>
+                <div style="padding: 5px 0px 40px 0px;">
+                    <div style="float:left;">
+                    <button class="ui toggle button">Sort by Date</button>
+                    </div>
+
+                    <div style="float:right; ">
+                    <button class="ui toggle button">Check All</button>
+                    <button class="negative ui button">Delete Selected</button>
+                    </div>
+                </div>
+                
+                <table class="ui celled table">
+                <thead>
+                    <tr>
+                    <th style="width: 10%;"></th>
+                    <th>CSV Timestamp</th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                    <td data-label="selected" style="text-align: center;">
+                    <div class="ui fitted slider checkbox">
+                        <input type="checkbox"> <label></label>
+                    </div>
+                    </td>
+                    <td data-label="timestamp">
+                    <span>2018/2/3</span>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td data-label="selected">
+                    <div class="ui fitted slider checkbox">
+                        <input type="checkbox"> <label></label>
+                    </div>
+                    </td>
+                    <td data-label="timestamp">
+                    <span>2020/3/4</span>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td data-label="selected">
+                    <div class="ui fitted slider checkbox">
+                        <input type="checkbox"> <label></label>
+                    </div>
+                    </td>
+                    <td data-label="timestamp">
+                    <span>2019/12/3</span>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
             </div>
         </div>
     </div>
