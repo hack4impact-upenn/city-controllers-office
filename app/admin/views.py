@@ -318,4 +318,6 @@ def view_database():
 @admin_required
 def delete_csv():
 
-    return render_template('admin/delete_csv.html')
+    csv_list = ["2018/2/12", "2019/3/5", "2020/4/30"]
+
+    return render_template('admin/delete_csv.html', csv_list=csv_list)

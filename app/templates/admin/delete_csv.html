@@ -14,7 +14,7 @@
                 </div>
             </h2> 
 
-
+ 
 
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}
@@ -37,6 +37,7 @@
                     <th>CSV Timestamp</th>
                 </tr></thead>
                 <tbody>
+                    {% for csv in csv_list %}
                     <tr>
                     <td data-label="selected" style="text-align: center;">
                     <div class="ui fitted slider checkbox">
@@ -44,29 +45,10 @@
                     </div>
                     </td>
                     <td data-label="timestamp">
-                    <span>2018/2/3</span>
+                    <span>{{ csv }}</span>
                     </td>
                     </tr>
-                    <tr>
-                    <td data-label="selected">
-                    <div class="ui fitted slider checkbox">
-                        <input type="checkbox"> <label></label>
-                    </div>
-                    </td>
-                    <td data-label="timestamp">
-                    <span>2020/3/4</span>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td data-label="selected">
-                    <div class="ui fitted slider checkbox">
-                        <input type="checkbox"> <label></label>
-                    </div>
-                    </td>
-                    <td data-label="timestamp">
-                    <span>2019/12/3</span>
-                    </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
                 </table>
             </div>
