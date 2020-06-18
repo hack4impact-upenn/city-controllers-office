@@ -148,16 +148,16 @@ def results():
             return download_results(filtered)
         if high_to_low_form and high_to_low_form.amount_hi_lo_submit.data and high_to_low_form.validate():
             ordered = query.order_by(ProfServ.amt.desc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if low_to_high_form and low_to_high_form.amount_lo_hi_submit.data and low_to_high_form.validate():
             ordered = query.order_by(ProfServ.amt.asc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if abc and abc.name_abc.data and abc.validate():
             ordered = query.order_by(ProfServ.vendor.asc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if cba and cba.name_cba.data and cba.validate():
             ordered = query.order_by(ProfServ.vendor.desc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     if filtered:
         return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     else:
