@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+            <h2 class="ui header">
+                Delete CSV
+                <div class="sub header">
+                    View and delete CSV by timestamp.
+                </div>
+            </h2> 
+
+ 
+
+            {# Use overflow-x: scroll so that mobile views don't freak out
+             # when the table is too wide #}
+            <div style="overflow-x: scroll;">
+                <div style="padding: 5px 0px 40px 0px;">
+                    <div style="float:left;">
+                    <button class="ui toggle button">Sort by Date</button>
+                    </div>
+
+                    <div style="float:right; ">
+                    <button class="ui toggle button">Check All</button>
+                    <button class="negative ui button">Delete Selected</button>
+                    </div>
+                </div>
+                
+                <table class="ui celled table">
+                <thead>
+                    <tr>
+                    <th style="width: 10%;"></th>
+                    <th>CSV Timestamp</th>
+                </tr></thead>
+                <tbody>
+                    {% for csv in csv_list %}
+                    <tr>
+                    <td data-label="selected" style="text-align: center;">
+                    <div class="ui fitted slider checkbox">
+                        <input type="checkbox"> <label></label>
+                    </div>
+                    </td>
+                    <td data-label="timestamp">
+                    <span>{{ csv }}</span>
+                    </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            <div style="margin: 100px;"> </div>
+        </div>
+    </div>
+{% endblock %}
