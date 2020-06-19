@@ -56,6 +56,8 @@ def search():
     form = ResultsForm()
     depts = Department.query.all()
     types = ContrType.query.all()
+    form.department.choices = [(dept.department_name, dept.department_name.title()) for dept in depts]
+    form.contract_type.choices = [(type.contract_structure_type, type.contract_structure_type) for type in types]
     if request.method == 'POST':
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
@@ -146,16 +148,16 @@ def results():
             return download_results(filtered)
         if high_to_low_form and high_to_low_form.amount_hi_lo_submit.data and high_to_low_form.validate():
             ordered = query.order_by(ProfServ.amt.desc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if low_to_high_form and low_to_high_form.amount_lo_hi_submit.data and low_to_high_form.validate():
             ordered = query.order_by(ProfServ.amt.asc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if abc and abc.name_abc.data and abc.validate():
             ordered = query.order_by(ProfServ.vendor.asc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
         if cba and cba.name_cba.data and cba.validate():
             ordered = query.order_by(ProfServ.vendor.desc()).all()
-            return render_template('main/results.html', filtered=ordered, results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+            return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     if filtered:
         return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     else:
@@ -202,6 +204,7 @@ def download_database():
         'Original Vendor',
         'Exempt Status',
         'Advertised or Exempt',
+        'As Of',
         'Profit or Nonprofit'
     ])
 
@@ -222,6 +225,7 @@ def download_database():
                 ps.orig_vendor,
                 ps.exempt_status,
                 ps.adv_or_exempt,
+                ps.as_of,
                 ps.profit_status
             ])
 
@@ -258,6 +262,7 @@ def download_results(filtered):
         'Original Vendor',
         'Exempt Status',
         'Advertised or Exempt',
+        'As Of',
         'Profit or Nonprofit'
     ])
 
@@ -279,6 +284,7 @@ def download_results(filtered):
                 rs.orig_vendor,
                 rs.exempt_status,
                 rs.adv_or_exempt,
+                rs.as_of,
                 rs.profit_status
             ])
 

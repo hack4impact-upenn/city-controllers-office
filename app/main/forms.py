@@ -5,12 +5,15 @@ from wtforms.fields import (
     SubmitField,
     DateField,
     DecimalField,
-    BooleanField
+    BooleanField,
+    SelectField
 )
 from wtforms import validators
 from app.models import ProfServ
 
 class ResultsForm(FlaskForm):
+    department = SelectField('Department', coerce=str, validators=(validators.Optional(),))
+    contract_type = SelectField('Contract Type', coerce=str, validators=(validators.Optional(),))
     vendor = StringField('Vendor Name')
     original_contract_id = StringField('Contract Number')
     start_dt = DateField('Start Date (MM-DD-YYYY)', format='%m-%d-%Y', validators=(validators.Optional(),))
@@ -23,7 +26,6 @@ class ResultsForm(FlaskForm):
     adv = BooleanField('Advertised', default=True)
     ex = BooleanField('Exempt', default=True)
     submit = SubmitField('View Results')
-
 
 class CSVDownloadDBForm(FlaskForm):
     database_csv_submit = SubmitField("Download Database")

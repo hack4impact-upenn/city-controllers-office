@@ -231,13 +231,19 @@ def upload_csv():
         # filepath
         filepath = os.path.join(upload_dir, filename)
         f.save(filepath)
+        # process quarter and year
+        # example: quarter 1 and year 2002 => quarter_year = "Q1-2002"
+        # default: "-"
+        quarter = form.quarter_select.data
+        year = form.year_select.data
+        quarter_year = "Q" + quarter + "-" + year
 
         # uploads csv file; returns upload alert logic variables
-        upload_successful, found_duplicate, found_broken_row = readCSV(
-            filename=filepath)
+        upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath, quarter_year=quarter_year)
 
     return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful,
                            found_duplicate=found_duplicate, found_broken_row=found_broken_row)
+
 
 
 @admin.route('/download-csv', methods=['GET', 'POST'])
@@ -272,6 +278,7 @@ def download_csv():
             'Exempt Status',
             'Advertised or Exempt',
             'Profit or Nonprofit',
+            'As Of',
             "Timestamp"
         ])
         for ps in prof_servs:
@@ -292,6 +299,7 @@ def download_csv():
                 ps.exempt_status,
                 ps.adv_or_exempt,
                 ps.profit_status,
+                ps.as_of,
                 ps.timestamp
             ])
 

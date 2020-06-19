@@ -52,6 +52,7 @@ class ProfServ(db.Model):
     #exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
     #adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0)
     profit_status = db.Column(db.Enum(Profit_Status), default=0)
+    as_of = db.Column(db.String(64))
     timestamp = db.Column((db.DateTime))
 
     def __repr__(self):
