@@ -397,7 +397,8 @@ a.nav-rectangle-left:hover {
 .search-form {
   margin-top: 25px;
   font-family: Avenir;
-  width: 80%;
+  width: 100%;
+  padding-right: 20px;
 }
 
 #custom-button {
