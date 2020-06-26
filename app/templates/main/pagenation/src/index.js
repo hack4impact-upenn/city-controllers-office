@@ -77,7 +77,7 @@ const ResultList = () => {
                     color: "#0f4d90",
                   }}
                 >
-                  Profit Status: {entry.profit_status}{" "}
+                  Profit Status: {entry.profit_status.replace(/_/g, " ")}{" "}
                 </p>
               </div>
               <div class="eight wide column">
