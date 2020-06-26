@@ -84,7 +84,7 @@
             </a>
           </li>
           
-          {% if not is_authenticated %}
+          {% if not session['logged in'] %}
             <li>
               <a href="/account/login" class="nav-link">
                 Admin Login
