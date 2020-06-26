@@ -43,7 +43,7 @@ const ResultList = () => {
                 </div>
                 <div style={{ lineHeight: "20px" }}>
                   <div class="tag">DEPT</div>
-                  <b>{entry.department_name}</b>
+                  <b>{ entry.department_name.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) }</b>
                 </div>
                 <div style={{ lineHeight: "20px" }}>
                   {entry.amt == 0 ? (
