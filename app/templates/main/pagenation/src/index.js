@@ -101,7 +101,7 @@ const ResultList = () => {
           </div>
         </div>
       ))}
-      <div style={{ marginTop: "50px", height: "30vh" }}>
+      <div style={{ marginTop: "50px", height: "30vh", float: "right" }}>
         <Pagination
           defaultActivePage={1}
           totalPages={totalPages}
