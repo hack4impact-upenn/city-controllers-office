@@ -82,3 +82,6 @@ class CSVUploadForm(FlaskForm):
 
 class CSVDownloadForm(FlaskForm):
     download_csv = SubmitField("Download CSV")
+
+class DeleteSelectedForm(FlaskForm):
+    deleteSelected = SubmitField("Delete Selected")

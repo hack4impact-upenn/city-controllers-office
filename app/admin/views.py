@@ -21,6 +21,7 @@ from app.admin.forms import (
     NewUserForm,
     CSVUploadForm,
     CSVDownloadForm,
+    DeleteSelectedForm
 )
 from app.decorators import admin_required
 from app.email import send_email
@@ -338,5 +339,9 @@ def delete_selected():
 def delete_csv():
     query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
     timestamp_list = [str(row.timestamp) for row in query.all()]
-
-    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list)
+    deleteSuccessful = False
+    dsForm = DeleteSelectedForm()
+    if dsForm.validate_on_submit():
+        deleteSuccessful = True
+    
+    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list, deleteSuccessful=deleteSuccessful, dsForm=dsForm)
