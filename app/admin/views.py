@@ -6,7 +6,8 @@ from flask import (
     render_template,
     request,
     url_for,
-    send_file
+    send_file,
+    jsonify
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
@@ -25,6 +26,7 @@ from app.decorators import admin_required
 from app.email import send_email
 from app.models import EditableHTML, Role, User, ProfServ
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 from wtforms import SubmitField
 import os
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -320,13 +322,20 @@ def download_csv():
 def view_database():
     return render_template('admin/view_database.html')
 
+@admin.route('/delete_selected', methods=['POST'])
+def delete_selected():
+    if request.method == "POST":
+          clicked=request.data
+          print(clicked)
+    
+    return("success")
 
 @admin.route('/delete-csv', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def delete_csv():
+    query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
+    timestamp_list = [str(row.timestamp) for row in query.all()]
+    form = CSVUploadForm()
 
-    csv_list = ["2018/2/12", "2019/3/5", "2020/4/30", "2020/4/30", "2020/4/30",
-                "2020/4/30", "2020/4/30", "2020/4/30", "2020/4/30"]
-
-    return render_template('admin/delete_csv.html', csv_list=csv_list)
+    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list, form=form)

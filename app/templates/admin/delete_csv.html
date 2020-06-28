@@ -1,6 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
@@ -14,8 +15,6 @@
                 </div>
             </h2> 
 
- 
-
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}
             <div style="overflow-x: scroll;">
@@ -26,33 +25,73 @@
 
                     <div style="float:right; ">
                     <button class="ui toggle button">Check All</button>
-                    <button class="negative ui button">Delete Selected</button>
+                    <button id="deleteSelectedButton" name="deleteSelectedButton" value="{{ csrf_token() }}" class="negative ui button">Delete Selected</button>
+                    <!-- <form method="post">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
+                    </form> -->
+
+                    <!-- <a href="{{ url_for('admin.delete_selected') }}">
+                        <div id=deleteButtonContainer></div>
+                        <script>
+                            const checkedCheckboxes = [...document.querySelectorAll('.checkbox-input:checked')].map(e => e.value);
+
+                        </script>
+                        <button action="{{ url_for('admin.delete_selected', selected=checkedBoxes) }}" class="negative ui button">Delete Selected</button>
+                    </a> -->
+
+                    <!-- <form>
+                        <a href=# id=test></a><button class="negative ui button">Delete Selected</button>
+                    </form> -->
                     </div>
                 </div>
                 
                 <table class="ui celled table">
-                <thead>
-                    <tr>
-                    <th style="width: 10%;"></th>
-                    <th>CSV Timestamp</th>
-                </tr></thead>
-                <tbody>
-                    {% for csv in csv_list %}
-                    <tr>
-                    <td data-label="selected" style="text-align: center;">
-                    <div class="ui fitted slider checkbox">
-                        <input type="checkbox"> <label></label>
-                    </div>
-                    </td>
-                    <td data-label="timestamp">
-                    <span>{{ csv }}</span>
-                    </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;"></th>
+                            <th>CSV Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for timestamp in timestamp_list %}
+                        <tr>
+                            <td data-label="selected" style="text-align: center;">
+                                <div class="ui fitted slider checkbox">
+                                    <input class="checkbox-input" value="{{ timestamp }}" type="checkbox"> <label></label>
+                                </div>
+                            </td>
+                            <td data-label="timestamp">
+                                <span stlye="width: 60px">
+                                    {{ timestamp }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
             <div style="margin: 100px;"> </div>
         </div>
     </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $('#deleteSelectedButton').on('click', function() {
+            $('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var csrf_token = "{{ csrf_token() }}";
+                    $.ajax({
+                        url: '/admin/delete_selected',
+                        type: 'POST',
+                        data: {timetamp: $(this).val()},
+                        headers: {"X-CSRFToken": csrf_token},
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}
