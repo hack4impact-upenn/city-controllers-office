@@ -7,6 +7,7 @@ from wtforms.fields import (
     StringField,
     SubmitField,
     SelectField,
+    BooleanField
 )
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import (
@@ -85,3 +86,7 @@ class CSVDownloadForm(FlaskForm):
 
 class DeleteSelectedForm(FlaskForm):
     deleteSelected = SubmitField("Delete Selected")
+
+class SortChronologicalForm(FlaskForm):
+    sortChron = SubmitField("Sort Chronologically")
+    checkbox = BooleanField(default='checked')

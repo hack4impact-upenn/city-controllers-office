@@ -21,7 +21,8 @@ from app.admin.forms import (
     NewUserForm,
     CSVUploadForm,
     CSVDownloadForm,
-    DeleteSelectedForm
+    DeleteSelectedForm,
+    SortChronologicalForm
 )
 from app.decorators import admin_required
 from app.email import send_email
@@ -337,11 +338,21 @@ def delete_selected():
 @login_required
 @admin_required
 def delete_csv():
+    dsForm = DeleteSelectedForm()
+    soForm = SortChronologicalForm()
+
     query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
     timestamp_list = [str(row.timestamp) for row in query.all()]
+
     deleteSuccessful = False
-    dsForm = DeleteSelectedForm()
+    sortChron = True
     if dsForm.validate_on_submit():
         deleteSuccessful = True
+    # if soForm.validate_on_submit():
+    #     sortChron = False
     
-    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list, deleteSuccessful=deleteSuccessful, dsForm=dsForm)
+    return render_template('admin/delete_csv.html', \
+                                timestamp_list=timestamp_list, \
+                                sortChron=sortChron, \
+                                deleteSuccessful=deleteSuccessful, \
+                                dsForm=dsForm)

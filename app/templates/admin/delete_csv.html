@@ -11,6 +11,16 @@
             color: green;
             display:inline-block;
         }
+
+        .wa-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: #d68b00;
+            display:inline-block;
+        }
     </style>
 
     <div class="ui stackable grid container">
@@ -35,7 +45,7 @@
                     </div>
 
                     <div style="float:right; ">
-                    <button class="ui toggle button">Check All</button>
+                    <button id="selectAllButton" name="selectAllButton" class="ui toggle button">Check All</button>
                     <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
                         {{ dsForm.csrf_token }}
                         <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
@@ -73,6 +83,10 @@
                 <div class="ds-container">
                     Selected Timestamps Deleted!
                 </div>
+                <br>
+                <div class="wa-container">
+                    May Need to Refresh to View Updated Timestamps.
+                </div>
             {% endif %}
 
             <div style="margin: 100px;"></div>
@@ -80,6 +94,15 @@
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $('#selectAllButton').on('click', function() {
+            console.log('reached');
+            var checked = !$(this).data('checked');
+            $('input:checkbox').prop('checked', checked);
+            $(this).val(checked ? 'uncheck all' : 'check all' )
+            $(this).data('checked', checked);
+        })
+    </script>
     <script type=text/javascript>
         $('#deleteSelectedButton').on('click', function() {
             $('input[type="checkbox"]').each(function() {
