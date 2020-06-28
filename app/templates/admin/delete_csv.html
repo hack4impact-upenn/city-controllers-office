@@ -84,7 +84,9 @@
                     $.ajax({
                         url: '/admin/delete_selected',
                         type: 'POST',
-                        data: {timetamp: $(this).val()},
+                        data: JSON.stringify({timestamp: $(this).val()}),
+                        dataType: 'json',
+                        contentType: 'application/json',
                         headers: {"X-CSRFToken": csrf_token},
                         error: function(e) {
                             console.log(e);

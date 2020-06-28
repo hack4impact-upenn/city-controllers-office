@@ -325,10 +325,12 @@ def view_database():
 @admin.route('/delete_selected', methods=['POST'])
 def delete_selected():
     if request.method == "POST":
-          clicked=request.data
-          print(clicked)
+        data = request.get_data()
+        timestamp_to_delete = str(data.decode("utf-8")[14:-2])
+        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
+        db.session.commit()
     
-    return("success")
+    return ("Success")
 
 @admin.route('/delete-csv', methods=['GET', 'POST'])
 @login_required
@@ -336,6 +338,5 @@ def delete_selected():
 def delete_csv():
     query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
     timestamp_list = [str(row.timestamp) for row in query.all()]
-    form = CSVUploadForm()
 
-    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list, form=form)
+    return render_template('admin/delete_csv.html', timestamp_list=timestamp_list)
