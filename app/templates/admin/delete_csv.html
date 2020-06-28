@@ -32,7 +32,7 @@
             <h2 class="ui header">
                 Delete CSV
                 <div class="sub header">
-                    View and delete CSV by timestamp.
+                    View and delete CSV's by timestamp.
                 </div>
             </h2> 
 
@@ -41,7 +41,14 @@
             <div style="overflow-x: scroll;">
                 <div style="padding: 5px 0px 40px 0px;">
                     <div style="float:left;">
-                    <button class="ui toggle button">Sort by Date</button>
+                    <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
+                        {{ smlrForm.csrf_token }}
+                        <button id="smlrButton" name="smlrButton" class="ui toggle button">Sort Most->Least Recent</button>
+                    </form>
+                    <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
+                        {{ slmrForm.csrf_token }}
+                        <button id="slmrButton" name="slmrButton" class="ui toggle button">Sort Least->Most Recent</button>
+                    </form>
                     </div>
 
                     <div style="float:right; ">

@@ -87,6 +87,8 @@ class CSVDownloadForm(FlaskForm):
 class DeleteSelectedForm(FlaskForm):
     deleteSelected = SubmitField("Delete Selected")
 
-class SortChronologicalForm(FlaskForm):
-    sortChron = SubmitField("Sort Chronologically")
-    checkbox = BooleanField(default='checked')
+class SortMLRForm(FlaskForm):
+    sortMLR = SubmitField("Sort Most to Least Recent")
+    
+class SortLMRForm(FlaskForm):
+    sortLMR = SubmitField("Sort Least to Most Recent")

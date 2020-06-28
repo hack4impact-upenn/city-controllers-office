@@ -7,7 +7,6 @@ from flask import (
     request,
     url_for,
     send_file,
-    jsonify
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
@@ -22,7 +21,8 @@ from app.admin.forms import (
     CSVUploadForm,
     CSVDownloadForm,
     DeleteSelectedForm,
-    SortChronologicalForm
+    SortMLRForm,
+    SortLMRForm
 )
 from app.decorators import admin_required
 from app.email import send_email
@@ -339,20 +339,30 @@ def delete_selected():
 @admin_required
 def delete_csv():
     dsForm = DeleteSelectedForm()
-    soForm = SortChronologicalForm()
+    smlrForm = SortMLRForm()
+    slmrForm = SortLMRForm()
 
     query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
     timestamp_list = [str(row.timestamp) for row in query.all()]
+    timestamp_list.sort()
 
     deleteSuccessful = False
-    sortChron = True
-    if dsForm.validate_on_submit():
-        deleteSuccessful = True
-    # if soForm.validate_on_submit():
-    #     sortChron = False
+    sortChron = False
+    if request.method == "POST":
+        if smlrForm.validate_on_submit() and "smlrButton" in str(request.form):
+            sortChron = False
+        if slmrForm.validate_on_submit() and "slmrButton" in str(request.form):
+            sortChron = True
+        if dsForm.validate_on_submit() and "deleteSelectedButton" in str(request.form):
+            deleteSuccessful = True
+    
+    if not sortChron:
+        timestamp_list.reverse()
     
     return render_template('admin/delete_csv.html', \
                                 timestamp_list=timestamp_list, \
                                 sortChron=sortChron, \
                                 deleteSuccessful=deleteSuccessful, \
+                                smlrForm=smlrForm,
+                                slmrForm=slmrForm,
                                 dsForm=dsForm)
