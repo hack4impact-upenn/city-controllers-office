@@ -328,7 +328,7 @@ def view_database():
 def delete_selected():
     if request.method == "POST":
         data = request.get_data()
-        timestamp_to_delete = str(data.decode("utf-8")[14:-2])
+        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
         ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
         db.session.commit()
     
@@ -338,14 +338,17 @@ def delete_selected():
 @login_required
 @admin_required
 def delete_csv():
+    # create forms for each button
     dsForm = DeleteSelectedForm()
-    smlrForm = SortMLRForm()
-    slmrForm = SortLMRForm()
+    smlrForm = SortMLRForm() # reverse chronological
+    slmrForm = SortLMRForm() # chronological
 
+    # query profserv db for list of unique timestamps
     query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
     timestamp_list = [str(row.timestamp) for row in query.all()]
     timestamp_list.sort()
 
+    # calculate deleteSuccessful and sortChron booleans based on which forms have been submitted
     deleteSuccessful = False
     sortChron = False
     if request.method == "POST":
@@ -356,6 +359,7 @@ def delete_csv():
         if dsForm.validate_on_submit() and "deleteSelectedButton" in str(request.form):
             deleteSuccessful = True
     
+    # reverse if most->least recent button is pressed
     if not sortChron:
         timestamp_list.reverse()
     
