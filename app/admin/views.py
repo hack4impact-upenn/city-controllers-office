@@ -6,7 +6,7 @@ from flask import (
     render_template,
     request,
     url_for,
-    send_file
+    send_file,
 )
 from flask_login import current_user, login_required
 from flask_rq import get_queue
@@ -20,11 +20,15 @@ from app.admin.forms import (
     NewUserForm,
     CSVUploadForm,
     CSVDownloadForm,
+    DeleteSelectedForm,
+    SortMLRForm,
+    SortLMRForm
 )
 from app.decorators import admin_required
 from app.email import send_email
 from app.models import EditableHTML, Role, User, ProfServ
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 from wtforms import SubmitField
 import os
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -320,13 +324,49 @@ def download_csv():
 def view_database():
     return render_template('admin/view_database.html')
 
+@admin.route('/delete_selected', methods=['POST'])
+def delete_selected():
+    if request.method == "POST":
+        data = request.get_data()
+        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
+        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
+        db.session.commit()
+    
+    return ("Success")
 
 @admin.route('/delete-csv', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def delete_csv():
+    # create forms for each button
+    dsForm = DeleteSelectedForm()
+    smlrForm = SortMLRForm() # reverse chronological
+    slmrForm = SortLMRForm() # chronological
 
-    csv_list = ["2018/2/12", "2019/3/5", "2020/4/30", "2020/4/30", "2020/4/30",
-                "2020/4/30", "2020/4/30", "2020/4/30", "2020/4/30"]
+    # query profserv db for list of unique timestamps
+    query = db.session.query(ProfServ.timestamp.distinct().label("timestamp"))
+    timestamp_list = [str(row.timestamp) for row in query.all()]
+    timestamp_list.sort()
 
-    return render_template('admin/delete_csv.html', csv_list=csv_list)
+    # calculate deleteSuccessful and sortChron booleans based on which forms have been submitted
+    deleteSuccessful = False
+    sortChron = False
+    if request.method == "POST":
+        if smlrForm.validate_on_submit() and "smlrButton" in str(request.form):
+            sortChron = False
+        if slmrForm.validate_on_submit() and "slmrButton" in str(request.form):
+            sortChron = True
+        if dsForm.validate_on_submit() and "deleteSelectedButton" in str(request.form):
+            deleteSuccessful = True
+    
+    # reverse if most->least recent button is pressed
+    if not sortChron:
+        timestamp_list.reverse()
+    
+    return render_template('admin/delete_csv.html', \
+                                timestamp_list=timestamp_list, \
+                                sortChron=sortChron, \
+                                deleteSuccessful=deleteSuccessful, \
+                                smlrForm=smlrForm,
+                                slmrForm=slmrForm,
+                                dsForm=dsForm)

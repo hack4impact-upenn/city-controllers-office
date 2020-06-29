@@ -7,6 +7,7 @@ from wtforms.fields import (
     StringField,
     SubmitField,
     SelectField,
+    BooleanField
 )
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import (
@@ -82,3 +83,12 @@ class CSVUploadForm(FlaskForm):
 
 class CSVDownloadForm(FlaskForm):
     download_csv = SubmitField("Download CSV")
+
+class DeleteSelectedForm(FlaskForm):
+    deleteSelected = SubmitField("Delete Selected")
+
+class SortMLRForm(FlaskForm):
+    sortMLR = SubmitField("Sort Most to Least Recent")
+    
+class SortLMRForm(FlaskForm):
+    sortLMR = SubmitField("Sort Least to Most Recent")
