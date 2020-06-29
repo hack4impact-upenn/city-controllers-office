@@ -26,7 +26,7 @@ const ResultList = () => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    return end_date_converted >= today ? "ACTIVE" : "EXPIRED";
+    return end_date_converted >= today ? "Active" : "Expired";
   }
 
   useEffect(() => {
