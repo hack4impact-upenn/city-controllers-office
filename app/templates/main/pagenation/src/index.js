@@ -20,6 +20,15 @@ const ResultList = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }
 
+  function isExpired(end_date) {
+    const parts = end_date.split("-");
+    const end_date_converted = new Date(parts[0], parts[1] - 1, parts[2]);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return end_date_converted >= today ? "ACTIVE" : "EXPIRED";
+  }
+
   useEffect(() => {
     console.log(result_list[0]);
   }, []);
@@ -38,12 +47,23 @@ const ResultList = () => {
               </div>
               <div class="eight wide column">
                 <div style={{ lineHeight: "20px" }}>
+                  <div class="tag">STAT</div>
+                  <b>{isExpired(entry.end_dt)}</b>
+                </div>
+                <div style={{ lineHeight: "20px" }}>
                   <div class="tag">TYPE</div>
                   <b>{entry.contract_structure_type}</b>
                 </div>
                 <div style={{ lineHeight: "20px" }}>
                   <div class="tag">DEPT</div>
-                  <b>{ entry.department_name.replace(/\w\S*/g, function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) }</b>
+                  <b>
+                    {entry.department_name.replace(/\w\S*/g, function (txt) {
+                      return (
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                      );
+                    })}
+                  </b>
                 </div>
                 <div style={{ lineHeight: "20px" }}>
                   {entry.amt == 0 ? (
