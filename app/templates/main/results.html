@@ -14,7 +14,7 @@
             padding: 30px;
             border-radius: 5px;
         }
-
+ 
         .theme-primary {
             color: #47688c;
         }
@@ -55,6 +55,35 @@
             {{ f.begin_form(cba, flashes) }}
             {{ f.render_form(cba) }}
             {{ f.end_form(cba) }}
+            <br />
+            <button class="ui button" 
+            href="/search" 
+            style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: center"
+            onclick="window.resultList.sortByDateDesc()">
+               Date (Descending)
+            </button>
+            
+            <button class="ui button" 
+            href="/search" 
+            style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: center"
+            onclick="window.resultList.sortByDateAsce()">
+               Date (Ascending)
+            </button>
+
+            <button class="ui button" 
+            href="/search" 
+            style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: center"
+            onclick="window.resultList.sortByPaidDesc()">
+               % Paid (Descending)
+            </button>
+
+            <button class="ui button" 
+            href="/search" 
+            style="font-family: Avenir; width: 80%; margin-bottom: 20px; text-align: center"
+            onclick="window.resultList.sortByPaidAsc()">
+               % Paid (Ascending)
+            </button>
+            
         </div>
         
 
@@ -68,7 +97,7 @@
             <br>
               <p style="font-size: 20px; font-weight: 600; text-transform: uppercase; color: #0f4d90">No Results Found</p>
             {% else %}
-            <div id="result-list-target"></div>
+            <div id="result-list-target" page_size="20"></div>
             {% endif %}
         </div>
         <script>
