@@ -1,6 +1,28 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+    <style>
+        .ds-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: green;
+            display:inline-block;
+        }
+
+        .wa-container {
+            margin-top: 10px;
+            padding: 10px;
+            border-style: dotted;
+            border-width: 1px;
+            border-radius: 5px;
+            color: #d68b00;
+            display:inline-block;
+        }
+    </style>
+
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
@@ -10,49 +32,109 @@
             <h2 class="ui header">
                 Delete CSV
                 <div class="sub header">
-                    View and delete CSV by timestamp.
+                    View and delete CSV's by timestamp.
                 </div>
             </h2> 
-
- 
 
             {# Use overflow-x: scroll so that mobile views don't freak out
              # when the table is too wide #}
             <div style="overflow-x: scroll;">
                 <div style="padding: 5px 0px 40px 0px;">
                     <div style="float:left;">
-                    <button class="ui toggle button">Sort by Date</button>
+                    <!-- buttons and forms for chronological sorting -->
+                    <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
+                        {{ smlrForm.csrf_token }}
+                        <button id="smlrButton" name="smlrButton" class="ui toggle button">Sort Most->Least Recent</button>
+                    </form>
+                    <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
+                        {{ slmrForm.csrf_token }}
+                        <button id="slmrButton" name="slmrButton" class="ui toggle button">Sort Least->Most Recent</button>
+                    </form>
                     </div>
 
                     <div style="float:right; ">
-                    <button class="ui toggle button">Check All</button>
-                    <button class="negative ui button">Delete Selected</button>
+                    <!-- button for checking all checkboxes -->
+                    <button id="selectAllButton" name="selectAllButton" class="ui toggle button">Check All</button>
+
+                    <!-- buttons and forms for delete selected -->
+                    <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/delete-csv" method = "POST" enctype = "multipart/form-data">
+                        {{ dsForm.csrf_token }}
+                        <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
+                    </form>
                     </div>
                 </div>
                 
                 <table class="ui celled table">
-                <thead>
-                    <tr>
-                    <th style="width: 10%;"></th>
-                    <th>CSV Timestamp</th>
-                </tr></thead>
-                <tbody>
-                    {% for csv in csv_list %}
-                    <tr>
-                    <td data-label="selected" style="text-align: center;">
-                    <div class="ui fitted slider checkbox">
-                        <input type="checkbox"> <label></label>
-                    </div>
-                    </td>
-                    <td data-label="timestamp">
-                    <span>{{ csv }}</span>
-                    </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;"></th>
+                            <th>CSV Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for timestamp in timestamp_list %}
+                        <tr>
+                            <td data-label="selected" style="text-align: center;">
+                                <div class="ui fitted slider checkbox">
+                                    <input class="checkbox-input" value="{{ timestamp }}" type="checkbox"> <label></label>
+                                </div>
+                            </td>
+                            <td data-label="timestamp">
+                                <span stlye="width: 60px">
+                                    {{ timestamp }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
-            <div style="margin: 100px;"> </div>
+
+            <!-- message for once delete selected button is pressed -->
+            {% if deleteSuccessful %}
+                <div class="ds-container">
+                    Selected Timestamps Deleted!
+                </div>
+                <br>
+                <div class="wa-container">
+                    May Need to Refresh to View Updated Timestamps.
+                </div>
+            {% endif %}
+
+            <div style="margin: 100px;"></div>
         </div>
     </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- JQuery for Check All button -->
+    <script type=text/javascript>
+        $('#selectAllButton').on('click', function() {
+            console.log('reached');
+            var checked = !$(this).data('checked');
+            $('input:checkbox').prop('checked', checked);
+            $(this).val(checked ? 'uncheck all' : 'check all' )
+            $(this).data('checked', checked);
+        })
+    </script>
+    <!-- JQuery for Delete Selected button -->
+    <script type=text/javascript>
+        $('#deleteSelectedButton').on('click', function() {
+            $('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var csrf_token = "{{ csrf_token() }}";
+                    $.ajax({
+                        url: '/admin/delete_selected',
+                        type: 'POST',
+                        data: JSON.stringify({timestamp: $(this).val()}),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {"X-CSRFToken": csrf_token},
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}

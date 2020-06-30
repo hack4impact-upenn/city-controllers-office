@@ -25,24 +25,75 @@ const ResultList = ({
     window.scrollTo({ top: 0, left: 0 });
   }
 
-  function EntryList() {
-    return (
-      <div>
-        {result_list.slice(page.start, page.end).map((entry) => {
-          return (
-            <div key={entry.original_contract_id}>
-              <div class="paper">
-                <div class="ui grid">
-                  <div class="eight wide column">
-                    <h3 class="theme-primary">{entry.vendor}</h3>
-                    <p>
-                      <i>ID: {entry.original_contract_id}</i>
-                    </p>
-                  </div>
-                  <div class="eight wide column">
-                    <div style={{ lineHeight: "20px" }}>
-                      <div class="tag">TYPE</div>
-                      <b>{entry.contract_structure_type}</b>
+//   function EntryList() {
+//     return (
+//       <div>
+//         {result_list.slice(page.start, page.end).map((entry) => {
+//           return (
+//             <div key={entry.original_contract_id}>
+//               <div class="paper">
+//                 <div class="ui grid">
+//                   <div class="eight wide column">
+//                     <h3 class="theme-primary">{entry.vendor}</h3>
+//                     <p>
+//                       <i>ID: {entry.original_contract_id}</i>
+//                     </p>
+//                   </div>
+//                   <div class="eight wide column">
+//                     <div style={{ lineHeight: "20px" }}>
+//                       <div class="tag">TYPE</div>
+//                       <b>{entry.contract_structure_type}</b>
+
+  function isExpired(end_date) {
+    const parts = end_date.split("-");
+    const end_date_converted = new Date(parts[0], parts[1] - 1, parts[2]);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return end_date_converted >= today ? "Active" : "Expired";
+  }
+
+  useEffect(() => {
+    console.log(result_list[0]);
+  }, []);
+
+  return (
+    <>
+      {result_list.slice(page.start, page.end).map((entry) => (
+        <div key={entry.original_contract_id}>
+          <div class="paper">
+            <div class="ui grid">
+              <div class="eight wide column">
+                <h3 class="theme-primary">{entry.vendor}</h3>
+                <p>
+                  <i>ID: {entry.original_contract_id}</i>
+                </p>
+              </div>
+              <div class="eight wide column">
+                <div style={{ lineHeight: "20px" }}>
+                  <div class="tag">STAT</div>
+                  <b>{isExpired(entry.end_dt)}</b>
+                </div>
+                <div style={{ lineHeight: "20px" }}>
+                  <div class="tag">TYPE</div>
+                  <b>{entry.contract_structure_type}</b>
+                </div>
+                <div style={{ lineHeight: "20px" }}>
+                  <div class="tag">DEPT</div>
+                  <b>
+                    {entry.department_name.replace(/\w\S*/g, function (txt) {
+                      return (
+                        txt.charAt(0).toUpperCase() +
+                        txt.substr(1).toLowerCase()
+                      );
+                    })}
+                  </b>
+                </div>
+                <div style={{ lineHeight: "20px" }}>
+                  {entry.amt == 0 ? (
+                    <div>
+                      <div class="tag">PAID</div>
+                      <b> 100.00%</b>
                     </div>
                     <div style={{ lineHeight: "20px" }}>
                       <div class="tag">DEPT</div>
@@ -99,6 +150,7 @@ const ResultList = ({
                 </div>
               </div>
             </div>
+
           );
         })}
       </div>
@@ -109,6 +161,46 @@ const ResultList = ({
     <>
       <EntryList />
       <div style={{ marginTop: "50px", height: "30vh" }}>
+            <div class="ui grid">
+              <div class="eight wide column">
+                <p>
+                  <b>Total Payments:</b> {entry.tot_payments}
+                </p>
+                <p>
+                  <b>Contact Amount:</b> {entry.amt}
+                </p>
+                <p
+                  style={{
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    color: "#0f4d90",
+                  }}
+                >
+                  Profit Status: {entry.profit_status.replace(/_/g, " ")}{" "}
+                </p>
+              </div>
+              <div class="eight wide column">
+                <p>
+                  <b>Description:</b> {entry.short_desc}
+                </p>
+                <p>
+                  <b>Contract Term:</b> {entry.start_dt} to {entry.end_dt}
+                </p>
+                <p
+                  style={{
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    color: "#0f4d90",
+                  }}
+                >
+                  Exempt Status: {entry.adv_or_exempt}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div style={{ marginTop: "50px", height: "30vh", float: "right" }}>
         <Pagination
           defaultActivePage={1}
           totalPages={totalPages}

@@ -1,4 +1,9 @@
-# City Controller's Office
+# Searchable Database for City of Philadelphia Contracts
+
+## Contributors:
+PM/TL: Nabeel Farooqui, Carol Li
+
+Team: Daniel Tian, Gautam Narayan, Robin Tan
 
 ## Setting up
 ##### Initialize a virtual environment
