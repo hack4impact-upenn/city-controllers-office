@@ -84,14 +84,8 @@
             </a>
           </li>
           
-          {% if not session['logged in'] %}
-            <li>
-              <a href="/account/login" class="nav-link">
-                Admin Login
-              </a>
-            </li>
-          
-          {% else %}
+          {% if session.logged_in %}
+
             <li>
               <a href="/admin" class="nav-link">
                 Admin Homepage
@@ -101,6 +95,14 @@
             <li>
               <a href="/account/logout" class="nav-link">
                 Logout
+              </a>
+            </li>
+          
+          {% else %}
+
+            <li>
+              <a href="/account/login" class="nav-link">
+                Admin Login
               </a>
             </li>
           
