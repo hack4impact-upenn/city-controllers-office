@@ -1,11 +1,12 @@
 from flask import (
+    Flask,
     Blueprint,
     flash,
     redirect,
     render_template,
     request,
     url_for,
-    session
+    session,
 )
 from flask_login import (
     current_user,
@@ -29,7 +30,8 @@ from app.email import send_email
 from app.models import User
 
 account = Blueprint('account', __name__)
-
+app = Flask(__name__)
+app.secret_key = '8179862af98d257ab79da781'
 
 @account.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,6 +43,7 @@ def login():
                 user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             session['logged_in'] = True
+            print(session['logged_in'])
             flash('You are now logged in. Welcome back!', 'success')
             return redirect(request.args.get('next') or url_for('admin.index'))
         else:
