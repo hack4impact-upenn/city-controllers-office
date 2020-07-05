@@ -18,7 +18,7 @@
             </h3>
         </div>
     </a>
-{% endmacro %} 
+{% endmacro %}
 
 {% block content %}
     <div class="ui stackable centered grid container">
@@ -27,21 +27,21 @@
                 Admin Dashboard
             </h2>
             <h3 class="ui header" style="font-family: Avenir; font-weight: 400; margin-top: -1%; color: #2176d2">
-                View and manage your admin settings.
+                All your admin settings.
             </h3>
             <div class="ui two column stackable grid">
-                {{ dashboard_option('Registered Users', 'admin.registered_users',
+                {{ dashboard_option('Registered Admins', 'admin.registered_users',
                                     description='View and manage admin accounts', icon='users icon') }}
-                {{ dashboard_option('Add New User', 'admin.new_user',
-                                    description='Create a new user account', icon='add user icon') }}
-                {{ dashboard_option('Upload CSV', 'admin.upload_csv',
-                                    description='Upload a CSV file', icon='upload icon') }}
-                {{ dashboard_option('Download CSV', 'admin.download_csv',
-                                    description='Download the CSV file', icon='download icon') }}
-                {{ dashboard_option('View Database', 'admin.view_database', 
-                                     description="View the database", icon='folder open icon')}}
-                {{ dashboard_option('Delete CSV', 'admin.delete_csv', 
-                                     description="Delete some CSV files", icon='folder open icon')}}
+                {{ dashboard_option('Add New Admin', 'admin.new_user',
+                                    description='Create a new admin account', icon='add user icon') }}
+                {{ dashboard_option('Upload Contracts', 'admin.upload_csv',
+                                    description='Upload a CSV file of contracts', icon='upload icon') }}
+                {{ dashboard_option('Download Contracts', 'admin.download_csv',
+                                    description='Download a CSV of contracts', icon='download icon') }}
+                {{ dashboard_option('Delete Contracts', 'admin.delete_csv',
+                                     description="Delete contracts from the database", icon='folder open icon')}}
+                {{ dashboard_option('Manage Database', 'admin.view_database',
+                                     description="Manage contract types and department names", icon='folder open icon')}}
             </div>
         </div>
     </div>

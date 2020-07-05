@@ -331,7 +331,7 @@ def delete_selected():
         timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
         ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
         db.session.commit()
-    
+
     return ("Success")
 
 @admin.route('/delete-csv', methods=['GET', 'POST'])
@@ -358,11 +358,11 @@ def delete_csv():
             sortChron = True
         if dsForm.validate_on_submit() and "deleteSelectedButton" in str(request.form):
             deleteSuccessful = True
-    
+
     # reverse if most->least recent button is pressed
     if not sortChron:
         timestamp_list.reverse()
-    
+
     return render_template('admin/delete_csv.html', \
                                 timestamp_list=timestamp_list, \
                                 sortChron=sortChron, \
