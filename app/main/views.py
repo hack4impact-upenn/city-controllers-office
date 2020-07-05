@@ -84,6 +84,7 @@ def modelListToJson(filtered):
         entry_json['start_dt'] = str(entry.start_dt)
         entry_json['end_dt'] = str(entry.end_dt)
         entry_json['short_desc'] = entry.short_desc
+        entry_json['adv_or_exempt'] = str(entry.adv_or_exempt)
         entry_json['profit_status'] = str(entry.profit_status)
 
         filtered_json.append(entry_json)
