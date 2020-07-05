@@ -82,62 +82,54 @@
                     <h3 class="ui header">
                         Department Names
                     </h3>
-                    <table class="ui compact celled definition table">
-                        <thead class="full-width">
-                          <tr>
-                            <th></th>
-                            <th>Contract ID</th>
-                            <th>Contract Name</th>
-                          </tr>
+                    <table class="ui celled table">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;"></th>
+                                <th>Department Name</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="collapsing">
-                              <div class="ui fitted slider checkbox">
-                                <input type="checkbox"> <label></label>
-                              </div>
-                            </td>
-                            <td>John Lilki</td>
-                            <td>September 14, 2013</td>
-                          </tr>
-                          <tr>
-                            <td class="collapsing">
-                              <div class="ui fitted slider checkbox">
-                                <input type="checkbox"> <label></label>
-                              </div>
-                            </td>
-                            <td>Jamie Harington</td>
-                            <td>January 11, 2014</td>
-                          </tr>
-                          <tr>
-                            <td class="collapsing">
-                              <div class="ui fitted slider checkbox">
-                                <input type="checkbox"> <label></label>
-                              </div>
-                            </td>
-                            <td>Jill Lewis</td>
-                            <td>May 11, 2014</td>
-                          </tr>
+                            {% for name in name_list %}
+                            <tr>
+                                <td data-label="selected" style="text-align: center;">
+                                    <div class="ui fitted slider checkbox">
+                                        <input class="checkbox-input" value="{{ name }}" type="checkbox"> <label></label>
+                                    </div>
+                                </td>
+                                <td data-label="timestamp">
+                                    <span stlye="width: 60px">
+                                        {{ name }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
-                        <tfoot class="full-width">
-                          <tr>
-                            <th></th>
-                            <th colspan="2">
-                              <div class="ui right floated small negative button">
-                                Delete
-                              </div>
-                              <div class="ui right floated small button">
-                                Edit
-                              </div>
-                            </th>
-                          </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>
 
         </div>
     </div>
-
+    <script type=text/javascript>
+        $('#deleteSelectedButton').on('click', function() {
+            $('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var csrf_token = "{{ csrf_token() }}";
+                    $.ajax({
+                        url: '/admin/delete_selected',
+                        type: 'POST',
+                        data: JSON.stringify({timestamp: $(this).val()}),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {"X-CSRFToken": csrf_token},
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 
 {% endblock %}
