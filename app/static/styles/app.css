@@ -76,6 +76,10 @@ h3 {
   font-size: 18px;
 }
 
+button.ui.button.landing {
+  cursor: default;
+}
+
 .ui.centered.grid {
   height: 100vmin;
 }

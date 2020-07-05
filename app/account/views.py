@@ -31,7 +31,6 @@ from app.models import User
 
 account = Blueprint('account', __name__)
 app = Flask(__name__)
-app.secret_key = '8179862af98d257ab79da781'
 
 @account.route('/login', methods=['GET', 'POST'])
 def login():
@@ -82,6 +81,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    session.pop('logged_in', None)
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.index'))
 
