@@ -3,12 +3,16 @@ import ReactDOM from "react-dom";
 import { Pagination } from "semantic-ui-react";
 
 const INJECT_DIV_TAG = "result-list-target";
+const PAGE_SIZE_NAME = "page_size";
 const container = document.getElementById(INJECT_DIV_TAG);
 
-const ResultList = () => {
-  const result_list = window.filtered_json;
-  const page_size = 20;
-  const totalPages = Math.round(result_list.length / page_size);
+const ResultList = ({
+  page_size: page_size_prop,
+  result_list: result_list_prop,
+}) => {
+  const result_list = result_list_prop;
+  const page_size = page_size_prop;
+  const totalPages = Math.ceil(result_list.length / page_size);
   const [page, setPage] = useState({ start: 0, end: page_size });
 
   function handlePageChange(data) {
@@ -135,11 +139,73 @@ const ResultList = () => {
 class ResultListContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      page_size: props.page_size,
+      result_list: window.filtered_json.map((x) => {
+        x.percentPaid = Math.round((100 * x.tot_payments) / x.amt);
+        return x;
+      }),
+    };
   }
+  // latest to oldest
+  sortByDateAsce = () => {
+    console.log("sort date by asce");
+
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return a.end_dt > b.end_dt ? 1 : -1;
+      }),
+    });
+  };
+
+  // latest to oldest
+  sortByDateDesc = () => {
+    console.log("sort date by desc");
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return b.end_dt > a.end_dt ? 1 : -1;
+      }),
+    });
+  };
+
+  // smallest to largest
+  sortByPaidAsc = () => {
+    console.log("sort paid by asce");
+
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return a.percentPaid - b.percentPaid;
+      }),
+    });
+  };
+
+  // largest to smallest
+  sortByPaidDesc = () => {
+    console.log("sort paid by desc");
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return b.percentPaid - a.percentPaid;
+      }),
+    });
+  };
 
   render() {
-    return <ResultList />;
+    return (
+      <ResultList
+        page_size={this.state.page_size}
+        result_list={this.state.result_list}
+      />
+    );
   }
 }
 
-ReactDOM.render(<ResultListContainer />, container);
+ReactDOM.render(
+  <ResultListContainer
+    page_size={document
+      .getElementById(INJECT_DIV_TAG)
+      .getAttribute(PAGE_SIZE_NAME)}
+    ref={(resultList) => (window.resultList = resultList)}
+  />,
+  container
+);
