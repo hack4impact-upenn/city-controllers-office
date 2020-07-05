@@ -5,7 +5,7 @@
     {% set flashes = {
         'success': get_flashed_messages(category_filter=['form-success'])
     } %}
-    
+
     <div class="ui stackable grid container">
         <div class="sixteen wide tablet twelve wide computer centered column">
             <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
@@ -14,12 +14,12 @@
             </a>
 
             <h2 class="ui header">
-               View and Manage Database
+               Manage Contract Types and Department Names Database
                 <div class="sub header">
-                    View and manage database entries.
+                    To manage contract types and department names, download the CSV of current entries and upload a new CSV.
                 </div>
             </h2>
-            
+
             <div class="columns">
                 <div class="column">
                     <h3 class="ui header">
@@ -77,7 +77,7 @@
                         </tfoot>
                     </table>
                 </div>
-    
+
                 <div class="column">
                     <h3 class="ui header">
                         Department Names
@@ -99,7 +99,7 @@
                             </td>
                             <td>John Lilki</td>
                             <td>September 14, 2013</td>
-                          </tr> 
+                          </tr>
                           <tr>
                             <td class="collapsing">
                               <div class="ui fitted slider checkbox">
@@ -139,5 +139,5 @@
         </div>
     </div>
 
-  
+
 {% endblock %}
