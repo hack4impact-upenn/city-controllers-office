@@ -92,3 +92,11 @@ class SortMLRForm(FlaskForm):
 
 class SortLMRForm(FlaskForm):
     sortLMR = SubmitField("Sort Least to Most Recent")
+
+class AddDeptNameForm(FlaskForm):
+    newdn = StringField("New Department Name")
+    adddn = SubmitField("Add Department Name")
+
+class AddContrTypeForm(FlaskForm):
+    newct = StringField("New Contract Type")
+    addct = SubmitField("Add Contract Type")
