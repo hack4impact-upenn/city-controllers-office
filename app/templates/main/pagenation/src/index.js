@@ -92,7 +92,7 @@ const ResultList = ({
                   <b>Total Payments:</b> {entry.tot_payments}
                 </p>
                 <p>
-                  <b>Contact Amount:</b> {entry.amt}
+                  <b>Contract Amount:</b> ${entry.amt}
                 </p>
                 <p
                   style={{
