@@ -71,6 +71,9 @@ def search():
 def modelListToJson(filtered):
     filtered_json = []
 
+    if(len(filtered) == 0):
+        return json.dumps(filtered_json)
+
     # convert filtered into [json]
     for entry in filtered:
         entry_json = dict()
@@ -145,7 +148,6 @@ def results():
     if str(ex) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
     filtered = query.all()
-    print(filtered[0])
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
@@ -164,7 +166,7 @@ def results():
     if filtered:
         return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     else:
-        return render_template('main/results.html', filtered=[], results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        return render_template('main/results.html', filtered=[], filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
