@@ -34,13 +34,25 @@ class CSVDownloadRSForm(FlaskForm):
     results_csv_submit = SubmitField("Download Results")
 
 class SortByAmountHiLoForm(FlaskForm):
-    amount_hi_lo_submit = SubmitField("Amount (Descending)")
+    amount_hi_lo_submit = SubmitField("Amount (Descending)", 
+    render_kw={
+        'style':'border:none; background:none; text-align:left; font-weight: 400; padding: 0; margin: 0; color: black'
+    })
 
 class SortByAmountLoHiForm(FlaskForm):
-    amount_lo_hi_submit = SubmitField("Amount (Ascending)")
+    amount_lo_hi_submit = SubmitField("Amount (Ascending)",
+    render_kw={
+        'style':'border:none; background:none; text-align:left; font-weight: 400; padding: 0; margin: 0; color: black'
+    })
 
 class SortByABC(FlaskForm):
-    name_abc = SubmitField("Vendor Name (A-Z)")
+    name_abc = SubmitField("Vendor Name (A-Z)",
+    render_kw={
+        'style':'border:none; background:none; text-align:left; font-weight: 400; padding: 0; margin: 0; color: black'
+    })
 
 class SortByCBA(FlaskForm):
-    name_cba = SubmitField("Vendor Name (Z-A)")
+    name_cba = SubmitField("Vendor Name (Z-A)",
+    render_kw={
+        'style':'border:none; background:none; text-align:left; font-weight: 400; padding: 0; margin: 0; color: black'
+    })
