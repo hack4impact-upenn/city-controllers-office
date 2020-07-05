@@ -145,7 +145,7 @@ def results():
     if str(ex) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
     filtered = query.all()
-    print(filtered[0])
+    
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
