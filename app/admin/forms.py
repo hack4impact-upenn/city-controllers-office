@@ -38,7 +38,7 @@ class ChangeAccountTypeForm(FlaskForm):
         'New account type',
         validators=[InputRequired()],
         get_label='name',
-        query_factory=lambda: db.session.query(Role).order_by('permissions'))
+        query_factory=lambda: db.session.query(Role).filter_by(id=2))
     submit = SubmitField('Update role')
 
 
@@ -89,6 +89,6 @@ class DeleteSelectedForm(FlaskForm):
 
 class SortMLRForm(FlaskForm):
     sortMLR = SubmitField("Sort Most to Least Recent")
-    
+
 class SortLMRForm(FlaskForm):
     sortLMR = SubmitField("Sort Least to Most Recent")
