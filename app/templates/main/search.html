@@ -54,12 +54,16 @@
                     {{ f.render_form_field(form.adv) }}
                     {{ f.render_form_field(form.ex) }}
                 </div>
-                <div class="container" style="margin-top: 20px; width: 100%; font-family: Avenir;">
-                    {{ f.render_form_field(form.submit) }}
-                    {{ f.begin_form(database_csv_form, flashes) }}
-                    {{ f.render_form(database_csv_form) }}
-                    {{ f.end_form(database_csv_form) }}
-                    <input class="fluid ui primary button" style="font-family: Avenir" type="reset" value="Reset All">
+                <div class="container" style="margin-top: 20px;">
+                    <div style="display: inline-block">
+                        {{ f.render_form_field(form.submit) }}
+                        {{ f.begin_form(database_csv_form, flashes) }}
+                    </div>
+                    <div style="display: inline-block">
+                        {{ f.render_form(database_csv_form) }}
+                        {{ f.end_form(database_csv_form) }}
+                    </div>
+                    <input class="fluid ui primary button" style="width: 98%" type="reset" value="Reset All">
 
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown

@@ -25,10 +25,16 @@ class ResultsForm(FlaskForm):
     non_profit = BooleanField('Nonprofit', default=True)
     adv = BooleanField('Advertised', default=True)
     ex = BooleanField('Exempt', default=True)
-    submit = SubmitField('View Results')
+    submit = SubmitField('View Results',
+    render_kw={
+        'style':'width: auto'
+    })
 
 class CSVDownloadDBForm(FlaskForm):
-    database_csv_submit = SubmitField("Download Database")
+    database_csv_submit = SubmitField("Download Database",
+    render_kw={
+        'style':'width: auto'
+    })
 
 class CSVDownloadRSForm(FlaskForm):
     results_csv_submit = SubmitField("Download Results",
