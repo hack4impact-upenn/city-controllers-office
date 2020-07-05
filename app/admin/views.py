@@ -196,6 +196,14 @@ def delete_user(user_id):
     return redirect(url_for('admin.registered_users'))
 
 
+@admin.route('/view-database', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def view_database():
+    
+    return render_template('admin/view_database.html', form=form)
+
+
 @admin.route('/_update_editor_contents', methods=['POST'])
 @login_required
 @admin_required
