@@ -58,8 +58,10 @@ def search():
     types = ContrType.query.all()
     form.department.choices = [
         (dept.department_name, dept.department_name.title()) for dept in depts]
+    form.department.choices.insert(0, ('All', 'All Departments'))
     form.contract_type.choices = [
         (type.contract_structure_type, type.contract_structure_type) for type in types]
+    form.contract_type.choices.insert(0, ('All', 'All Contract Types'))
     if request.method == 'POST':
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
