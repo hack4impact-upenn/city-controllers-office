@@ -30,33 +30,11 @@
         }
     </style>
     <div class="ui grid" style="margin-top: 60px; margin-bottom: 60px;">
-        <div class="four wide column" style="margin-top: 70px">
-            <a class="fluid ui labeled icon primary button" href="/search" style="font-family: Avenir; margin-bottom: 20px; text-align: left">
+        <div class="four wide column">
+            <a class="back-to-home" href="/search">
                 <i class="left arrow icon"></i>
-                Back to Search
+                BACK TO SEARCH
             </a>
-
-            {{ f.begin_form(results_csv_form, flashes) }}
-            {{ f.render_form(results_csv_form) }}
-            {{ f.end_form(results_csv_form) }}
-            <!-- <br />
-            <label class="label">Sort By:</label>
-            {{ f.begin_form(high_to_low_form, flashes) }}
-            {{ f.render_form(high_to_low_form) }}
-            {{ f.end_form(high_to_low_form) }}
-            <br />
-            {{ f.begin_form(low_to_high_form, flashes) }}
-            {{ f.render_form(low_to_high_form) }}
-            {{ f.end_form(low_to_high_form) }}
-            <br />
-            {{ f.begin_form(abc, flashes) }}
-            {{ f.render_form(abc) }}
-            {{ f.end_form(abc) }}
-            <br />
-            {{ f.begin_form(cba, flashes) }}
-            {{ f.render_form(cba) }}
-            {{ f.end_form(cba) }} -->
-            <br />
         </div>
 
 
@@ -65,58 +43,65 @@
                 <h2 style="font-family: Avenir; float: left">
                     {{ filtered|length }} Results
                 </h2>
-                <div class="ui selection dropdown" style="float: right">
-                    <input type="hidden" name="gender">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sort Results By</div>
-                    <div class="menu">
-                        <div class="item">
-                            {{ f.begin_form(high_to_low_form, flashes) }}
-                            {{ f.render_form(high_to_low_form) }}
-                            {{ f.end_form(high_to_low_form) }}
-                        </div>
-                        <div class="item">
-                            {{ f.begin_form(low_to_high_form, flashes) }}
-                            {{ f.render_form(low_to_high_form) }}
-                            {{ f.end_form(low_to_high_form) }}
-                        </div>
-                        <div class="item">
-                            {{ f.begin_form(abc, flashes) }}
-                            {{ f.render_form(abc) }}
-                            {{ f.end_form(abc) }}
-                        </div>
-                        <div class="item">
-                            {{ f.begin_form(cba, flashes) }}
-                            {{ f.render_form(cba) }}
-                            {{ f.end_form(cba) }}
-                        </div>
-                        <div class="item">
-                            <a  href="/search"
-                                style="color: black"
-                                onclick="window.resultList.sortByDateDesc()">
-                                Date (Descending)
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a  href="/search"
-                                style="color: black"
-                                onclick="window.resultList.sortByDateAsce()">
-                                Date (Ascending)
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a  href="/search"
-                                style="color: black"
-                                onclick="window.resultList.sortByPaidDesc()">
-                                % Paid (Descending)
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a  href="/search"
-                                style="color: black"
-                                onclick="window.resultList.sortByPaidAsc()">
-                                % Paid (Ascending)
-                            </a>
+                <div style="float: right">
+                    <div style="display: inline-block">
+                        {{ f.begin_form(results_csv_form, flashes) }}
+                        {{ f.render_form(results_csv_form) }}
+                        {{ f.end_form(results_csv_form) }}
+                    </div>
+                    <div class="ui selection dropdown" style="display: inline-block"">
+                        <input type="hidden" name="gender">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Sort Results By</div>
+                        <div class="menu">
+                            <div class="item">
+                                {{ f.begin_form(high_to_low_form, flashes) }}
+                                {{ f.render_form(high_to_low_form) }}
+                                {{ f.end_form(high_to_low_form) }}
+                            </div>
+                            <div class="item">
+                                {{ f.begin_form(low_to_high_form, flashes) }}
+                                {{ f.render_form(low_to_high_form) }}
+                                {{ f.end_form(low_to_high_form) }}
+                            </div>
+                            <div class="item">
+                                {{ f.begin_form(abc, flashes) }}
+                                {{ f.render_form(abc) }}
+                                {{ f.end_form(abc) }}
+                            </div>
+                            <div class="item">
+                                {{ f.begin_form(cba, flashes) }}
+                                {{ f.render_form(cba) }}
+                                {{ f.end_form(cba) }}
+                            </div>
+                            <div class="item">
+                                <a  href="/search"
+                                    style="color: black"
+                                    onclick="window.resultList.sortByDateDesc()">
+                                    Date (Descending)
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a  href="/search"
+                                    style="color: black"
+                                    onclick="window.resultList.sortByDateAsce()">
+                                    Date (Ascending)
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a  href="/search"
+                                    style="color: black"
+                                    onclick="window.resultList.sortByPaidDesc()">
+                                    % Paid (Descending)
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a  href="/search"
+                                    style="color: black"
+                                    onclick="window.resultList.sortByPaidAsc()">
+                                    % Paid (Ascending)
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

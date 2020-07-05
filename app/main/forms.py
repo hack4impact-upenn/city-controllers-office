@@ -31,7 +31,10 @@ class CSVDownloadDBForm(FlaskForm):
     database_csv_submit = SubmitField("Download Database")
 
 class CSVDownloadRSForm(FlaskForm):
-    results_csv_submit = SubmitField("Download Results")
+    results_csv_submit = SubmitField("Download Results",
+    render_kw={
+        'style':'width: auto'
+    })
 
 class SortByAmountHiLoForm(FlaskForm):
     amount_hi_lo_submit = SubmitField("Amount (Descending)", 

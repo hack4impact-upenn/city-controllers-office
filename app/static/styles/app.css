@@ -89,6 +89,14 @@ body {
   font-family: "Avenir Next", sans-serif !important;
 }
 
+.back-to-home {
+  font-family: Avenir;
+  margin-bottom: 20px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 16px;
+}
+
 h1, h2, h3 {
   font-family: "Avenir Next", sans-serif !important;
 }
