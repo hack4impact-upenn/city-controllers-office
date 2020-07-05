@@ -93,6 +93,11 @@ h1, h2, h3 {
   font-family: "Avenir Next", sans-serif !important;
 }
 
+.heading-text {
+  clear: both;
+  padding-bottom: 45px;
+}
+
 h3 {
   font-size: 18px;
 }
