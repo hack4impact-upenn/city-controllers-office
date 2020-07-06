@@ -21,8 +21,10 @@
             <h2 class="ui header">
                Manage Contract Types
                 <div class="sub header">
-                    To manage contract types and department names, download the CSV of current entries and upload a new CSV.
-                </div>
+                    Manage the options in the list of contract types that show up on the search page. <br>
+                    Contract types must be unique, otherwise they won't be added. <br>
+                    WARNING: Deleting contract type options here may cause some entries' contract types to be unreachable through the contract type search options. Make sure the contract types being deleted correspond to no contract entries, or update the affected contract entries through download/delete/upload CSV.
+                  </div>
             </h2>
 
               <div class="columns">
@@ -35,6 +37,10 @@
                       Successfully added. Refresh to view changes.
                   </div>
               {% endif %}
+              <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/manage_contract_types" method = "POST" enctype = "multipart/form-data">
+                  {{ dsctForm.csrf_token }}
+                  <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
+              </form>
               <div class="column">
                   <h3 class="ui header">
                       Contract Types
@@ -77,15 +83,16 @@
     <br>
 
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type=text/javascript>
         $('#deleteSelectedButton').on('click', function() {
             $('input[type="checkbox"]').each(function() {
                 if ($(this).is(':checked')) {
                     var csrf_token = "{{ csrf_token() }}";
                     $.ajax({
-                        url: '/admin/delete_selected',
+                        url: '/admin/delete_selected_ct',
                         type: 'POST',
-                        data: JSON.stringify({timestamp: $(this).val()}),
+                        data: JSON.stringify({contract_structure_type: $(this).val()}),
                         dataType: 'json',
                         contentType: 'application/json',
                         headers: {"X-CSRFToken": csrf_token},

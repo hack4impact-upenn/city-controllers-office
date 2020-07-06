@@ -327,6 +327,7 @@ def download_csv():
 def manage_department_names():
     name_list = Department.query.all()
     adddnform = AddDeptNameForm()
+    dsdnForm = DeleteSelectedForm()
     adddnSuccessful = False
     if request.method == "POST":
         try:
@@ -337,7 +338,19 @@ def manage_department_names():
                 adddnSuccessful = True
         except sqlalchemy.exc.SQLAlchemyError as e:
             db.session.rollback()
-    return render_template('admin/manage_department_names.html', name_list=name_list, adddnform=adddnform, adddnSuccessful=adddnSuccessful)
+    return render_template('admin/manage_department_names.html', name_list=name_list, adddnform=adddnform, adddnSuccessful=adddnSuccessful, dsdnForm=dsdnForm)
+
+@admin.route('/delete_selected_dn', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected_dn():
+    if request.method == "POST":
+        data = request.get_data()
+        data_parsed = str(data.decode("utf-8")[44:-4])
+        Department.query.filter(Department.department_name == data_parsed).delete()
+        db.session.commit()
+
+    return ("Success")
 
 @admin.route('/manage_contract_types', methods=['GET', 'POST'])
 @login_required
@@ -346,6 +359,7 @@ def manage_contract_types():
     type_list =  ContrType.query.all()
     addctform = AddContrTypeForm()
     addctSuccessful = False
+    dsctForm = DeleteSelectedForm()
     if request.method == "POST":
         try:
             if addctform.validate_on_submit():
@@ -355,8 +369,19 @@ def manage_contract_types():
                 addctSuccessful = True
         except sqlalchemy.exc.SQLAlchemyError as e:
             db.session.rollback()
-    return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful)
+    return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful, dsctForm=dsdnForm)
 
+@admin.route('/delete_selected_ct', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected_ct():
+    if request.method == "POST":
+        data = request.get_data()
+        data_parsed = str(data.decode("utf-8")[44:-4])
+        ContrType.query.filter(ContrType.contract_structure_type == data_parsed).delete()
+        db.session.commit()
+
+    return ("Success")
 
 @admin.route('/delete_selected', methods=['POST'])
 @login_required
