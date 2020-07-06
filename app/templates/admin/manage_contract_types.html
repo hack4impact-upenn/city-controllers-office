@@ -44,43 +44,41 @@
               <div class="column">
                   <h3 class="ui header">
                       Contract Types
-                  </h3>
-                  <table class="ui celled table">
-                      <thead>
-                          <tr>
-                              <th style="width: 10%;"></th>
-                              <th>Contract Type</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {% for type in type_list %}
-                          <tr>
-                              <td data-label="selected" style="text-align: center;">
-                                  <div class="ui fitted slider checkbox">
-                                      <input class="checkbox-input" value="{{ name }}" type="checkbox"> <label></label>
-                                  </div>
-                              </td>
-                              <td data-label="contract_structure_type">
-                                  <span stlye="width: 60px">
-                                      {{ type.contract_structure_type }}
-                                  </span>
-                              </td>
-                          </tr>
-                          {% endfor %}
-                      </tbody>
-                  </table>
+                    </h3>
+                    <table class="ui celled table">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;"></th>
+                                <th>Contract Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for type in type_list %}
+                            <tr>
+                                <td data-label="selected" style="text-align: center;">
+                                    <div class="ui fitted slider checkbox">
+                                        <input class="checkbox-input" value="{{ name }}" type="checkbox"> <label></label>
+                                    </div>
+                                </td>
+                                <td data-label="timestamp">
+                                    <span style="width: 60px">
+                                        {{ type.contract_structure_type }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
               </div>
 
-
-            </div>
-
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+          </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
 
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -104,5 +102,4 @@
             })
         })
     </script>
-
 {% endblock %}
