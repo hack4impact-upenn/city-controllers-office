@@ -378,21 +378,8 @@ def manage_contract_types():
 def delete_selected_ct():
     if request.method == "POST":
         data = request.get_data()
-        data_parsed = str(data.decode("utf-8")[1:-1])
-        print(data_parsed)
+        data_parsed = str(data.decode("utf-8")[60:-4])
         ContrType.query.filter(ContrType.contract_structure_type == data_parsed).delete()
-        db.session.commit()
-
-    return ("Success")
-
-@admin.route('/delete_selected', methods=['POST'])
-@login_required
-@admin_required
-def delete_selected():
-    if request.method == "POST":
-        data = request.get_data()
-        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
-        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
         db.session.commit()
 
     return ("Success")
@@ -433,3 +420,15 @@ def delete_csv():
                                 smlrForm=smlrForm,
                                 slmrForm=slmrForm,
                                 dsForm=dsForm)
+
+@admin.route('/delete_selected', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected():
+    if request.method == "POST":
+        data = request.get_data()
+        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
+        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
+        db.session.commit()
+
+    return ("Success")
