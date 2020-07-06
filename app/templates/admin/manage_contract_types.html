@@ -34,7 +34,7 @@
               {{ f.end_form(addctform) }}
               {% if addctSuccessful %}
                   <div class="ds-container">
-                      Successfully added. Refresh to view changes.
+                      Success. You may need to refresh to view changes.
                   </div>
               {% endif %}
               <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/manage_contract_types" method = "POST" enctype = "multipart/form-data">
@@ -60,7 +60,7 @@
                                       <input class="checkbox-input" value="{{ name }}" type="checkbox"> <label></label>
                                   </div>
                               </td>
-                              <td data-label="timestamp">
+                              <td data-label="contract_structure_type">
                                   <span stlye="width: 60px">
                                       {{ type.contract_structure_type }}
                                   </span>

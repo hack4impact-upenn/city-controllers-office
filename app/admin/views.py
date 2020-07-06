@@ -347,6 +347,7 @@ def delete_selected_dn():
     if request.method == "POST":
         data = request.get_data()
         data_parsed = str(data.decode("utf-8")[44:-4])
+        print(data)
         Department.query.filter(Department.department_name == data_parsed).delete()
         db.session.commit()
 
@@ -369,7 +370,7 @@ def manage_contract_types():
                 addctSuccessful = True
         except sqlalchemy.exc.SQLAlchemyError as e:
             db.session.rollback()
-    return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful, dsctForm=dsdnForm)
+    return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful, dsctForm=dsctForm)
 
 @admin.route('/delete_selected_ct', methods=['POST'])
 @login_required
@@ -377,7 +378,8 @@ def manage_contract_types():
 def delete_selected_ct():
     if request.method == "POST":
         data = request.get_data()
-        data_parsed = str(data.decode("utf-8")[44:-4])
+        data_parsed = str(data.decode("utf-8")[1:-1])
+        print(data_parsed)
         ContrType.query.filter(ContrType.contract_structure_type == data_parsed).delete()
         db.session.commit()
 
