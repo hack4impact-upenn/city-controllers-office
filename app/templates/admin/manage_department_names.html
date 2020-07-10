@@ -1,0 +1,105 @@
+{% extends 'layouts/base.html' %}
+{% import 'macros/form_macros.html' as f %}
+
+{% block content %}
+    {% set flashes = {
+        'success': get_flashed_messages(category_filter=['form-success'])
+    } %}
+    {% set flashes = {
+      'error':   get_flashed_messages(category_filter=['form-error']),
+      'warning': get_flashed_messages(category_filter=['form-check-email']),
+      'info':    get_flashed_messages(category_filter=['form-info']),
+      'success': get_flashed_messages(category_filter=['form-success'])
+  } %}
+    <div class="ui stackable grid container">
+        <div class="sixteen wide tablet twelve wide computer centered column">
+            <a class="ui basic compact button" href="{{ url_for('admin.index') }}">
+                <i class="caret left icon"></i>
+                Back to dashboard
+            </a>
+
+            <h2 class="ui header">
+               Manage Department Names
+                <div class="sub header">
+                  Manage the options in the list of department names that show up on the search page. <br>
+                  Department names must be unique, otherwise they won't be added. <br>
+                  WARNING: Deleting department name options here may cause some entries' department names to be unreachable through the department name search option. Make sure the department names being deleted correspond to no contract entries, or update the affected contract entries through download/delete/upload CSV.
+                  </div>
+            </h2>
+
+            <div class="columns">
+              {{ f.begin_form(adddnform, flashes) }}
+              {{ f.render_form_field(adddnform.newdn) }}
+              {{ f.render_form_field(adddnform.adddn) }}
+              {{ f.end_form(adddnform) }}
+              {% if adddnSuccessful %}
+                  <div class="ds-container">
+                        Success. You may need to refresh to view changes.
+                  </div>
+              {% endif %}
+              <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/manage_department_names" method = "POST" enctype = "multipart/form-data">
+                  {{ dsdnForm.csrf_token }}
+                  <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
+              </form>
+              <div class="column">
+                  <h3 class="ui header">
+                      Department Names
+                  </h3>
+                  <table class="ui celled table">
+                      <thead>
+                          <tr>
+                              <th style="width: 10%;"></th>
+                              <th>Department Name</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for name in name_list %}
+                          <tr>
+                              <td data-label="selected" style="text-align: center;">
+                                  <div class="ui fitted slider checkbox">
+                                      <input class="checkbox-input" value="{{ name }}" type="checkbox"> <label></label>
+                                  </div>
+                              </td>
+                              <td data-label="timestamp">
+                                  <span style="width: 60px">
+                                      {{ name.department_name }}
+                                  </span>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $('#deleteSelectedButton').on('click', function() {
+            $('input[type="checkbox"]').each(function() {
+                if ($(this).is(':checked')) {
+                    var csrf_token = "{{ csrf_token() }}";
+                    $.ajax({
+                        url: '/admin/delete_selected_dn',
+                        type: 'POST',
+                        data: JSON.stringify({department_name: $(this).val()}),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        headers: {"X-CSRFToken": csrf_token},
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

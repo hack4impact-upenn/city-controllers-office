@@ -66,7 +66,7 @@ def search():
         if database_csv_form.database_csv_submit.data and database_csv_form.validate():
             return download_database()
     if form.validate():
-        return redirect(url_for('main.results', vendor=form.vendor.data, num=form.original_contract_id.data, sd=form.start_dt.data, ed=form.end_dt.data, min=form.minimum.data, max=form.maximum.data, kw=form.keyword.data, fp=form.for_profit.data, np=form.non_profit.data, adv=form.adv.data, ex=form.ex.data))
+        return redirect(url_for('main.results', dept=form.department.data, ct=form.contract_type.data, vendor=form.vendor.data, num=form.original_contract_id.data, sd=form.start_dt.data, ed=form.end_dt.data, min=form.minimum.data, max=form.maximum.data, kw=form.keyword.data, fp=form.for_profit.data, np=form.non_profit.data, adv=form.adv.data, ex=form.ex.data))
     return render_template('main/search.html', depts=depts, types=types, form=form, database_csv_form=database_csv_form)
 
 # q1 - sept 30
@@ -122,6 +122,8 @@ def results():
     low_to_high_form = SortByAmountLoHiForm()
     abc = SortByABC()
     cba = SortByCBA()
+    dept = request.args.get('dept')
+    ct = request.args.get('ct')
     vendor = request.args.get('vendor')
     num = request.args.get('num')
     sd = request.args.get('sd')
@@ -134,6 +136,10 @@ def results():
     adv = request.args.get('adv')
     ex = request.args.get('ex')
     query = ProfServ.query
+    if dept != "All":
+        query = query.filter(ProfServ.department_name == dept)
+    if ct != "All":
+        query = query.filter(ProfServ.contract_structure_type == ct)
     if vendor:
         query = query.filter(ProfServ.vendor.ilike('%{0}%'.format(vendor)))
     if num:
@@ -165,7 +171,7 @@ def results():
     if str(adv) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "ADVERTISED")
     if str(ex) == "False":
-        query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
+        query = query.filter(ProfServ.adv_or_exempt == "ADVERTISED")
     filtered = query.all()
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
