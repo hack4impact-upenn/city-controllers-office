@@ -33,7 +33,7 @@ table.selectable tr:hover {
 
 @font-face {
   font-family: 'Avenir Next';
-  src: url('../fonts/app-fonts/AvenirNext-Medium.ttf') format('truetype'); 
+  src: url('../fonts/app-fonts/AvenirNext-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
@@ -56,14 +56,14 @@ table.selectable tr:hover {
           url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"),
           url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
   }
-  
+
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: grayscale;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;  
-  box-sizing: border-box;   
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   font-family: "Avenir Next", sans-serif !important;
   scroll-behavior: smooth;
   box-sizing: border-box;
@@ -86,12 +86,12 @@ body {
 } */
 
 .reset-button {
-  width: auto; 
-  background:none; 
-  padding:none; 
-  border: none; 
-  font-family: "Avenir Next"; 
-  cursor: pointer; 
+  width: auto;
+  background:none;
+  padding:none;
+  border: none;
+  font-family: "Avenir Next";
+  cursor: pointer;
   font-weight: 500;
   font-size: 15px;
   color: #0f4d90;
@@ -124,10 +124,6 @@ h1, h2, h3 {
 
 h3 {
   font-size: 18px;
-}
-
-button.ui.button.landing {
-  cursor: default;
 }
 
 .ui.centered.grid {
@@ -184,7 +180,7 @@ button.ui.button.landing {
 }
 
 .three.wide.column .ui.button {
-  
+
   color: #676767;
   background-color: #F7F7F7;
   width: 90%;
@@ -318,7 +314,7 @@ a.nav-rectangle-left:hover {
   font-weight: bold;
   font-size: 14px;
   margin-right: 3%;
-  
+
   display: inline;
 }
 
@@ -327,7 +323,7 @@ a.nav-rectangle-left:hover {
   color: black;
   font-weight: bold;
   font-size: 14px;
-  
+
 }
 
 .copyright a {
@@ -346,18 +342,18 @@ a.nav-rectangle-left:hover {
   background-color: #f7f7f7;
   margin-top: 10px;
   border-radius: 5px;
-  
+
 }
 
 .paper h2 {
-  
+
   color: #2176d2;
 }
 
 .ui.text.container .paper ul {
-  
+
   color: #333333;
-  list-style-type: none; 
+  list-style-type: none;
   padding-left: 0px;
   font-weight: 450;
 }
@@ -376,18 +372,18 @@ a.nav-rectangle-left:hover {
 }
 
 .ui.text.container .ui.form {
-  
+
   font-weight: 600;
   margin-top: -5%;
   color: #444;
 }
 
 .ui.text.container .ui.form .ui.button {
-  margin-top: 30px; 
-  width: 200px; 
-  height: 40px; 
+  margin-top: 30px;
+  width: 200px;
+  height: 40px;
   float: right;
-  
+
   background-color: #0f4d90;
   color: #F7F7F7;
 }
@@ -405,7 +401,7 @@ a.nav-rectangle-left:hover {
   font-weight: 450;
   font-size: 15px;
   line-height: 1.6;
-  
+
 }
 
 .ui.text.container ul.fraud_list li {
@@ -464,8 +460,8 @@ a.nav-rectangle-left:hover {
 }
 
 .label {
-  font-weight: 600; 
-  display: block; 
+  font-weight: 600;
+  display: block;
   margin-bottom: 10px;
 }
 

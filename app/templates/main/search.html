@@ -55,13 +55,11 @@
                     {{ f.render_form_field(form.ex) }}
                 </div>
                 <div class="container" style="margin-top: 20px;">
-                    
+
                     {{ f.render_form_field(form.submit) }}
                     {{ f.begin_form(database_csv_form, flashes) }}
 
-                    <div style="float: right">
-                        <i class="undo icon" style="color: #0f4d90"></i><input class="reset-button" type="reset" value="Reset All">
-                    </div>
+                    
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.
@@ -221,7 +219,7 @@
                     </p>
                 <!-- </div> -->
             </div>
-            
+
         </div>
 
     </div>
