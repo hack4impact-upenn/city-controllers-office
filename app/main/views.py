@@ -69,6 +69,22 @@ def search():
         return redirect(url_for('main.results', vendor=form.vendor.data, num=form.original_contract_id.data, sd=form.start_dt.data, ed=form.end_dt.data, min=form.minimum.data, max=form.maximum.data, kw=form.keyword.data, fp=form.for_profit.data, np=form.non_profit.data, adv=form.adv.data, ex=form.ex.data))
     return render_template('main/search.html', depts=depts, types=types, form=form, database_csv_form=database_csv_form)
 
+# q1 - sept 30
+# q2 - dec 31
+# q3 - march 31
+# q4 - june 30
+def get_quarter(as_of):
+    if "Q1" in as_of:
+        return ("September 30, " + as_of[-4:])
+    elif "Q2" in as_of:
+        return ("December 31, " + as_of[-4:])
+    elif "Q3" in as_of:
+        return("March 31, " + as_of[-4:])
+    elif "Q4" in as_of:
+        return("June 30, " + as_of[-4:])
+    else:
+        return "N/A"
+
 
 def modelListToJson(filtered):
     filtered_json = []
@@ -91,6 +107,7 @@ def modelListToJson(filtered):
         entry_json['short_desc'] = entry.short_desc
         entry_json['adv_or_exempt'] = str(entry.adv_or_exempt)
         entry_json['profit_status'] = str(entry.profit_status)
+        entry_json['as_of'] = get_quarter(str(entry.as_of))
 
         filtered_json.append(entry_json)
 
