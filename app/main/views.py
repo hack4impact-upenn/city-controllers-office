@@ -154,7 +154,7 @@ def results():
     if str(adv) == "False":
         query = query.filter(ProfServ.adv_or_exempt != "ADVERTISED")
     if str(ex) == "False":
-        query = query.filter(ProfServ.adv_or_exempt != "EXEMPT")
+        query = query.filter(ProfServ.adv_or_exempt == "ADVERTISED")
     filtered = query.all()
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
