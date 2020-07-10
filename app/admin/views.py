@@ -11,7 +11,7 @@ from flask import (
 from flask_login import current_user, login_required
 from flask_rq import get_queue
 from werkzeug import secure_filename
-
+import sqlalchemy
 from app import db
 from app.admin.forms import (
     ChangeAccountTypeForm,
@@ -22,11 +22,13 @@ from app.admin.forms import (
     CSVDownloadForm,
     DeleteSelectedForm,
     SortMLRForm,
-    SortLMRForm
+    SortLMRForm,
+    AddDeptNameForm,
+    AddContrTypeForm
 )
 from app.decorators import admin_required
 from app.email import send_email
-from app.models import EditableHTML, Role, User, ProfServ
+from app.models import EditableHTML, Role, User, ProfServ, Department, ContrType
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from wtforms import SubmitField
@@ -196,6 +198,7 @@ def delete_user(user_id):
     return redirect(url_for('admin.registered_users'))
 
 
+
 @admin.route('/_update_editor_contents', methods=['POST'])
 @login_required
 @admin_required
@@ -318,18 +321,65 @@ def download_csv():
     return render_template('admin/download_csv.html', download_csv_form=download_csv_form)
 
 
-@admin.route('/view_database', methods=['GET', 'POST'])
+@admin.route('/manage_department_names', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def view_database():
-    return render_template('admin/view_database.html')
+def manage_department_names():
+    name_list = Department.query.all()
+    adddnform = AddDeptNameForm()
+    dsdnForm = DeleteSelectedForm()
+    adddnSuccessful = False
+    if request.method == "POST":
+        try:
+            if adddnform.validate_on_submit():
+                deptname = Department(department_name = adddnform.newdn.data)
+                db.session.add(deptname)
+                db.session.commit()
+                adddnSuccessful = True
+        except sqlalchemy.exc.SQLAlchemyError as e:
+            db.session.rollback()
+    return render_template('admin/manage_department_names.html', name_list=name_list, adddnform=adddnform, adddnSuccessful=adddnSuccessful, dsdnForm=dsdnForm)
 
-@admin.route('/delete_selected', methods=['POST'])
-def delete_selected():
+@admin.route('/delete_selected_dn', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected_dn():
     if request.method == "POST":
         data = request.get_data()
-        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
-        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
+        data_parsed = str(data.decode("utf-8")[44:-4])
+        print(data)
+        Department.query.filter(Department.department_name == data_parsed).delete()
+        db.session.commit()
+
+    return ("Success")
+
+@admin.route('/manage_contract_types', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def manage_contract_types():
+    type_list =  ContrType.query.all()
+    addctform = AddContrTypeForm()
+    addctSuccessful = False
+    dsctForm = DeleteSelectedForm()
+    if request.method == "POST":
+        try:
+            if addctform.validate_on_submit():
+                contracttype = ContrType(contract_structure_type = addctform.newct.data)
+                db.session.add(contracttype)
+                db.session.commit()
+                addctSuccessful = True
+        except sqlalchemy.exc.SQLAlchemyError as e:
+            db.session.rollback()
+    return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful, dsctForm=dsctForm)
+
+@admin.route('/delete_selected_ct', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected_ct():
+    if request.method == "POST":
+        data = request.get_data()
+        data_parsed = str(data.decode("utf-8")[60:-4])
+        ContrType.query.filter(ContrType.contract_structure_type == data_parsed).delete()
         db.session.commit()
 
     return ("Success")
@@ -370,3 +420,15 @@ def delete_csv():
                                 smlrForm=smlrForm,
                                 slmrForm=slmrForm,
                                 dsForm=dsForm)
+
+@admin.route('/delete_selected', methods=['POST'])
+@login_required
+@admin_required
+def delete_selected():
+    if request.method == "POST":
+        data = request.get_data()
+        timestamp_to_delete = str(data.decode("utf-8")[14:-2]) # Note: sensitive to name of button
+        ProfServ.query.filter(ProfServ.timestamp == timestamp_to_delete).delete()
+        db.session.commit()
+
+    return ("Success")

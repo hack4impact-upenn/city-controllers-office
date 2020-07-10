@@ -50,7 +50,7 @@
                     {{ f.render_form_field(form.non_profit) }}
                 </div>
                 <div class="search-form">
-                  <label class="label">Exempt Status:</label>
+                  <label class="label">Advertising Status:</label>
                     {{ f.render_form_field(form.adv) }}
                     {{ f.render_form_field(form.ex) }}
                 </div>
@@ -62,7 +62,6 @@
                     <div style="float: right">
                         <i class="undo icon" style="color: #0f4d90"></i><input class="reset-button" type="reset" value="Reset All">
                     </div>
-
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.
@@ -170,7 +169,7 @@
                         };
                     </script>
                 </div>
-                {{ f.end_form(form) }}
+
             </div>
 
         </div>
@@ -195,19 +194,21 @@
                         Searching
                     </h3>
                     <p class="theme-secondary">
-                        Search here for city contracts. You can filter by department, contract type,
-                        approval date, or restrict to a contract dollar amount range. You can also search
-                        by specific vendor names or keywords.
+                        Search here for professional services contracts. You can filter by any of the fields shown here. Leave all fields blank to show all the contracts on record.
                     </p>
 
                     <h3 class="theme-primary">
                         Search Criteria
                     </h3>
                     <p class="theme-secondary">
-                        Contract Amount can be selected based on a range from the minimum to maximum.
-                        Use the sliders to select the maximum or minimum amounts.
+                        Keyword search looks through vendor name, department name, contract type, advertising status, and description.
                         <br></br>
-                        Contract Approval Date can be selected based on a range using the two date widgets to the left.
+                        Contract Number refers to the Original Contract ID Number associated with a contract or set of contracts.
+                        <br></br>
+                        Contract Amount can be selected based on a range from the minimum to maximum. You can enter just a minimum, just an maximum, or both.
+                        <br></br>
+                        Similarly, Contract Date can be selected based on a date range. You can enter just a start date, just an end date, or both.
+                        Results will be shown that start and end within that date range.
                     </p>
 
                     <h3 class="theme-primary">
@@ -216,15 +217,14 @@
                     <p class="theme-secondary">
                         Since the number of results might be quite large, contracts are presented one page at a time.
                         <br><br>
-                        You can set the page size from 10-100, and also sort by most of these criteria
-                        (click on the arrow to the right to change the sort direction).
+                        You can sort results by vendor name, end date, contract amount, or percent paid.
                     </p>
                 <!-- </div> -->
             </div>
             
         </div>
 
-    </div> 
+    </div>
 </div>
 </div>
 {% endblock %}

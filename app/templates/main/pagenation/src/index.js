@@ -118,7 +118,7 @@ const ResultList = ({
                     color: "#0f4d90",
                   }}
                 >
-                  Exempt Status: {entry.adv_or_exempt}
+                  Advertising Status: {entry.adv_or_exempt}
                 </p>
               </div>
             </div>
