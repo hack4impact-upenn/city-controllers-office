@@ -64,7 +64,7 @@
                         {{ f.end_form(database_csv_form) }}
                     </div>
                     <input class="fluid ui primary button" style="width: 98%" type="reset" value="Reset All">
-
+                    {{ f.end_form(form) }}
                     <!-- Upon clicking "View Contract",
                     Displays a number of contracts depending on result of dropdown
                     Or Displays Instructions if default is selected.
@@ -172,7 +172,7 @@
                         };
                     </script>
                 </div>
-                {{ f.end_form(form) }}
+
             </div>
 
         </div>
@@ -218,7 +218,7 @@
             </div>
         </div>
 
-    </div> 
+    </div>
 </div>
 </div>
 {% endblock %}
