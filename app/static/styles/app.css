@@ -85,6 +85,22 @@ body {
   }
 } */
 
+.reset-button {
+  width: auto; 
+  background:none; 
+  padding:none; 
+  border: none; 
+  font-family: "Avenir Next"; 
+  cursor: pointer; 
+  font-weight: 500;
+  font-size: 15px;
+  color: #0f4d90;
+}
+
+.reset-button:hover {
+  color: #96c9ff;
+}
+
 .ui {
   font-family: "Avenir Next", sans-serif !important;
 }
