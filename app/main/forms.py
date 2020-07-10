@@ -27,13 +27,13 @@ class ResultsForm(FlaskForm):
     ex = BooleanField('Exempt', default=True)
     submit = SubmitField('View Results',
     render_kw={
-        'style':'width: auto'
+        'style':'width: 100%'
     })
 
 class CSVDownloadDBForm(FlaskForm):
     database_csv_submit = SubmitField("Download Database",
     render_kw={
-        'style':'width: auto'
+        'style':'background:none; text-align: left; padding: 0'
     })
 
 class CSVDownloadRSForm(FlaskForm):

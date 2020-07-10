@@ -89,10 +89,10 @@ const ResultList = ({
             <div class="ui grid">
               <div class="eight wide column">
                 <p>
-                  <b>Total Payments:</b> {entry.tot_payments}
+                  <b>Total Payments:</b> ${Number(entry.tot_payments).toLocaleString()}
                 </p>
                 <p>
-                  <b>Contract Amount:</b> ${entry.amt}
+                  <b>Contract Amount:</b> ${Number(entry.amt).toLocaleString()}
                 </p>
                 <p
                   style={{
