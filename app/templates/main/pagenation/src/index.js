@@ -46,7 +46,8 @@ const ResultList = ({
               <div class="eight wide column">
                 <h3 class="theme-primary">{entry.vendor}</h3>
                 <p>
-                  <i>ID: {entry.original_contract_id}</i>
+                  <b>ID:</b> {entry.original_contract_id} &nbsp; • &nbsp;
+                  <b>As Of:</b> { entry.as_of }
                 </p>
               </div>
               <div class="eight wide column">

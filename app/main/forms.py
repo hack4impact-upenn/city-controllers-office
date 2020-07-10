@@ -39,7 +39,7 @@ class CSVDownloadDBForm(FlaskForm):
 class CSVDownloadRSForm(FlaskForm):
     results_csv_submit = SubmitField("Download Results",
     render_kw={
-        'style':'width: auto'
+        'style':'background:none; text-align: left; padding: 0; margin-right: 25px;'
     })
 
 class SortByAmountHiLoForm(FlaskForm):
