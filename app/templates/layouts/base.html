@@ -7,13 +7,14 @@
   {% include 'partials/_head.html' %}
   {# Any templates that extend this template can set custom_head_tags to add scripts to their page #}
   {% block custom_head_tags %}{% endblock %}
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <div class="nav-rectangle">
     <a class="nav-rectangle-left" href="/">
       <img src="https://3og1cv1uvq3u3skase2jhb69-wpengine.netdna-ssl.com/wp-content/uploads/2018/04/crest.png">
     </a>
     <div class="nav-wrapper">
       <ul class="nav-top">
-        <li class="right-nav-link">Philadelphia City Controller's Office</li>
+        <li class="right-nav-link">Open Book Philadelphia</li>
         <li><a href="/" class="nav-link">Home</a></li>
         <li><a href="/search" class="nav-link">Search</a></li>
         <li><a href="/about" class="nav-link">About</a></li>
@@ -107,6 +108,18 @@
             </li>
           
           {% endif %}
+
+            <li>
+              <a>
+                <i class="fab fa-facebook-square"></i>
+              </a>
+            </li>
+
+            <li>
+              <a>
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
 
           <li class="copyright">
             &copy; <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> <a href="https://controller.phila.gov/">Philadelphia City Controller</a>
