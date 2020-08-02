@@ -1,0 +1,3 @@
+original_contract_id,current_item_id,department_name,vendor,contract_structure_type,short_desc,start_dt,end_dt,days_remaining,amt,tot_payments,orig_vendor,exempt_status,adv_or_exempt,profit_status
+dddaca,efgh,d,dvv,Miscellaneous Order,Provide CPA Exam Review,7/31/2018,6/30/2019,90,20000,2793,Becker Professional Development Corporation,102,EXEMPT,For Profit
+,,,,,,,,,d,,,,,

@@ -254,7 +254,6 @@ def upload_csv():
                            found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
 
-
 @admin.route('/download-csv', methods=['GET', 'POST'])
 @login_required
 @admin_required
