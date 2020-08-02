@@ -226,7 +226,7 @@ def update_editor_contents():
 @admin_required
 def upload_csv():
     form = CSVUploadForm()
-    upload_successful = False
+    upload_status = 'No Upload'
     found_duplicate = False
     found_broken_row = False
 
@@ -249,8 +249,9 @@ def upload_csv():
 
         # uploads csv file; returns upload alert logic variables
         upload_successful, found_duplicate, found_broken_row = readCSV(file=file, quarter_year=quarter_year)
+        upload_status = 'Success' if upload_successful else 'Failed'
 
-    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful,
+    return render_template('admin/upload_csv.html', form=form, upload_status=upload_status,
                            found_duplicate=found_duplicate, found_broken_row=found_broken_row)
 
 

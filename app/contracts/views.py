@@ -83,8 +83,10 @@ def readCSV(file, quarter_year="Q2-2019"):
                     db.session.add(c_type)
                 if row[14] == 'For Profit':
                     profstat = Profit_Status.For_Profit
-                else:
+                elif row[14] == 'Non Profit':
                     profstat = Profit_Status.Non_Profit
+                else:
+                    profstat = Profit_Status.Unknown
                 contract = ProfServ(
                     # hash logic: original contract id - current item id - start date
                     id=row[0] + '-' + row[1] + '-' + row[6],

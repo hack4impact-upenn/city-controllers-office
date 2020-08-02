@@ -23,7 +23,7 @@ class Exempt_Status(enum.Enum):
 
 class Profit_Status(enum.Enum):
     For_Profit = "For Profit"
-    Non_Profit = "Nonprofit"
+    Non_Profit = "Non Profit"
     Unknown = "Unknown"
 
     def __str__(self):
@@ -50,8 +50,6 @@ class ProfServ(db.Model):
     orig_vendor = db.Column(db.String(64))
     exempt_status = db.Column(db.String(64))
     adv_or_exempt = db.Column(db.String(64))
-    #exempt_status = db.Column(db.Enum(Exempt_Status), default=0)
-    #adv_or_exempt = db.Column(db.Enum(Exempt_Status), default=0)
     profit_status = db.Column(db.Enum(Profit_Status), default=0)
     as_of = db.Column(db.String(64))
     timestamp = db.Column((db.DateTime))

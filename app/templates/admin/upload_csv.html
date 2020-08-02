@@ -77,17 +77,17 @@
                 </div>
             </form>
 
-            <!-- The following three containers are upload alerts after CSV has been uploaded by admin -->
-            {% if upload_successful %}
-                <div class="us-container">
-                    Upload Successful!
+            <!-- The following four containers are upload alerts after CSV has been uploaded by admin -->
+            {% if upload_status == 'Failed' %}
+                <div class="fbr-container">
+                    Upload Failed.
                 </div>
                 <br>
             {% endif %}
 
-            {% if upload_successful == False %}
-                <div class="fbr-container">
-                    Upload Failed.
+            {% if upload_status == 'Success' %}
+                <div class="us-container">
+                    Upload Successful!
                 </div>
                 <br>
             {% endif %}
