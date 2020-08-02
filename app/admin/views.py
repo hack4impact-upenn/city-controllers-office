@@ -230,15 +230,16 @@ def upload_csv():
     found_duplicate = False
     found_broken_row = False
 
+    # upload_dir = "uploads"
+    # time_stamp = calendar.timegm(time.gmtime())
+    # prepending time stamp
+    #filename = str(time_stamp) + '_' + secure_filename(f.filename)
+    # # filepath
+    # filepath = os.path.join(upload_dir, filename)
+    # f.save(filepath)
+
     if form.validate_on_submit():
-        upload_dir = "uploads"
         file = form.document.data
-        time_stamp = calendar.timegm(time.gmtime())
-        # prepending time stamp
-        #filename = str(time_stamp) + '_' + secure_filename(f.filename)
-        # # filepath
-        # filepath = os.path.join(upload_dir, filename)
-        # f.save(filepath)
         # process quarter and year
         # example: quarter 1 and year 2002 => quarter_year = "Q1-2002"
         # default: "-"

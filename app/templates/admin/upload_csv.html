@@ -85,6 +85,13 @@
                 <br>
             {% endif %}
 
+            {% if !upload_successful %}
+                <div class="us-container">
+                    Upload Failed.
+                </div>
+                <br>
+            {% endif %}
+
             {% if found_duplicate %}
                 <div class="fd-container">
                     WARNING: Duplicate contracts detected.

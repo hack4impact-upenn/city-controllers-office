@@ -24,6 +24,7 @@ class Exempt_Status(enum.Enum):
 class Profit_Status(enum.Enum):
     For_Profit = "For Profit"
     Non_Profit = "Nonprofit"
+    Unknown = "Unknown"
 
     def __str__(self):
         return self.name

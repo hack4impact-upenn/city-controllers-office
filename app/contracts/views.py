@@ -24,7 +24,8 @@ typenames = Blueprint('ContrType', __name__)
 def readCSV(file, quarter_year="Q2-2019"):
     dept_names = []
     contr_type_names = []
-    now=datetime.now()
+    now = datetime.now()
+
     upload_successful = False
     found_duplicate= False
     found_broken_row = False
@@ -39,11 +40,11 @@ def readCSV(file, quarter_year="Q2-2019"):
     # if reached this step, then csv file upload is successful
 
     csv_data = pd.read_csv(file)
-    print(csv_data)
+    # print(csv_data)
     #next(csvReader)
     upload_successful = True
-    for index, row in csv_data.iterrows():
-        print(row['department_name'], row['profit_status'])
+    for index, row_data in csv_data.iterrows():
+        # print(row['department_name'], row['profit_status'])
         #print(row)
         # if int(row[12]) == 102:
         #    exstat = Exempt_Status.EXEMPT
@@ -51,6 +52,23 @@ def readCSV(file, quarter_year="Q2-2019"):
         # else:
         #    exstat = Exempt_Status.ADVERTISED
         #    advext = Exempt_Status.ADVERTISED
+        row = [
+            row_data['original_contract_id'],
+            row_data['current_item_id'],
+            row_data['department_name'],
+            row_data['vendor'],
+            row_data['contract_structure_type'],
+            row_data['short_desc'],
+            row_data['start_dt'],
+            row_data['end_dt'],
+            row_data['days_remaining'],
+            row_data['amt'],
+            row_data['tot_payments'],
+            row_data['orig_vendor'],
+            row_data['exempt_status'],
+            row_data['adv_or_exempt'],
+            row_data['profit_status'],
+        ]
 
         # try/except statement for detecting broken rows
         try:
@@ -107,6 +125,7 @@ def readCSV(file, quarter_year="Q2-2019"):
 
                 db.session.commit()
         except:
+            print ('hi')
             found_broken_row = True
             db.session.rollback()
 
