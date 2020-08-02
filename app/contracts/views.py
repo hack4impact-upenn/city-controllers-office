@@ -29,32 +29,18 @@ def readCSV(file, quarter_year="Q2-2019"):
     upload_successful = False
     found_duplicate= False
     found_broken_row = False
-    #print(file.read())
 
-    # file_str = str(file.read().decode('utf-8'))
-    # #print(file_str)
-    # csvReader = file_str.split("\n")[1:]
-    #print(csvReader)
-    #with open(file) as csvDataFile:
-    #next(csvReader)
-    # if reached this step, then csv file upload is successful
+    csv_data = pd.read_csv(file)
     expected_headers = ['original_contract_id', 'current_item_id', 'department_name', 'vendor', 'contract_structure_type', \
                         'short_desc', 'start_dt', 'end_dt', 'days_remaining', 'amt', \
                         'tot_payments', 'orig_vendor', 'exempt_status', 'adv_or_exempt', 'profit_status']
-
-    csv_data = pd.read_csv(file)
     headers_list = list(csv_data.columns)
+
+    # checks if all headers in csv data are expected; if not expected, then directly fails upload
     if headers_list and len(headers_list) == len(expected_headers) and headers_list == expected_headers:
+        # if reached this step, then csv file upload is successful
         upload_successful = True
         for index, headers in csv_data.iterrows():
-            # print(row['department_name'], row['profit_status'])
-            #print(row)
-            # if int(row[12]) == 102:
-            #    exstat = Exempt_Status.EXEMPT
-            #    advext = Exempt_Status.EXEMPT
-            # else:
-            #    exstat = Exempt_Status.ADVERTISED
-            #    advext = Exempt_Status.ADVERTISED
             row = [
                 headers['original_contract_id'],
                 headers['current_item_id'],
@@ -81,6 +67,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                 if ContrType.query.filter_by(contract_structure_type=row[4]).first() is None:
                     c_type = ContrType(contract_structure_type=row[4])
                     db.session.add(c_type)
+                # three profit status cases: for profit, non profit, unknown (else)
                 if row[14] == 'For Profit':
                     profstat = Profit_Status.For_Profit
                 elif row[14] == 'Non Profit':

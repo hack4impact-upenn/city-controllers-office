@@ -230,14 +230,7 @@ def upload_csv():
     found_duplicate = False
     found_broken_row = False
 
-    # upload_dir = "uploads"
-    # time_stamp = calendar.timegm(time.gmtime())
-    # prepending time stamp
-    #filename = str(time_stamp) + '_' + secure_filename(f.filename)
-    # # filepath
-    # filepath = os.path.join(upload_dir, filename)
-    # f.save(filepath)
-
+    # Assumes direct upload of file; dampens the costly use of cloud services
     if form.validate_on_submit():
         file = form.document.data
         # process quarter and year
@@ -249,6 +242,7 @@ def upload_csv():
 
         # uploads csv file; returns upload alert logic variables
         upload_successful, found_duplicate, found_broken_row = readCSV(file=file, quarter_year=quarter_year)
+        # displays "success" or "failure" depending on result of readCSV
         upload_status = 'Success' if upload_successful else 'Failed'
 
     return render_template('admin/upload_csv.html', form=form, upload_status=upload_status,
