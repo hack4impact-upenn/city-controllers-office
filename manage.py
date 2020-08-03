@@ -49,7 +49,8 @@ def recreate_db():
     db.session.commit()
 
     filename = 'app/contracts/sample_prof_serv_contracts.csv'
-    views.readCSV(filename)
+    file = open(filename)
+    views.readCSV(file)
 
 @manager.option(
     '-n',

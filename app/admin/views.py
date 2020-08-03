@@ -8,6 +8,7 @@ from flask import (
     url_for,
     send_file,
 )
+import boto3
 from flask_login import current_user, login_required
 from flask_rq import get_queue
 from werkzeug import secure_filename
@@ -225,19 +226,13 @@ def update_editor_contents():
 @admin_required
 def upload_csv():
     form = CSVUploadForm()
-    upload_successful = False
+    upload_status = 'No Upload'
     found_duplicate = False
     found_broken_row = False
 
+    # Assumes direct upload of file; dampens the costly use of cloud services
     if form.validate_on_submit():
-        upload_dir = "uploads"
-        f = form.document.data
-        time_stamp = calendar.timegm(time.gmtime())
-        # prepending time stamp
-        filename = str(time_stamp) + '_' + secure_filename(f.filename)
-        # filepath
-        filepath = os.path.join(upload_dir, filename)
-        f.save(filepath)
+        file = form.document.data
         # process quarter and year
         # example: quarter 1 and year 2002 => quarter_year = "Q1-2002"
         # default: "-"
@@ -246,11 +241,12 @@ def upload_csv():
         quarter_year = "Q" + quarter + "-" + year
 
         # uploads csv file; returns upload alert logic variables
-        upload_successful, found_duplicate, found_broken_row = readCSV(filename=filepath, quarter_year=quarter_year)
+        upload_successful, found_duplicate, found_broken_row = readCSV(file=file, quarter_year=quarter_year)
+        # displays "success" or "failure" depending on result of readCSV
+        upload_status = 'Success' if upload_successful else 'Failed'
 
-    return render_template('admin/upload_csv.html', form=form, upload_successful=upload_successful,
+    return render_template('admin/upload_csv.html', form=form, upload_status=upload_status,
                            found_duplicate=found_duplicate, found_broken_row=found_broken_row)
-
 
 
 @admin.route('/download-csv', methods=['GET', 'POST'])
@@ -432,3 +428,51 @@ def delete_selected():
         db.session.commit()
 
     return ("Success")
+
+@admin.route('/sign-s3/')
+@admin_required
+@login_required
+def sign_s3():
+    # Load necessary information into the application
+    TARGET_FOLDER = 'json/'
+    S3_REGION = 'us-east-2'
+    S3_BUCKET = os.environ.get('S3_BUCKET')
+
+    # Load required data from the request
+    pre_file_name = request.args.get('file-name')
+    file_name = ''.join(pre_file_name.split('.')[:-1]) + \
+                str(time.time()).replace('.',  '-') + '.' + \
+                ''.join(pre_file_name.split('.')[-1:])
+    file_type = request.args.get('file-type')
+
+    # Initialise the S3 client
+    s3 = boto3.client('s3',
+                      region_name=S3_REGION,
+                      aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+                      aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
+                      )
+
+    # Generate and return the presigned URL
+    presigned_post = s3.generate_presigned_post(
+        Bucket=S3_BUCKET,
+        Key=TARGET_FOLDER + file_name,
+        Fields={
+            "acl": "public-read",
+            "Content-Type": file_type
+        },
+        Conditions=[{
+            "acl": "public-read"
+        }, {
+            "Content-Type": file_type
+        }],
+        ExpiresIn=60000)
+
+    # Return the data to the client
+    return json.dumps({
+        'data':
+            presigned_post,
+        'url_upload':
+            'https://%s.%s.%s.amazonaws.com' % (S3_BUCKET, 's3', S3_REGION),
+        'url':
+            'https://%s.%s.%s.amazonaws.com/json/%s' % (S3_BUCKET, 's3', S3_REGION, file_name)
+    })
