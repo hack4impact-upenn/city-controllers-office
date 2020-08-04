@@ -33,6 +33,7 @@ Mako==1.1.0
 MarkupSafe==1.1.1
 mccabe==0.6.1
 packaging==19.1
+pandas==1.1.0
 Pillow==7.1.2
 pipupgrade==1.5.1
 psycopg2==2.8.3
