@@ -20,7 +20,7 @@ if os.path.exists('config.env'):
 
 
 class Config:
-    APP_NAME = os.environ.get('APP_NAME', 'City Controller\'s Office')
+    APP_NAME = os.environ.get('APP_NAME', 'Open Book Philadelphia')
 
     if os.environ.get('SECRET_KEY'):
         SECRET_KEY = os.environ.get('SECRET_KEY')
