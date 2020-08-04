@@ -37,7 +37,7 @@
                         Success. You may need to refresh to view changes.
                   </div>
               {% endif %}
-              <form class="ui form" style = "display:inline" action="http://localhost:5000/admin/manage_department_names" method = "POST" enctype = "multipart/form-data">
+              <form class="ui form" style = "display:inline" action="{{ url_for('admin.manage_department_names') }}" method = "POST" enctype = "multipart/form-data">
                   {{ dsdnForm.csrf_token }}
                   <button id="deleteSelectedButton" name="deleteSelectedButton" class="negative ui button">Delete Selected</button>
               </form>

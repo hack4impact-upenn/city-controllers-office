@@ -47,7 +47,7 @@
                 </div>
             </h2>
 
-            <form class="ui form" action="http://localhost:5000/admin/upload-csv" method = "POST" enctype = "multipart/form-data">
+            <form class="ui form" action="{{ url_for('admin.upload_csv') }}" method = "POST" enctype = "multipart/form-data">
                 {{ form.csrf_token }}
                 <div class="search-form">
                     <label class="ui header">Quarter</label>
@@ -107,5 +107,5 @@
 
         </div>
     </div>
-  
+
 {% endblock %}
