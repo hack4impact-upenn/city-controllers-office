@@ -116,7 +116,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                         orig_contract.timestamp = contract.timestamp
 
                     db.session.commit()
-            except:
+            except exc:
+                print (exc)
                 found_broken_row = True
                 db.session.rollback()
 
