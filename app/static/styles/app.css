@@ -246,15 +246,15 @@ h3 {
 .nav-rectangle-left {
   position: absolute;
   height: 60px;
-  width: 70px;
+  width: 150px;
   left: 0px;
   background-color: #0f4d90;
   /* position: fixed; */
 }
 
 .nav-rectangle-left img {
-  height: 90%;
-  margin: 3px;
+  height: 80%;
+  margin: 6px;
   padding-left: 4px;
 }
 
