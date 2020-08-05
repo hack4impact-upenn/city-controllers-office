@@ -149,6 +149,51 @@ class ResultListContainer extends React.Component {
       }),
     };
   }
+
+  // amt desc
+  sortByAmtDesc = () => {
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return b.amt - a.amt;
+      }),
+    });
+  }
+
+  // amt asc
+  sortByAmtAsc = () => {
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        return a.amt - b.amt;
+      }),
+    });
+  }
+
+  sortByVendorDesc = () => {
+    console.log("sort by vendor desc");
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        if (a.vendor < b.vendor)
+          return 1;
+        else if (a.vendor > b.vendor)
+          return -1;
+        return 0;
+      }),
+    });
+  }
+
+  sortByVendorAsc = () => {
+    console.log("sort by vendor asc");
+    this.setState({
+      result_list: this.state.result_list.sort((a, b) => {
+        if (a.vendor > b.vendor)
+          return 1;
+        else if (a.vendor < b.vendor)
+          return -1;
+        return 0;
+      }),
+    });
+  }
+
   // latest to oldest
   sortByDateAsce = () => {
     console.log("sort date by asce");
@@ -173,7 +218,6 @@ class ResultListContainer extends React.Component {
   // smallest to largest
   sortByPaidAsc = () => {
     console.log("sort paid by asce");
-
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
         return a.percentPaid - b.percentPaid;

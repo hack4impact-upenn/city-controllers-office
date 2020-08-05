@@ -54,54 +54,53 @@
                         {{ f.end_form(results_csv_form) }}
                     </div>
                     <div class="ui selection dropdown" style="display: inline-block"">
-                        <input type="hidden" name="gender">
                         <i class="dropdown icon"></i>
                         <div class="default text">Sort Results By</div>
                         <div class="menu">
                             <div class="item">
-                                {{ f.begin_form(high_to_low_form, flashes) }}
-                                {{ f.render_form(high_to_low_form) }}
-                                {{ f.end_form(high_to_low_form) }}
+                                <a  style="color: black"
+                                    onclick="window.resultList.sortByAmtDesc()">
+                                    Amount (Descending)
+                                </a>
                             </div>
                             <div class="item">
-                                {{ f.begin_form(low_to_high_form, flashes) }}
-                                {{ f.render_form(low_to_high_form) }}
-                                {{ f.end_form(low_to_high_form) }}
+                                <a  style="color: black"
+                                    onclick="window.resultList.sortByAmtAsc()">
+                                    Amount (Ascending)
+                                </a>
                             </div>
                             <div class="item">
-                                {{ f.begin_form(abc, flashes) }}
-                                {{ f.render_form(abc) }}
-                                {{ f.end_form(abc) }}
+                                <a  style="color: black"
+                                    onclick="window.resultList.sortByVendorDesc()">
+                                    Vendor Name (A-Z)
+                                </a>
                             </div>
                             <div class="item">
-                                {{ f.begin_form(cba, flashes) }}
-                                {{ f.render_form(cba) }}
-                                {{ f.end_form(cba) }}
+                                <a  style="color: black"
+                                    onclick="window.resultList.sortByVendorAsc()">
+                                    Vendor Name (Z-A)
+                                </a>
                             </div>
                             <div class="item">
-                                <a  href="/search"
-                                    style="color: black"
+                                <a  style="color: black"
                                     onclick="window.resultList.sortByDateDesc()">
                                     End Date (Descending)
                                 </a>
                             </div>
                             <div class="item">
-                                <a  href="/search"
-                                    style="color: black"
+                                <a  style="color: black"
                                     onclick="window.resultList.sortByDateAsce()">
                                     End Date (Ascending)
                                 </a>
                             </div>
                             <div class="item">
-                                <a  href="/search"
-                                    style="color: black"
+                                <a  style="color: black"
                                     onclick="window.resultList.sortByPaidDesc()">
                                     % Paid (Descending)
                                 </a>
                             </div>
                             <div class="item">
-                                <a  href="/search"
-                                    style="color: black"
+                                <a  style="color: black"
                                     onclick="window.resultList.sortByPaidAsc()">
                                     % Paid (Ascending)
                                 </a>
