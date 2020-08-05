@@ -63,18 +63,18 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
-        confirm_link = url_for('account.confirm', token=token, _external=True)
-        get_queue().enqueue(
-            send_email,
-            recipient=user.email,
-            subject='Confirm Your Account',
-            template='account/email/confirm',
-            user=user,
-            confirm_link=confirm_link)
-        flash('A confirmation link has been sent to {}.'.format(user.email),
-              'warning')
+        user.confirm_account(token)
         return redirect(url_for('main.index'))
     return render_template('account/register.html', form=form)
+
+    # def confirm(token):
+    # """Confirm new user's account with provided token."""
+    # if current_user.confirmed:
+    #     return redirect(url_for('main.index'))
+    # if current_user.confirm_account(token):
+    #     flash('Your account has been confirmed.', 'success')
+    # else:
+    #     flash('The confirmation link is invalid or has expired.', 'error')
 
 
 @account.route('/logout')
@@ -227,56 +227,6 @@ def confirm(token):
     else:
         flash('The confirmation link is invalid or has expired.', 'error')
     return redirect(url_for('main.index'))
-
-
-# @account.route(
-#     '/join-from-invite/<int:user_id>/<token>', methods=['GET', 'POST'])
-# def join_from_invite(user_id, token):
-#     """
-#     Confirm new user's account with provided token and prompt them to set
-#     a password.
-#     """
-#     if current_user is not None and current_user.is_authenticated:
-#         flash('You are already logged in.', 'error')
-#         return redirect(url_for('main.index'))
-
-#     new_user = User.query.get(user_id)
-#     if new_user is None:
-#         return redirect(404)
-
-#     if new_user.password_hash is not None:
-#         flash('You have already joined.', 'error')
-#         return redirect(url_for('main.index'))
-
-#     if new_user.confirm_account(token):
-#         form = CreatePasswordForm()
-#         if form.validate_on_submit():
-#             new_user.password = form.password.data
-#             db.session.add(new_user)
-#             db.session.commit()
-#             flash('Your password has been set. After you log in, you can '
-#                   'go to the "Your Account" page to review your account '
-#                   'information and settings.', 'success')
-#             return redirect(url_for('account.login'))
-#         return render_template('account/join_invite.html', form=form)
-#     else:
-#         flash('The confirmation link is invalid or has expired. Another '
-#               'invite email with a new link has been sent to you.', 'error')
-#         token = new_user.generate_confirmation_token()
-#         invite_link = url_for(
-#             'account.join_from_invite',
-#             user_id=user_id,
-#             token=token,
-#             _external=True)
-#         get_queue().enqueue(
-#             send_email,
-#             recipient=new_user.email,
-#             subject='You Are Invited To Join',
-#             template='account/email/invite',
-#             user=new_user,
-#             invite_link=invite_link)
-#     return redirect(url_for('main.index'))
-
 
 @account.before_app_request
 def before_request():

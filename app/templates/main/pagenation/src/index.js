@@ -152,6 +152,7 @@ class ResultListContainer extends React.Component {
 
   // amt desc
   sortByAmtDesc = () => {
+    console.log("sort by amount desc");
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
         return b.amt - a.amt;
@@ -161,6 +162,7 @@ class ResultListContainer extends React.Component {
 
   // amt asc
   sortByAmtAsc = () => {
+    console.log("sort by amount asc");
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
         return a.amt - b.amt;
@@ -197,7 +199,6 @@ class ResultListContainer extends React.Component {
   // latest to oldest
   sortByDateAsce = () => {
     console.log("sort date by asce");
-
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
         return a.end_dt > b.end_dt ? 1 : -1;

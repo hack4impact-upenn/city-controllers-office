@@ -60,7 +60,6 @@ class RequestResetPasswordForm(FlaskForm):
     # We don't validate the email address so we don't confirm to attackers
     # that an account with the given email exists.
 
-
 class ResetPasswordForm(FlaskForm):
     email = EmailField(
         'Email', validators=[InputRequired(),

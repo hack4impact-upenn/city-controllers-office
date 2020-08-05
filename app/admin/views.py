@@ -66,6 +66,8 @@ def new_user():
             last_name=form.last_name.data,
             email=form.email.data,
             password=form.password.data)
+        token = user.generate_confirmation_token()
+        user.confirm_account(token)
         db.session.add(user)
         db.session.commit()
         flash('User {} successfully created'.format(user.full_name()),
@@ -85,22 +87,10 @@ def invite_user():
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             email=form.email.data)
+        token = user.generate_confirmation_token()
+        user.confirm_account(token)
         db.session.add(user)
         db.session.commit()
-        token = user.generate_confirmation_token()
-        invite_link = url_for(
-            'account.join_from_invite',
-            user_id=user.id,
-            token=token,
-            _external=True)
-        get_queue().enqueue(
-            send_email,
-            recipient=user.email,
-            subject='You Are Invited To Join',
-            template='account/email/invite',
-            user=user,
-            invite_link=invite_link,
-        )
         flash('User {} successfully invited'.format(user.full_name()),
               'form-success')
     return render_template('admin/new_user.html', form=form)
