@@ -44,11 +44,11 @@
                     <!-- buttons and forms for chronological sorting -->
                     <form class="ui form" style = "display:inline" action="{{ url_for('admin.delete_csv') }}" method = "POST" enctype = "multipart/form-data">
                         {{ smlrForm.csrf_token }}
-                        <button id="smlrButton" name="smlrButton" class="ui toggle button">Sort Most->Least Recent</button>
+                        <button id="smlrButton" name="smlrButton" class="ui toggle button">Sort Most to Least Recent</button>
                     </form>
                     <form class="ui form" style = "display:inline" action="{{ url_for('admin.delete_csv') }}" method = "POST" enctype = "multipart/form-data">
                         {{ slmrForm.csrf_token }}
-                        <button id="slmrButton" name="slmrButton" class="ui toggle button">Sort Least->Most Recent</button>
+                        <button id="slmrButton" name="slmrButton" class="ui toggle button">Sort Least to Most Recent</button>
                     </form>
                     </div>
 
