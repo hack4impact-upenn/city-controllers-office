@@ -48,8 +48,6 @@ def recreate_db():
     db.create_all()
     db.session.commit()
 
-
-
     deptfile = 'app/assets/city_depts.csv'
     csv_data = pd.read_csv(deptfile)
     dept_list = csv_data['New Department Name'].unique()
@@ -63,7 +61,6 @@ def recreate_db():
     filename = 'app/contracts/sample_prof_serv_contracts.csv'
     file = open(filename)
     views.readCSV(file)
-
 
 
 

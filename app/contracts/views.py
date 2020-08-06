@@ -35,7 +35,6 @@ def readCSV(file, quarter_year="Q2-2019"):
                         'short_desc', 'start_dt', 'end_dt', 'days_remaining', 'amt', \
                         'tot_payments', 'orig_vendor', 'exempt_status', 'adv_or_exempt', 'profit_status']
     headers_list = list(csv_data.columns)
-
     # checks if all headers in csv data are expected; if not expected, then directly fails upload
     if headers_list and len(headers_list) == len(expected_headers) and headers_list == expected_headers:
         # if reached this step, then csv file upload is successful
@@ -67,11 +66,12 @@ def readCSV(file, quarter_year="Q2-2019"):
                 else:
                     deptfile = 'app/assets/city_depts.csv'
                     csv_depts = pd.read_csv(deptfile)
-                    if (csv_depts['Original Department Name'].contains(dept_name) or csv_depts['New Department Name'].contains(dept_name)):
-                        for dept_row in range(csv_depts.values()[0]):
-                            print("ji")
+                    if (csv_depts['Original Department Name'].str.contains(dept_name).any() or csv_depts['New Department Name'].str.contains(dept_name).any()):
+                        numrows = csv_depts.shape[0]
+                        for x in range(numrows):
+                            if (csv_depts['Original Department Name'][x] == dept_name or csv_depts['New Department Name'][x] == dept_name):
+                                dept_name = csv_depts['New Department Name'][x]
                     else:
-                        print("here")
                         dept_name = "No Department"
                 if ContrType.query.filter_by(contract_structure_type=row[4]).first() is None:
                     c_type = ContrType(contract_structure_type=row[4])
