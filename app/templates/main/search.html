@@ -7,7 +7,7 @@
 {% set flashes = {
     'success': get_flashed_messages(category_filter=['form-success'])
   } %}
-  
+
 <div style="width: 70%; margin: auto;">
 
     <div class="ui grid" style="margin-top: 50px; height: auto; min-height: 100%; position: relative; margin-bottom: 10%;">
@@ -83,20 +83,22 @@
                         Searching
                     </h3>
                     <p class="theme-secondary">
-                        Search here for professional services contracts. You can filter by any of the fields shown here. Leave all fields blank to show all the contracts on record.
+                        Search here for professional services contracts. You can filter by any of the fields shown here. Leave all fields as is to show all the contracts on record.
                     </p>
 
                     <h3 class="theme-primary">
                         Search Criteria
                     </h3>
                     <p class="theme-secondary">
-                        Keyword search looks through vendor name, department name, contract type, advertising status, and description.
+                        When searching by <b>Vendor Name</b>, it does not have to be the exact name. If you do not know the vendor name, leave blank.
                         <br></br>
-                        Contract Number refers to the Original Contract ID Number associated with a contract or set of contracts.
+                        <b>Keyword</b> search looks through vendor name, department name, contract type, advertising status, and description. This will search using the entire entry in the Keyword field, rather than performing separate searches for different words.
                         <br></br>
-                        Contract Amount can be selected based on a range from the minimum to maximum. You can enter just a minimum, just an maximum, or both.
+                        <b>Contract Number</b> refers to the Original Contract ID Number associated with a contract or set of contracts.
                         <br></br>
-                        Similarly, Contract Date can be selected based on a date range. You can enter just a start date, just an end date, or both.
+                        <b>Contract Amount</b> can be selected based on a range from the minimum to maximum. You can enter just a minimum, just an maximum, or both. For example, if you want to search for all contracts above $50,000 you can put 50000 as minimum and leave maximum blank.
+                        <br></br>
+                        Similarly, <b>Contract Date</b> can be selected based on a date range. You can enter just a start date, just an end date, or both.
                         Results will be shown that start and end within that date range.
                     </p>
 
@@ -108,7 +110,6 @@
                         <br><br>
                         You can sort results by vendor name, end date, contract amount, or percent paid. You can also view results without a filter.
                     </p>
-                    <br/>
                 <!-- </div> -->
             </div>
 
