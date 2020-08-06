@@ -61,9 +61,18 @@ def readCSV(file, quarter_year="Q2-2019"):
 
             # try/except statement for detecting broken rows
             try:
-                if Department.query.filter_by(department_name=row[2]).first() is None:
-                    dept = Department(department_name=row[2])
-                    db.session.add(dept)
+                dept_name = row[2]
+                if dept_name == "":
+                    dept_name = "No Department"
+                else:
+                    deptfile = 'app/assets/city_depts.csv'
+                    csv_depts = pd.read_csv(deptfile)
+                    if (csv_depts['Original Department Name'].contains(dept_name) or csv_depts['New Department Name'].contains(dept_name)):
+                        for dept_row in range(csv_depts.values()[0]):
+                            print("ji")
+                    else:
+                        print("here")
+                        dept_name = "No Department"
                 if ContrType.query.filter_by(contract_structure_type=row[4]).first() is None:
                     c_type = ContrType(contract_structure_type=row[4])
                     db.session.add(c_type)
@@ -79,7 +88,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                     id=row[0] + '-' + row[1] + '-' + row[6],
                     original_contract_id=row[0],
                     current_item_id=row[1],
-                    department_name=row[2],
+                    department_name=dept_name,
                     vendor=row[3],
                     contract_structure_type=row[4],
                     short_desc=row[5],
@@ -116,8 +125,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                         orig_contract.timestamp = contract.timestamp
 
                     db.session.commit()
-            except exc:
-                print (exc)
+            except:
                 found_broken_row = True
                 db.session.rollback()
 
