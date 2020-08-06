@@ -6,14 +6,14 @@ import csv
 import datetime
 
 from app.contracts import views
-
+import pandas as pd
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager, Shell
 from redis import Redis
 from rq import Connection, Queue, Worker
 
 from app import create_app, db
-from app.models import Role, User
+from app.models import Role, User, Department
 from config import Config
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -48,9 +48,21 @@ def recreate_db():
     db.create_all()
     db.session.commit()
 
+    deptfile = 'app/assets/city_depts.csv'
+    csv_data = pd.read_csv(deptfile)
+    dept_list = csv_data['New Department Name'].unique()
+    for dept in dept_list:
+        dept_obj = Department(department_name = dept)
+        db.session.add(dept_obj)
+    dept_none = Department(department_name = "No Department")
+    db.session.add(dept_none)
+    db.session.commit()
+
     filename = 'app/contracts/sample_prof_serv_contracts.csv'
     file = open(filename)
     views.readCSV(file)
+
+
 
 @manager.option(
     '-n',

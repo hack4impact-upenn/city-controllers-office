@@ -75,9 +75,9 @@ def search():
 # q4 - june 30
 def get_quarter(as_of):
     if "Q1" in as_of:
-        return ("September 30, " + as_of[-4:])
+        return ("September 30, " + str(int(as_of[-4:])-1))
     elif "Q2" in as_of:
-        return ("December 31, " + as_of[-4:])
+        return ("December 31, " + str(int(as_of[-4:])-1))
     elif "Q3" in as_of:
         return("March 31, " + as_of[-4:])
     elif "Q4" in as_of:
