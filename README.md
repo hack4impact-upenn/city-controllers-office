@@ -1,24 +1,31 @@
+<!-- @format -->
+
 # Searchable Database for City of Philadelphia Contracts
 
 ## Contributors:
+
 PM/TL: Nabeel Farooqui, Carol Li
 
 Team: Daniel Tian, Gautam Narayan, Robin Tan
 
 ## Setting up
+
 ##### Initialize a virtual environment
 
 Windows:
+
 ```
 $ python3 -m venv venv
 $ venv\Scripts\activate.bat
 ```
 
 Unix/MacOS:
+
 ```
 $ python3 -m venv venv
 $ source venv/bin/activate
 ```
+
 Learn more in [the documentation](https://docs.python.org/3/library/venv.html#creating-virtual-environments).
 
 Note: if you are using a python before 3.3, it doesn't come with venv. Install [virtualenv](https://docs.python-guide.org/dev/virtualenvs/#lower-level-virtualenv) with pip instead.
@@ -57,15 +64,14 @@ Variables declared in file have the following format: `ENVIRONMENT_VARIABLE=valu
 
 Other useful variables include:
 
-| Variable        | Default   | Discussion  |
-| --------------- |-------------| -----|
-| `ADMIN_EMAIL`   | `flask-base-admin@example.com` | email for your first admin account |
-| `ADMIN_PASSWORD`| `password`                     | password for your first admin account |
-| `DATABASE_URL`  | `data-dev.sqlite`              | Database URL. Can be Postgres, sqlite, etc. |
-| `REDISTOGO_URL` | `http://localhost:6379`        | [Redis To Go](https://redistogo.com) URL or any redis server url |
-| `RAYGUN_APIKEY` | `None`                         | API key for [Raygun](https://raygun.com/raygun-providers/python), a crash and performance monitoring service |
-| `FLASK_CONFIG`  | `default`                      | can be `development`, `production`, `default`, `heroku`, `unix`, or `testing`. Most of the time you will use `development` or `production`. |
-
+| Variable         | Default                        | Discussion                                                                                                                                  |
+| ---------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ADMIN_EMAIL`    | `flask-base-admin@example.com` | email for your first admin account                                                                                                          |
+| `ADMIN_PASSWORD` | `password`                     | password for your first admin account                                                                                                       |
+| `DATABASE_URL`   | `data-dev.sqlite`              | Database URL. Can be Postgres, sqlite, etc.                                                                                                 |
+| `REDISTOGO_URL`  | `http://localhost:6379`        | [Redis To Go](https://redistogo.com) URL or any redis server url                                                                            |
+| `RAYGUN_APIKEY`  | `None`                         | API key for [Raygun](https://raygun.com/raygun-providers/python), a crash and performance monitoring service                                |
+| `FLASK_CONFIG`   | `default`                      | can be `development`, `production`, `default`, `heroku`, `unix`, or `testing`. Most of the time you will use `development` or `production`. |
 
 ##### Install the dependencies
 
@@ -76,7 +82,6 @@ $ pip install -r requirements.txt
 ##### Other dependencies for running locally
 
 You need [Redis](http://redis.io/), and [Sass](http://sass-lang.com/). Chances are, these commands will work:
-
 
 **Sass:**
 
@@ -112,7 +117,6 @@ _Linux (based on this [issue](https://github.com/hack4impact/flask-base/issues/9
 sudo apt-get install libpq-dev
 ```
 
-
 ##### Create the database
 
 ```
@@ -146,7 +150,6 @@ For Windows users having issues with binding to a redis port locally, refer to [
 
 Before you submit changes to flask-base, you may want to autoformat your code with `python manage.py format`.
 
-
 ## Contributing
 
 Contributions are welcome! Please refer to our [Code of Conduct](./CONDUCT.md) for more information.
@@ -160,7 +163,9 @@ To create a new documentation page, add a file to the `docs/` directory and edit
 When the new files are merged into `master` and pushed to github. Run `mkdocs gh-deploy` to update the online documentation.
 
 ## Related
+
 https://medium.freecodecamp.com/how-we-got-a-2-year-old-repo-trending-on-github-in-just-48-hours-12151039d78b#.se9jwnfk5
 
 ## License
+
 [MIT License](LICENSE.md)
