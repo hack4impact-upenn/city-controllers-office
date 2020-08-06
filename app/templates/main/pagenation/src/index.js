@@ -159,8 +159,8 @@ class ResultListContainer extends React.Component {
     console.log('sort by vendor desc');
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
-        if (a.vendor < b.vendor) return 1;
-        else if (a.vendor > b.vendor) return -1;
+        if (a.vendor.toLowerCase() < b.vendor.toLowerCase()) return 1;
+        else if (a.vendor.toLowerCase() > b.vendor.toLowerCase()) return -1;
         return 0;
       }),
     });
@@ -172,8 +172,8 @@ class ResultListContainer extends React.Component {
     console.log('sort by vendor asc');
     this.setState({
       result_list: this.state.result_list.sort((a, b) => {
-        if (a.vendor > b.vendor) return 1;
-        else if (a.vendor < b.vendor) return -1;
+        if (a.vendor.toLowerCase() > b.vendor.toLowerCase()) return 1;
+        else if (a.vendor.toLowerCase() < b.vendor.toLowerCase()) return -1;
         return 0;
       }),
     });
