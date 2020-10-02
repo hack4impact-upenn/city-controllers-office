@@ -95,8 +95,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                     start_dt=datetime.strptime(row[6], '%m/%d/%Y').date(),
                     end_dt=datetime.strptime(row[7], '%m/%d/%Y').date(),
                     days_remaining=int(row[8]),
-                    amt=float(row[9]),
-                    tot_payments=float(row[10]),
+                    amt=float(row[9].replace(',','')),
+                    tot_payments=float(row[10].replace(',','')),
                     orig_vendor=row[11],
                     exempt_status=row[12],
                     adv_or_exempt=row[13],
@@ -125,7 +125,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                         orig_contract.timestamp = contract.timestamp
 
                     db.session.commit()
-            except:
+            except Exception:
                 found_broken_row = True
                 db.session.rollback()
 
