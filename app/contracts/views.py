@@ -83,6 +83,16 @@ def readCSV(file, quarter_year="Q2-2019"):
                     profstat = Profit_Status.Non_Profit
                 else:
                     profstat = Profit_Status.Unknown
+                amount = 0
+                total_payments = 0
+                try:
+                    amount = float(row[9].replace(',',''))
+                except Exception:
+                    amount = 0
+                try:
+                    total_payments = float(row[10].replace(',',''))
+                except Exception:
+                    total_payments = 0
                 contract = ProfServ(
                     # hash logic: original contract id - current item id - start date
                     id=row[0] + '-' + row[1] + '-' + row[6],
@@ -95,8 +105,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                     start_dt=datetime.strptime(row[6], '%m/%d/%Y').date(),
                     end_dt=datetime.strptime(row[7], '%m/%d/%Y').date(),
                     days_remaining=int(row[8]),
-                    amt=float(row[9].replace(',','')),
-                    tot_payments=float(row[10].replace(',','')),
+                    amt=amount,
+                    tot_payments=total_payments,
                     orig_vendor=row[11],
                     exempt_status=row[12],
                     adv_or_exempt=row[13],
