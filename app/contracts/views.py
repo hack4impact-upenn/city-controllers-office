@@ -93,6 +93,17 @@ def readCSV(file, quarter_year="Q2-2019"):
                     total_payments = float(row[10].replace(',',''))
                 except Exception:
                     total_payments = 0
+
+                start = datetime.min.date()
+                end = datetime.min.date()
+                try:
+                    start = datetime.strptime(row[6], '%m/%d/%Y').date()
+                except Exception:
+                    start = datetime.strptime(row[6], '%m/%d/%y').date()
+                try:
+                    end = datetime.strptime(row[7], '%m/%d/%Y').date()
+                except Exception:
+                    end = datetime.strptime(row[7], '%m/%d/%y').date()
                 contract = ProfServ(
                     # hash logic: original contract id - current item id - start date
                     id=row[0] + '-' + row[1] + '-' + row[6],
@@ -102,8 +113,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                     vendor=row[3],
                     contract_structure_type=row[4],
                     short_desc=row[5],
-                    start_dt=datetime.strptime(row[6], '%m/%d/%Y').date(),
-                    end_dt=datetime.strptime(row[7], '%m/%d/%Y').date(),
+                    start_dt=start,
+                    end_dt=end,
                     days_remaining=int(row[8]),
                     amt=amount,
                     tot_payments=total_payments,
@@ -135,7 +146,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                         orig_contract.timestamp = contract.timestamp
 
                     db.session.commit()
-            except Exception:
+            except Exception as e:
+                print(e)
                 found_broken_row = True
                 db.session.rollback()
 
