@@ -357,6 +357,12 @@ def manage_contract_types():
             db.session.rollback()
     return render_template('admin/manage_contract_types.html', type_list=type_list, addctform=addctform, addctSuccessful=addctSuccessful, dsctForm=dsctForm)
 
+@admin.route('/guide', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def guide():
+    return render_template('admin/guide.html')
+
 @admin.route('/delete_selected_ct', methods=['POST'])
 @login_required
 @admin_required

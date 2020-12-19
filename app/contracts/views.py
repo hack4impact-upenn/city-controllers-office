@@ -57,7 +57,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                 headers['adv_or_exempt'],
                 headers['profit_status'],
             ]
-
+            #print(row)
             # try/except statement for detecting broken rows
             try:
                 dept_name = row[2]
@@ -96,6 +96,7 @@ def readCSV(file, quarter_year="Q2-2019"):
 
                 start = datetime.min.date()
                 end = datetime.min.date()
+                #print(row)
                 try:
                     start = datetime.strptime(row[6], '%m/%d/%Y').date()
                 except Exception:
@@ -146,8 +147,8 @@ def readCSV(file, quarter_year="Q2-2019"):
                         orig_contract.timestamp = contract.timestamp
 
                     db.session.commit()
-            except Exception as e:
-                print(e)
+            except Exception:
+                #print(e)
                 found_broken_row = True
                 db.session.rollback()
 

@@ -1,0 +1,58 @@
+{% import 'macros/page_macros.html' as page %}
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<div class="ui centered grid tall">
+  <div class="top-segment">
+    <div class="text container" align="left">
+      <h1 class="blue_header">Admin User Guide</h1>
+      <p class="regular">
+        Developer contact: <a href = "mailto: penn@hack4impact.org">penn@hack4impact.org</a>
+      </p>
+      <h2 class="blue_header">Admin User Management</h2>
+      <p class="regular">
+        An admin can create new admins and manage the status of existing ones. In the case of an admin forgotten password, another admin should delete the admin account with the forgotten password and create a new one with the desired email and password.
+        It's good to keep a master admin and password just in case everyone forgets their passwords. If no admin is able to log in and there is no master account, contact the developer.
+      </p>
+      <h2 class="blue_header">Uploading Contracts</h2>
+      <p class="regular">
+        Admins can add contracts to the database by uploading a CSV file. A quarter and year associated with the CSV file are required in order to upload contracts.
+        <br><br>
+        Because Heroku is only using 1 dyno to run the application, the application may time out when processing CSV files larger than 250 lines. Of course, the website administrator can update the Heroku setup and pay for more dynos to avoid this issue, but
+        instead of paying extra, you can also break up the CSV into 250 line chunks. Here's one way to do it quickly:<br><br>
+        Create a new folder and put the desired CSV in it. In Terminal or Command Prompt, navigate to that folder and run this command, inputting the filename:<br><br>
+        split -l 250 filename
+        <br><br>
+        Follow it with this:<br><br>
+        for i in *; do mv "$i" "$i.csv"; done
+        <br><br>
+        Then, copy the first line of the orginal CSV (the header line) and make sure it's at the top of each generated file. If it's not already there, paste it at the beginning.
+        <br><br>
+        Now you can upload the CSV's one by one. If you stay on the page until it finishes loading, you'll get a status message back:
+        <ul><li>"Upload Successful!" means that the file processed and uploaded. </li><li>"Upload Failed." means that nothing uploaded, and you need to check the format of the CSV.
+        Make sure the headers are consistent with the structure of the rest of the CSV's in the database. </li><li>It's also possible to get "Upload Successful!" with the message "WARNING: Trouble uploading some rows." - this means that all that could've uploaded properly did, but you need to check the structure of the CSV as some rows didn't upload correctly. You can try uploading again after fixing the structure.
+        </li><li>You can also see "Upload Successful!" with the message "WARNING: Duplicate contracts detected." - this is not usually a concern. Many contract entries are simply updated versions of the previous ones, so the app has built in logic to look at entries that have matching contract ID, current item ID, and start date, and it takes those entries and only saves the version with the least number of days remaining (ie the most recent one) instead of duplicating. This warning label notifies you that this occured in your last upload. </li><li>If you get a message saying to check Heroku logs, this indicates a timeout. Try again with a smaller file size.</li>
+        </ul>
+      </p>
+      <h2 class="blue_header">Downloading Contracts</h2>
+      <p class="regular">
+        The search page has a "Download Database" button that downloads a CSV of the entire database. The admin version of this includes the special fields of the quarter of upload, the timestamp of upload, and the unique contact ID (combination of contract ID, current item ID, and start date).
+      </p>
+      <h2 class="blue_header">Deleting Contracts</h2>
+      <p class="regular">
+        If you want to delete a whole batch of contracts that were uploaded in one CSV upload, you can delete based on timestamp of upload. If you want to delete a specific contract, find its timestamp, delete the contracts uploaded at that time from the database, go to that file locally, delete the contract on that CSV file, and reupload.
+      </p>
+      <h2 class="blue_header">Managing Contract Types and Department Names</h2>
+      <p class="regular">
+        The search dropdowns of "Contract Type" and "Department Name" have a list of options to filter using. You can add to and remove from these options, but make sure that when you do so, you don't remove an option that has contracts associated with it. Otherwise, those contracts won't be accessible through the search.
+      </p>
+      <br><br>
+      <br><br>
+      <br><br>
+    </div>
+  </div>
+  <br><br>
+  </div>
+
+{% endblock %}
