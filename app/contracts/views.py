@@ -106,7 +106,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                     end = datetime.strptime(row[7], '%m/%d/%y').date()
                 contract = ProfServ(
                     # hash logic: original contract id - current item id - start date
-                    id=row[0] + '-' + row[1] + '-' + row[6],
+                    id=str(row[0]) + '-' + str(row[1]) + '-' + str(row[6]),
                     original_contract_id=row[0],
                     current_item_id=row[1],
                     department_name=dept_name,
@@ -133,7 +133,7 @@ def readCSV(file, quarter_year="Q2-2019"):
                     found_duplicate = True
 
                     db.session.rollback()
-                    conflict_id = row[0] + '-' + row[1] + '-' + row[6]
+                    conflict_id = str(row[0]) + '-' + str(row[1]) + '-' + str(row[6])
                     orig_contract = ProfServ.query.filter_by(id=conflict_id).first()
                     orig_days_remaining = orig_contract.days_remaining
                     dupl_days_remaining = int(row[8])
