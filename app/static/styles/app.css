@@ -146,6 +146,8 @@ h3 {
   left: 85px;
   top: 22px;
   color: white;
+  font-size: 20px !important;
+  font-weight: 700px;
 }
 
 .text.container h1 {
