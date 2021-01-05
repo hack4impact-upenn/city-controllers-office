@@ -173,6 +173,7 @@ def results():
     if str(ex) == "False":
         query = query.filter(ProfServ.adv_or_exempt == "ADVERTISED")
     filtered = query.all()
+    filtered_length_comma = "{:,}".format(len(filtered))
     if request.method == 'POST':
         if results_csv_form and results_csv_form.results_csv_submit.data and results_csv_form.validate():
             return download_results(filtered)
@@ -189,9 +190,9 @@ def results():
             ordered = query.order_by(ProfServ.vendor.desc()).all()
             return render_template('main/results.html', filtered=ordered, filtered_json=modelListToJson(ordered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
     if filtered:
-        return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        return render_template('main/results.html', filtered=filtered, filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba, filtered_length=filtered_length_comma)
     else:
-        return render_template('main/results.html', filtered=[], filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba)
+        return render_template('main/results.html', filtered=[], filtered_json=modelListToJson(filtered), results_csv_form=results_csv_form, high_to_low_form=high_to_low_form, low_to_high_form=low_to_high_form, abc=abc, cba=cba, filtered_length=filtered_length_comma)
 
 # Route to contact page, where users can contact City Controller's Office
 @main.route('/contact')
